@@ -23,4 +23,23 @@ export const ApiConfig: { [key: string]: ApiConfigItem } = {
   saveExpensePlan: {
     url: '/api/expenses/plan',
   },
+  saveExpenseFact: {
+    url: '/api/expenses/fact',
+  },
+  updateExpenseFact: {
+    url: '/api/expenses/fact',
+    method: 'PUT',
+  },
+  updateExpensePlan: {
+    url: '/api/expenses/plan',
+    method: 'PUT',
+  },
+  deleteExpenseFact: {
+    url: '/api/expenses/fact',
+    method: 'DELETE',
+  },
+  deleteExpensePlan: {
+    url: '/api/expenses/plan',
+    method: 'DELETE',
+  },
 };

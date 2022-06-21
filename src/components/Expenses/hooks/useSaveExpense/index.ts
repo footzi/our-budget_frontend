@@ -1,21 +1,11 @@
 import { ApiConfig, useMutation } from '@/api';
-import { UseLoginQueryData } from '@/components/LoginForm/hooks/useLogin/interfaces';
 import { useCallback } from 'react';
 
-export interface UseSaveExpenseBody {
-  date: string;
-  categoryId: string;
-  value: number;
-  comment?: string;
-}
+import { UseSaveExpenseBody, UseSaveExpenseResult } from './interfaces';
 
-export interface UseSaveExpenseResult {
-  isLoading: boolean;
-  save: (body: UseSaveExpenseBody) => void;
-}
-
-export const useSaveExpense = (): UseSaveExpenseResult => {
-  const { isLoading, executePut } = useMutation<UseLoginQueryData>({ config: ApiConfig.saveExpensePlan });
+export const useSaveExpense = (isPlan: boolean = false): UseSaveExpenseResult => {
+  const config = isPlan ? ApiConfig.saveExpensePlan : ApiConfig.saveExpenseFact;
+  const { isLoading, executePut } = useMutation({ config });
 
   const save = useCallback(async (body: UseSaveExpenseBody) => {
     await executePut({

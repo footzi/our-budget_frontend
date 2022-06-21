@@ -1,20 +1,60 @@
 @import '~antd/lib/style/themes/default.less';
 
 .card {
-  width: 50%;
-
   &__form {
     margin-bottom: 12px !important;
-
-    .ant-select.ant-select-in-form-item {
-      width: 400px
-    }
   }
 
   &__form-control {
     display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
+
+    .ant-form-item:last-child {
+      margin-left: auto;
+    }
+
+    .ant-form-item:not(:last-child) {
+      margin-right: 12px;
+    }
+
+    .ant-picker {
+      width: 150px
+    }
+
+    .ant-select {
+      width: 250px !important;
+    }
+  }
+
+  &__list-item {
+    transition: 0.3s background-color;
+    cursor: pointer;
+    padding: 12px !important;
+
+    &.ant-list-item {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    &:hover {
+      background-color: #f0f0f0;
+    }
+
+    &-row {
+      width: 100%;
+      display: flex;
+    }
+
+    &-value {
+      margin-left: auto;
+    }
+
+    &-date {
+      margin-right: 20px;
+    }
+
+    &-comment.ant-typography {
+      margin-bottom: 0;
+    }
   }
 
   &__sum {
