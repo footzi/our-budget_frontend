@@ -11,7 +11,7 @@ import './index.less';
 import { ExpensesProps } from './interfaces';
 
 export const Expenses: React.FC<ExpensesProps> = ({ date }) => {
-  const { categories } = useAppContext();
+  const { categories, balance } = useAppContext();
   const { expenses, isLoading, refetch } = useGetExpenses(date);
   const { save: saveFact, isLoading: isLoadingSaveFact } = useSaveExpense();
   const { save: savePlan, isLoading: isLoadingSavePlan } = useSaveExpense(true);
@@ -28,13 +28,14 @@ export const Expenses: React.FC<ExpensesProps> = ({ date }) => {
 
       if (type === CARD_TYPES.EXPENSE_FACT && body.date) {
         await saveFact({ date: body.date.format('YYYY-MM-DD'), categoryId, comment, value });
+        balance.refetch();
       } else {
         await savePlan({ date: date.format('YYYY-MM-DD'), categoryId, comment, value });
       }
 
       refetch();
     },
-    [date]
+    [date, balance]
   );
 
   const handleUpdate = useCallback(
@@ -43,24 +44,29 @@ export const Expenses: React.FC<ExpensesProps> = ({ date }) => {
 
       if (type === CARD_TYPES.EXPENSE_FACT && body.date) {
         await updateFact({ date: body.date.format('YYYY-MM-DD'), id, categoryId, comment, value });
+        balance.refetch();
       } else {
         await updatePlan({ date: date.format('YYYY-MM-DD'), id, categoryId, comment, value });
       }
 
       refetch();
     },
-    [date]
+    [date, balance]
   );
 
-  const handleDelete = useCallback(async (type: CARD_TYPES, id: number) => {
-    if (type === CARD_TYPES.EXPENSE_FACT) {
-      await deleteFact(id);
-    } else {
-      await deletePlan(id);
-    }
+  const handleDelete = useCallback(
+    async (type: CARD_TYPES, id: number) => {
+      if (type === CARD_TYPES.EXPENSE_FACT) {
+        await deleteFact(id);
+        balance.refetch();
+      } else {
+        await deletePlan(id);
+      }
 
-    refetch();
-  }, []);
+      refetch();
+    },
+    [balance]
+  );
 
   const plan = expenses?.plan?.list ?? [];
   const planTotal = expenses?.plan?.sum ?? 0;

@@ -25,6 +25,10 @@ export interface Income {
   date: string;
 }
 
+export interface Balance {
+  common: number;
+}
+
 export type Maybe<T> = T | (null | undefined);
 
 export interface Tokens {

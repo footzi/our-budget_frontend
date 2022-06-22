@@ -11,7 +11,7 @@ import './index.less';
 import { IncomesProps } from './interfaces';
 
 export const Incomes: React.FC<IncomesProps> = ({ date }) => {
-  const { categories } = useAppContext();
+  const { categories, balance } = useAppContext();
   const { incomes, isLoading, refetch } = useGetIncomes(date);
   const { save: saveFact, isLoading: isLoadingSaveFact } = useSaveIncome();
   const { save: savePlan, isLoading: isLoadingSavePlan } = useSaveIncome(true);
@@ -28,13 +28,14 @@ export const Incomes: React.FC<IncomesProps> = ({ date }) => {
 
       if (type === CARD_TYPES.INCOME_FACT && body.date) {
         await saveFact({ date: body.date.format('YYYY-MM-DD'), categoryId, comment, value });
+        balance.refetch();
       } else {
         await savePlan({ date: date.format('YYYY-MM-DD'), categoryId, comment, value });
       }
 
       refetch();
     },
-    [date]
+    [date, balance]
   );
 
   const handleUpdate = useCallback(
@@ -43,24 +44,29 @@ export const Incomes: React.FC<IncomesProps> = ({ date }) => {
 
       if (type === CARD_TYPES.INCOME_FACT && body.date) {
         await updateFact({ date: body.date.format('YYYY-MM-DD'), id, categoryId, comment, value });
+        balance.refetch();
       } else {
         await updatePlan({ date: date.format('YYYY-MM-DD'), id, categoryId, comment, value });
       }
 
       refetch();
     },
-    [date]
+    [date, balance]
   );
 
-  const handleDelete = useCallback(async (type: CARD_TYPES, id: number) => {
-    if (type === CARD_TYPES.INCOME_FACT) {
-      await deleteFact(id);
-    } else {
-      await deletePlan(id);
-    }
+  const handleDelete = useCallback(
+    async (type: CARD_TYPES, id: number) => {
+      if (type === CARD_TYPES.INCOME_FACT) {
+        await deleteFact(id);
+        balance.refetch();
+      } else {
+        await deletePlan(id);
+      }
 
-    refetch();
-  }, []);
+      refetch();
+    },
+    [balance]
+  );
 
   const plan = incomes?.plan?.list ?? [];
   const planTotal = incomes?.plan?.sum ?? 0;

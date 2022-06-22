@@ -1,4 +1,4 @@
-import { Category, User } from '@/interfaces';
+import { Balance, Category, User } from '@/interfaces';
 
 import { ActionTypes } from './constants';
 
@@ -19,4 +19,9 @@ export const removeUser = () => {
 export const setCategories = (categories: Category[]) => ({
   type: ActionTypes.SET_CATEGORIES,
   payload: categories,
+});
+
+export const setBalance = (balance: Balance, refetch: () => {}, isLoading: boolean) => ({
+  type: ActionTypes.SET_BALANCE,
+  payload: { value: balance, refetch, isLoading },
 });

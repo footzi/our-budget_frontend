@@ -1,4 +1,6 @@
+import { Balance } from '@/components/Balance';
 import { Incomes } from '@/components/Incomes';
+import { useGetBalance } from '@/hooks/useGetBalance';
 import ArrowDownOutlined from '@ant-design/icons/ArrowDownOutlined';
 import ArrowUpOutlined from '@ant-design/icons/ArrowUpOutlined';
 import MoneyCollectOutlined from '@ant-design/icons/MoneyCollectOutlined';
@@ -13,12 +15,15 @@ import './index.less';
 
 export const Layout = () => {
   const [selectedDate, setSelectedDate] = useState(dayjs());
+  const { isLoading } = useGetBalance(selectedDate);
 
   const handleChangeMonth = (date: Dayjs) => setSelectedDate(date);
 
   return (
     <div className="layout">
-      <aside className="layout__sidebar">Cайдбар</aside>
+      <aside className="layout__sidebar">
+        <Balance />
+      </aside>
       <div className="layout__content">
         <header className="layout__header">
           {/*// @ts-ignore */}

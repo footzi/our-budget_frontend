@@ -67,4 +67,7 @@ export const ApiConfig: { [key: string]: ApiConfigItem } = {
     url: '/api/incomes/plan',
     method: 'DELETE',
   },
+  balance: {
+    url: '/api/balance',
+  },
 };
