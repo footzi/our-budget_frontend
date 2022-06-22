@@ -7,6 +7,12 @@ export interface UseGetExpensesResult {
 }
 
 export interface ExpensesResult {
-  fact: Expense[];
-  plan: Expense[];
+  plan: {
+    list: Expense[];
+    sum: number;
+  };
+  fact: {
+    list: Expense[];
+    sum: number;
+  };
 }

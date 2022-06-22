@@ -1,3 +1,4 @@
+import { Incomes } from '@/components/Incomes';
 import ArrowDownOutlined from '@ant-design/icons/ArrowDownOutlined';
 import ArrowUpOutlined from '@ant-design/icons/ArrowUpOutlined';
 import MoneyCollectOutlined from '@ant-design/icons/MoneyCollectOutlined';
@@ -29,39 +30,39 @@ export const Layout = () => {
               key="1"
               tab={
                 <span>
-                  <PieChartOutlined /> Аналитика
-                </span>
-              }>
-              {selectedDate && <Expenses date={selectedDate} />}
-            </Tabs.TabPane>
-            <Tabs.TabPane
-              key="2"
-              tab={
-                <span>
                   <ArrowDownOutlined />
                   Доходы
                 </span>
               }>
-              Доходы
+              {selectedDate && <Incomes date={selectedDate} />}
             </Tabs.TabPane>
             <Tabs.TabPane
-              key="3"
+              key="2"
               tab={
                 <span>
                   <ArrowUpOutlined />
                   Расходы
                 </span>
               }>
-              {/*<Expenses />*/}
+              {selectedDate && <Expenses date={selectedDate} />}
             </Tabs.TabPane>
             <Tabs.TabPane
-              key="4"
+              key="3"
               tab={
                 <span>
                   <MoneyCollectOutlined /> Сбережения
                 </span>
               }>
               Сбережения
+            </Tabs.TabPane>
+            <Tabs.TabPane
+              key="4"
+              tab={
+                <span>
+                  <PieChartOutlined /> Аналитика
+                </span>
+              }>
+              Аналитика
             </Tabs.TabPane>
           </Tabs>
         </main>

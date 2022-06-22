@@ -17,6 +17,14 @@ export interface Expense {
   date: string;
 }
 
+export interface Income {
+  id: number;
+  category: Category;
+  value: number;
+  comment: string;
+  date: string;
+}
+
 export type Maybe<T> = T | (null | undefined);
 
 export interface Tokens {

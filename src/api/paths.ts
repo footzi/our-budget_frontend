@@ -42,4 +42,29 @@ export const ApiConfig: { [key: string]: ApiConfigItem } = {
     url: '/api/expenses/plan',
     method: 'DELETE',
   },
+  incomes: {
+    url: '/api/incomes/getAll',
+  },
+  saveIncomePlan: {
+    url: '/api/incomes/plan',
+  },
+  saveIncomeFact: {
+    url: '/api/incomes/fact',
+  },
+  updateIncomeFact: {
+    url: '/api/incomes/fact',
+    method: 'PUT',
+  },
+  updateIncomePlan: {
+    url: '/api/incomes/plan',
+    method: 'PUT',
+  },
+  deleteIncomeFact: {
+    url: '/api/incomes/fact',
+    method: 'DELETE',
+  },
+  deleteIncomePlan: {
+    url: '/api/incomes/plan',
+    method: 'DELETE',
+  },
 };

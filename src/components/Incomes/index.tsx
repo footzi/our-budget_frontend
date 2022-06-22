@@ -3,30 +3,30 @@ import { useAppContext } from '@/context';
 import { Spin } from 'antd';
 import React, { useCallback } from 'react';
 
-import { useDeleteExpense } from './hooks/useDeleteExpense';
-import { useGetExpenses } from './hooks/useGetExpenses';
-import { useSaveExpense } from './hooks/useSaveExpense';
-import { useUpdateExpense } from './hooks/useUpdateExpense';
+import { useDeleteIncome } from './hooks/useDeleteIncome';
+import { useGetIncomes } from './hooks/useGetIncomes';
+import { useSaveIncome } from './hooks/useSaveIncome';
+import { useUpdateIncome } from './hooks/useUpdateIncome';
 import './index.less';
-import { ExpensesProps } from './interfaces';
+import { IncomesProps } from './interfaces';
 
-export const Expenses: React.FC<ExpensesProps> = ({ date }) => {
+export const Incomes: React.FC<IncomesProps> = ({ date }) => {
   const { categories } = useAppContext();
-  const { expenses, isLoading, refetch } = useGetExpenses(date);
-  const { save: saveFact, isLoading: isLoadingSaveFact } = useSaveExpense();
-  const { save: savePlan, isLoading: isLoadingSavePlan } = useSaveExpense(true);
+  const { incomes, isLoading, refetch } = useGetIncomes(date);
+  const { save: saveFact, isLoading: isLoadingSaveFact } = useSaveIncome();
+  const { save: savePlan, isLoading: isLoadingSavePlan } = useSaveIncome(true);
 
-  const { update: updateFact, isLoading: isLoadingUpdateFact } = useUpdateExpense();
-  const { update: updatePlan, isLoading: isLoadingUpdatePlan } = useUpdateExpense(true);
+  const { update: updateFact, isLoading: isLoadingUpdateFact } = useUpdateIncome();
+  const { update: updatePlan, isLoading: isLoadingUpdatePlan } = useUpdateIncome(true);
 
-  const { delete: deleteFact, isLoading: isLoadingDeleteFact } = useDeleteExpense();
-  const { delete: deletePlan, isLoading: isLoadingDeletePlan } = useDeleteExpense(true);
+  const { delete: deleteFact, isLoading: isLoadingDeleteFact } = useDeleteIncome();
+  const { delete: deletePlan, isLoading: isLoadingDeletePlan } = useDeleteIncome(true);
 
   const handleSave = useCallback(
     async (type: CARD_TYPES, body: CardSaveBody) => {
       const { value, categoryId, comment } = body;
 
-      if (type === CARD_TYPES.EXPENSE_FACT && body.date) {
+      if (type === CARD_TYPES.INCOME_FACT && body.date) {
         await saveFact({ date: body.date.format('YYYY-MM-DD'), categoryId, comment, value });
       } else {
         await savePlan({ date: date.format('YYYY-MM-DD'), categoryId, comment, value });
@@ -41,7 +41,7 @@ export const Expenses: React.FC<ExpensesProps> = ({ date }) => {
     async (type: CARD_TYPES, body: UpdateSaveBody) => {
       const { id, value, categoryId, comment } = body;
 
-      if (type === CARD_TYPES.EXPENSE_FACT && body.date) {
+      if (type === CARD_TYPES.INCOME_FACT && body.date) {
         await updateFact({ date: body.date.format('YYYY-MM-DD'), id, categoryId, comment, value });
       } else {
         await updatePlan({ date: date.format('YYYY-MM-DD'), id, categoryId, comment, value });
@@ -53,7 +53,7 @@ export const Expenses: React.FC<ExpensesProps> = ({ date }) => {
   );
 
   const handleDelete = useCallback(async (type: CARD_TYPES, id: number) => {
-    if (type === CARD_TYPES.EXPENSE_FACT) {
+    if (type === CARD_TYPES.INCOME_FACT) {
       await deleteFact(id);
     } else {
       await deletePlan(id);
@@ -62,11 +62,11 @@ export const Expenses: React.FC<ExpensesProps> = ({ date }) => {
     refetch();
   }, []);
 
-  const plan = expenses?.plan?.list ?? [];
-  const planTotal = expenses?.plan?.sum ?? 0;
+  const plan = incomes?.plan?.list ?? [];
+  const planTotal = incomes?.plan?.sum ?? 0;
 
-  const fact = expenses?.fact?.list ?? [];
-  const factTotal = expenses?.fact?.sum ?? 0;
+  const fact = incomes?.fact?.list ?? [];
+  const factTotal = incomes?.fact?.sum ?? 0;
 
   const isLoadingSave = isLoadingSaveFact || isLoadingSavePlan;
   const isLoadingUpdate = isLoadingUpdateFact || isLoadingUpdatePlan;
@@ -77,7 +77,7 @@ export const Expenses: React.FC<ExpensesProps> = ({ date }) => {
       {false ? (
         <Spin />
       ) : (
-        <div className="expenses">
+        <div className="incomes">
           <Card
             title="План"
             categories={categories}
@@ -89,7 +89,7 @@ export const Expenses: React.FC<ExpensesProps> = ({ date }) => {
             isLoadingSave={isLoadingSave}
             isLoadingUpdate={isLoadingUpdate}
             isLoadingDelete={isLoadingDelete}
-            type={CARD_TYPES.EXPENSE_PLAN}
+            type={CARD_TYPES.INCOME_PLAN}
           />
 
           <Card
@@ -105,7 +105,7 @@ export const Expenses: React.FC<ExpensesProps> = ({ date }) => {
             isLoadingDelete={isLoadingDelete}
             isShowDate
             isShowComment
-            type={CARD_TYPES.EXPENSE_FACT}
+            type={CARD_TYPES.INCOME_FACT}
           />
         </div>
       )}
