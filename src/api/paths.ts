@@ -17,6 +17,18 @@ export const ApiConfig: { [key: string]: ApiConfigItem } = {
   categories: {
     url: '/api/categories/getAll',
   },
+  saveCategory: {
+    url: '/api/categories',
+    method: 'POST',
+  },
+  updateCategory: {
+    url: '/api/categories',
+    method: 'PUT',
+  },
+  deleteCategory: {
+    url: '/api/categories',
+    method: 'DELETE',
+  },
   expenses: {
     url: '/api/expenses/getAll',
   },

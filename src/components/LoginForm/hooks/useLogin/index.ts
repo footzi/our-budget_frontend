@@ -1,16 +1,18 @@
-import { LocalStorageItems } from '@/constants';
-import { useCallback } from 'react';
-
 import { ApiConfig, useMutation } from '@/api';
+import { LocalStorageItems } from '@/constants';
+import { ROUTES } from '@/constants/routes';
 import { setUser, useAppContext } from '@/context';
-import { LocalStorage } from '@/utils/localStorage';
 import { UserLocalStorage } from '@/interfaces';
+import { LocalStorage } from '@/utils/localStorage';
+import { useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { UseLoginQueryData } from './interfaces';
 
 export const useLogin = () => {
   const { isLoading, executePut } = useMutation<UseLoginQueryData>({ config: ApiConfig.login });
   const { dispatch } = useAppContext();
+  const navigate = useNavigate();
 
   const login = useCallback(
     async (login: string, password: string) => {
@@ -29,6 +31,7 @@ export const useLogin = () => {
           id: response.data.user.id,
         });
         dispatch(setUser(response.data.user));
+        navigate(ROUTES.MAIN);
       }
     },
     [executePut, dispatch]

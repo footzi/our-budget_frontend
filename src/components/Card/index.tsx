@@ -42,10 +42,6 @@ export const Card: React.FC<CardProps> = ({
     setEditedItem(item);
   };
 
-  // const handleModalOk = () => {
-  //   setEditedItem(null);
-  // };
-
   const handleModalCancel = () => {
     setEditedItem(null);
   };
@@ -57,7 +53,7 @@ export const Card: React.FC<CardProps> = ({
           <div className="card__form-control">
             {isShowDate && (
               <Form.Item name="date" rules={[{ required: true, message: 'Выберите дату' }]}>
-                <DatePicker picker="date" />
+                <DatePicker picker="date" format="DD.MM.YYYY" />
               </Form.Item>
             )}
 

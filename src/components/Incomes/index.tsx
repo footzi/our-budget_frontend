@@ -1,4 +1,5 @@
 import { CARD_TYPES, Card, CardSaveBody, UpdateSaveBody } from '@/components/Card';
+import { CATEGORIES_TYPES } from '@/constants';
 import { useAppContext } from '@/context';
 import { Spin } from 'antd';
 import React, { useCallback } from 'react';
@@ -78,6 +79,8 @@ export const Incomes: React.FC<IncomesProps> = ({ date }) => {
   const isLoadingUpdate = isLoadingUpdateFact || isLoadingUpdatePlan;
   const isLoadingDelete = isLoadingDeleteFact || isLoadingDeletePlan;
 
+  const filteredCategories = categories.value.filter((category) => category.type === CATEGORIES_TYPES.INCOME);
+
   return (
     <>
       {false ? (
@@ -86,7 +89,7 @@ export const Incomes: React.FC<IncomesProps> = ({ date }) => {
         <div className="incomes">
           <Card
             title="План"
-            categories={categories}
+            categories={filteredCategories}
             list={plan}
             total={planTotal}
             onSave={handleSave}
@@ -100,7 +103,7 @@ export const Incomes: React.FC<IncomesProps> = ({ date }) => {
 
           <Card
             title="Факт"
-            categories={categories}
+            categories={filteredCategories}
             list={fact}
             total={factTotal}
             onSave={handleSave}

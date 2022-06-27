@@ -1,75 +1,40 @@
 import { Balance } from '@/components/Balance';
-import { Incomes } from '@/components/Incomes';
-import { useGetBalance } from '@/hooks/useGetBalance';
-import ArrowDownOutlined from '@ant-design/icons/ArrowDownOutlined';
-import ArrowUpOutlined from '@ant-design/icons/ArrowUpOutlined';
-import MoneyCollectOutlined from '@ant-design/icons/MoneyCollectOutlined';
-import PieChartOutlined from '@ant-design/icons/PieChartOutlined';
-import { DatePicker } from 'antd';
-import { Tabs } from 'antd';
-import dayjs, { Dayjs } from 'dayjs';
-import React, { useState } from 'react';
+import { Main } from '@/components/Main';
+import { Settings } from '@/components/Settings';
+import { ROUTES } from '@/constants/routes';
+import { Button } from 'antd';
+import React from 'react';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 
-import { Expenses } from '../Expenses';
 import './index.less';
 
 export const Layout = () => {
-  const [selectedDate, setSelectedDate] = useState(dayjs());
-  const { isLoading } = useGetBalance(selectedDate);
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  const handleChangeMonth = (date: Dayjs) => setSelectedDate(date);
+  const isSettings = location.pathname.includes(ROUTES.SETTINGS);
+  const buttonText = isSettings ? 'Назад' : 'Настройки';
+
+  const handleOpenSettings = () => {
+    if (isSettings) {
+      navigate(ROUTES.MAIN);
+    } else {
+      navigate(ROUTES.SETTINGS);
+    }
+  };
 
   return (
     <div className="layout">
       <aside className="layout__sidebar">
         <Balance />
+        <Button onClick={handleOpenSettings}>{buttonText}</Button>
       </aside>
       <div className="layout__content">
-        <header className="layout__header">
-          {/*// @ts-ignore */}
-          <DatePicker onChange={handleChangeMonth} picker="month" value={selectedDate} />
-        </header>
         <main>
-          <Tabs defaultActiveKey="0">
-            <Tabs.TabPane
-              key="1"
-              tab={
-                <span>
-                  <ArrowDownOutlined />
-                  Доходы
-                </span>
-              }>
-              {selectedDate && <Incomes date={selectedDate} />}
-            </Tabs.TabPane>
-            <Tabs.TabPane
-              key="2"
-              tab={
-                <span>
-                  <ArrowUpOutlined />
-                  Расходы
-                </span>
-              }>
-              {selectedDate && <Expenses date={selectedDate} />}
-            </Tabs.TabPane>
-            <Tabs.TabPane
-              key="3"
-              tab={
-                <span>
-                  <MoneyCollectOutlined /> Сбережения
-                </span>
-              }>
-              Сбережения
-            </Tabs.TabPane>
-            <Tabs.TabPane
-              key="4"
-              tab={
-                <span>
-                  <PieChartOutlined /> Аналитика
-                </span>
-              }>
-              Аналитика
-            </Tabs.TabPane>
-          </Tabs>
+          <Routes>
+            <Route path="/*" element={<Main />} />
+            <Route path="settings/*" element={<Settings />} />
+          </Routes>
         </main>
       </div>
     </div>

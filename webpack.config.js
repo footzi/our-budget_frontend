@@ -1,12 +1,13 @@
 const AntdDayjsWebpackPlugin = require('antd-dayjs-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
 const path = require('path');
 
 module.exports = {
   entry: './src/index.tsx',
   mode: 'development',
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, './dist'),
     filename: 'bundle.js',
   },
   module: {
@@ -77,13 +78,19 @@ module.exports = {
   },
   devServer: {
     static: {
-      directory: path.join(__dirname, 'public'),
+      directory: path.join(__dirname, './public'),
     },
     client: {
       overlay: false,
     },
+    hot: true,
     port: 3000,
+    historyApiFallback: true,
   },
-  plugins: [new HtmlWebpackPlugin({ template: './src/index.html' }), new AntdDayjsWebpackPlugin()],
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new HtmlWebpackPlugin({ template: './src/index.html' }),
+    new AntdDayjsWebpackPlugin(),
+  ],
   devtool: 'source-map',
 };

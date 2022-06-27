@@ -16,9 +16,9 @@ export const removeUser = () => {
   };
 };
 
-export const setCategories = (categories: Category[]) => ({
+export const setCategories = (categories: Category[], refetch: () => {}, isLoading: boolean) => ({
   type: ActionTypes.SET_CATEGORIES,
-  payload: categories,
+  payload: { value: categories, refetch, isLoading },
 });
 
 export const setBalance = (balance: Balance, refetch: () => {}, isLoading: boolean) => ({

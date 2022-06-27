@@ -1,13 +1,12 @@
+import 'antd/dist/antd.less';
+import 'antd/lib/style/themes/default.less';
+import dayjs from 'dayjs';
 import 'dayjs/locale/ru';
-
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import dayjs from 'dayjs';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
 import { App } from './App';
-
-import 'antd/lib/style/themes/default.less';
-import 'antd/dist/antd.less'; // Import Ant Design styles by less entry
-
 import { ContextProvider } from './context';
 
 dayjs.locale('ru_RU');
@@ -19,7 +18,12 @@ if (container) {
 
   root.render(
     <ContextProvider>
-      <App />
+      <BrowserRouter>
+        {/*<App />*/}
+        <Routes>
+          <Route path="/*" element={<App />} />
+        </Routes>
+      </BrowserRouter>
     </ContextProvider>
   );
 }

@@ -1,10 +1,11 @@
-import { LocalStorageItems } from '@/constants';
-
 import { ApiConfig, useQuery } from '@/api';
+import { LocalStorageItems } from '@/constants';
+import { ROUTES } from '@/constants/routes';
 import { removeUser, setUser, useAppContext } from '@/context';
 import { Maybe, User, UserLocalStorage } from '@/interfaces';
-import { useEffect } from 'react';
 import { LocalStorage } from '@/utils/localStorage';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { UseGetUserResult } from './interfaces';
 
@@ -13,6 +14,7 @@ import { UseGetUserResult } from './interfaces';
  */
 export const useGetUser = (): UseGetUserResult => {
   const { dispatch } = useAppContext();
+  const navigate = useNavigate();
 
   const { isLoading, refetch: getUser } = useQuery<{ user: Maybe<User> }>({
     config: ApiConfig.user,
@@ -25,7 +27,11 @@ export const useGetUser = (): UseGetUserResult => {
     (async () => {
       const savedUser = LocalStorage.get<UserLocalStorage>(LocalStorageItems.USER);
 
-      if (savedUser) {
+      if (!savedUser) {
+        navigate(ROUTES.LOGIN);
+      }
+
+      try {
         const response = await getUser({
           data: {
             id: savedUser.id,
@@ -34,9 +40,11 @@ export const useGetUser = (): UseGetUserResult => {
 
         if (response?.data?.user) {
           dispatch(setUser(response.data.user));
-        } else {
-          dispatch(removeUser());
+          navigate(ROUTES.MAIN);
         }
+      } catch (e) {
+        dispatch(removeUser());
+        navigate(ROUTES.LOGIN);
       }
     })();
   }, []);

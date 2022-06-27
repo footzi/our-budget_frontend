@@ -1,22 +1,27 @@
 import { Layout } from '@/components/Layout';
+import { useGetBalance } from '@/hooks/useGetBalance';
 import { useGetCategories } from '@/hooks/useGetCategories';
 import React from 'react';
+import { Route, Routes } from 'react-router-dom';
 
 import { LoginForm } from './components/LoginForm';
-import { useAppContext } from './context';
 import { useGetUser } from './hooks/useGetUser';
 
 export const App = () => {
-  const { user } = useAppContext();
-  const { isLoading: isLoadingGetCategories } = useGetCategories();
   const { isLoading } = useGetUser();
+  const { isLoading: isLoadingGetCategories } = useGetCategories();
+  const { isLoading: isLoadingBalance } = useGetBalance();
 
-  const isProcessing = isLoading || isLoadingGetCategories;
+  const isProcessing = isLoading || isLoadingGetCategories || isLoadingBalance || isLoading;
+
+  if (isProcessing) {
+    return <div>Загрузка</div>;
+  }
 
   return (
-    <>
-      {isProcessing && <div className="app-loader">Загрузка</div>}
-      {!isProcessing && <>{user ? <Layout /> : <LoginForm />}</>}
-    </>
+    <Routes>
+      <Route path="/*" element={<Layout />} />
+      <Route path="login" element={<LoginForm />} />
+    </Routes>
   );
 };

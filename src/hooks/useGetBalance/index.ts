@@ -1,12 +1,13 @@
 import { ApiConfig, useQuery } from '@/api';
 import { setBalance, useAppContext } from '@/context';
 import { Balance } from '@/interfaces';
-import { Dayjs } from 'dayjs';
+import dayjs from 'dayjs';
 import { useEffect } from 'react';
 
 import { UseGetBalanceResult } from './interfases';
 
-export const useGetBalance = (date: Dayjs): UseGetBalanceResult => {
+export const useGetBalance = (): UseGetBalanceResult => {
+  const date = dayjs();
   const start = date.format('YYYY');
   const end = date.add(1, 'year').format('YYYY');
 

@@ -5,7 +5,11 @@ import { ActionTypes } from './constants';
 
 export interface ContextState {
   user: Maybe<User>;
-  categories: Category[];
+  categories: {
+    value: Category[];
+    refetch: () => void;
+    isLoading: boolean;
+  };
   balance: {
     value: Maybe<Balance>;
     refetch: () => void;
@@ -19,10 +23,10 @@ export type Action<TPayload> = {
   payload: TPayload;
 };
 
-export interface ResponsePayload {
-  value: Balance;
+export interface ResponsePayload<T> {
+  value: T;
   refetch: () => void;
   isLoading: boolean;
 }
 
-export type ContextPayload = User | null | Category[] | ResponsePayload;
+export type ContextPayload = User | null | ResponsePayload<Category[]> | ResponsePayload<Balance>;

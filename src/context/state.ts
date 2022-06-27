@@ -2,7 +2,11 @@ import { ContextState } from './interfaces';
 
 export const initialState: ContextState = {
   user: null,
-  categories: [],
+  categories: {
+    value: [],
+    refetch: () => {},
+    isLoading: false,
+  },
   balance: {
     value: null,
     refetch: () => {},

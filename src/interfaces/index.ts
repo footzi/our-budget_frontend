@@ -1,3 +1,5 @@
+import { CATEGORIES_TYPES } from '@/constants';
+
 export interface User {
   id: number;
   login: string;
@@ -6,7 +8,9 @@ export interface User {
 export interface Category {
   id: number;
   name: string;
-  isAdditional: boolean;
+  type: CATEGORIES_TYPES;
+  startDate: Maybe<string>;
+  endDate: Maybe<string>;
 }
 
 export interface Expense {
