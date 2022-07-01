@@ -1,4 +1,4 @@
-import { Balance, Category, User } from '@/interfaces';
+import { Balance, Category, SavingGoal, User } from '@/interfaces';
 
 import { ActionTypes } from './constants';
 
@@ -24,4 +24,9 @@ export const setCategories = (categories: Category[], refetch: () => {}, isLoadi
 export const setBalance = (balance: Balance, refetch: () => {}, isLoading: boolean) => ({
   type: ActionTypes.SET_BALANCE,
   payload: { value: balance, refetch, isLoading },
+});
+
+export const setSavingGoal = (goals: SavingGoal[], refetch: () => {}, isLoading: boolean) => ({
+  type: ActionTypes.SET_SAVING_GOALS,
+  payload: { value: goals, refetch, isLoading },
 });

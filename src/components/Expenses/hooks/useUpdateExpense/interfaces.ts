@@ -1,12 +1,6 @@
-export interface UseUpdateExpenseBody {
-  id: number;
-  date: string;
-  categoryId: string;
-  value: number;
-  comment?: string;
-}
+import { UpdateExpenseBody } from '../../interfaces';
 
 export interface UseUpdateExpenseResult {
   isLoading: boolean;
-  update: (body: UseUpdateExpenseBody) => void;
+  update: (body: UpdateExpenseBody) => void;
 }

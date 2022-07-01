@@ -9,7 +9,7 @@ import { CategoryModalProps } from './interfaces';
 export const CategoryModal: React.FC<CategoryModalProps> = ({
   isShow,
   editedCategory,
-  onCreate,
+  onAdd,
   onUpdate,
   onCancel,
   isLoading,
@@ -26,7 +26,7 @@ export const CategoryModal: React.FC<CategoryModalProps> = ({
     if (editedCategory?.id) {
       onUpdate({ name, type, period, id: editedCategory.id });
     } else {
-      onCreate({ name, type, period });
+      onAdd({ name, type, period });
     }
   };
 

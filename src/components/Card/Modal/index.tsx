@@ -1,9 +1,10 @@
+import { CARD_TYPES, CardUpdateBalancesBody, CardUpdateSavingBody } from '@/components/Card';
+import { SAVING_ACTION_TYPE, SAVING_ACTION_TYPES_LIST } from '@/constants';
 import { Button, DatePicker, Form, Input, InputNumber, Modal, Select } from 'antd';
 import { useForm } from 'antd/es/form/Form';
 import dayjs, { Dayjs } from 'dayjs';
 import React from 'react';
 
-import './index.less';
 import { CardModalProps } from './interfaces';
 
 /**
@@ -12,11 +13,11 @@ import { CardModalProps } from './interfaces';
 export const CardModal: React.FC<CardModalProps> = ({
   item,
   type,
-  // onOk,
   onCancel,
   onSubmit,
   onDelete,
   categories,
+  savingGoals,
   isShowDate,
   isShowComment,
   isLoadingUpdate,
@@ -25,29 +26,61 @@ export const CardModal: React.FC<CardModalProps> = ({
   const [form] = useForm();
 
   const initialValues = item
-    ? { date: dayjs(item.date), categoryId: item.category.id, value: item.value, comment: item.comment }
+    ? {
+        date: dayjs(item.date),
+        categoryId: 'category' in item ? item.category.id : null,
+        goalId: 'goal' in item ? item.goal.id : null,
+        actionType: 'actionType' in item ? item.actionType : null,
+        value: item.value,
+        comment: item.comment,
+      }
     : undefined;
 
   const handleOk = () => {
     form.submit();
   };
 
-  const handleSubmit = async (form: { date: Dayjs; categoryId: string; value: number; comment: string }) => {
-    if (item) {
-      const body = {
-        id: item.id,
-        date: form.date,
-        categoryId: form.categoryId,
-        value: form.value,
-        comment: form.comment,
-      };
-      await onSubmit(type, body);
-      onCancel();
+  const handleSubmit = async (form: {
+    date: Dayjs;
+    categoryId?: string;
+    value: number;
+    comment: string;
+    goalId?: number;
+    actionType?: SAVING_ACTION_TYPE;
+  }) => {
+    if (item?.id) {
+      const { date, categoryId, value, comment, goalId, actionType } = form;
+
+      if (categoryId) {
+        const body: CardUpdateBalancesBody = {
+          id: item.id,
+          date,
+          categoryId,
+          value,
+          comment,
+        };
+        await onSubmit(type, body);
+      }
+
+      if (goalId && actionType) {
+        const body: CardUpdateSavingBody = {
+          id: item.id,
+          date,
+          goalId,
+          actionType,
+          value,
+          comment,
+        };
+
+        await onSubmit(type, body);
+
+        onCancel();
+      }
     }
   };
 
   const handleClickDelete = async () => {
-    if (item) {
+    if (item?.id) {
       await onDelete(type, item.id);
       onCancel();
     }
@@ -69,18 +102,47 @@ export const CardModal: React.FC<CardModalProps> = ({
             </Form.Item>
           )}
 
-          <Form.Item name="categoryId" label="Категория" rules={[{ required: true, message: 'Выберите категорию' }]}>
-            <Select>
-              {categories.map((category) => (
-                <Select.Option value={category.id} key={category.id}>
-                  {category.name}
-                </Select.Option>
-              ))}
-            </Select>
-          </Form.Item>
+          {categories && (
+            <Form.Item name="categoryId" label="Категория" rules={[{ required: true, message: 'Выберите категорию' }]}>
+              <Select>
+                {categories.map((category) => (
+                  <Select.Option value={category.id} key={category.id}>
+                    {category.name}
+                  </Select.Option>
+                ))}
+              </Select>
+            </Form.Item>
+          )}
+
+          {savingGoals && (
+            <Form.Item name="goalId" label="Копилка" rules={[{ required: true, message: 'Выберите копилку' }]}>
+              <Select>
+                {savingGoals.map((goal) => (
+                  <Select.Option value={goal.id} key={goal.id}>
+                    {goal.name}
+                  </Select.Option>
+                ))}
+              </Select>
+            </Form.Item>
+          )}
+
+          {(type === CARD_TYPES.SAVINGS_FACT || type === CARD_TYPES.SAVINGS_PLAN) && (
+            <Form.Item
+              name="actionType"
+              rules={[{ required: true, message: 'Выберите действие' }]}
+              label="Что сделать?">
+              <Select>
+                {SAVING_ACTION_TYPES_LIST.map((type) => (
+                  <Select.Option value={type.type} key={type.type}>
+                    {type.text}
+                  </Select.Option>
+                ))}
+              </Select>
+            </Form.Item>
+          )}
 
           <Form.Item name="value" label="Сумма" rules={[{ required: true, message: 'Введите сумму' }]}>
-            <InputNumber className="card-modal__price" />
+            <InputNumber className="card-modal__price" addonAfter={<span>₽</span>} />
           </Form.Item>
 
           {isShowComment && (

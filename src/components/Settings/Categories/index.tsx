@@ -6,12 +6,12 @@ import { Button, Popconfirm, Table, Typography } from 'antd';
 import React, { useState } from 'react';
 
 import { CategoryModal } from './Modal';
+import { useAddCategory } from './hooks/useAddCategory';
 import { useDeleteCategory } from './hooks/useDeleteCategory';
 import { useFilterCategories } from './hooks/useFilterCategories';
-import { useSaveCategory } from './hooks/useSaveCategory';
 import { useUpdateCategory } from './hooks/useUpdateCategory';
 import './index.less';
-import { CategoryRender, CategorySaveBody, CategoryUpdateBody } from './interfaces';
+import { CategoryAddBody, CategoryRender, CategoryUpdateBody } from './interfaces';
 
 /**
  * Блок с категориями
@@ -22,15 +22,15 @@ export const Categories = () => {
   const { categories } = useAppContext();
 
   const { expense, income } = useFilterCategories();
-  const { save, isLoading: isLoadingSaveCategory } = useSaveCategory();
+  const { add, isLoading: isLoadingSaveCategory } = useAddCategory();
   const { update, isLoading: isLoadingUpdateCategory } = useUpdateCategory();
   const { remove } = useDeleteCategory();
 
   const handleOpenModal = () => setIsOpenModal(true);
   const handleCloseModal = () => setIsOpenModal(false);
 
-  const handleSaveModal = async (body: CategorySaveBody) => {
-    await save(body);
+  const handleAddModal = async (body: CategoryAddBody) => {
+    await add(body);
     await categories.refetch();
     setIsOpenModal(false);
   };
@@ -110,7 +110,7 @@ export const Categories = () => {
       <CategoryModal
         isShow={isOpenModal}
         editedCategory={editedCategory}
-        onCreate={handleSaveModal}
+        onAdd={handleAddModal}
         onUpdate={handleUpdateModal}
         onCancel={handleCloseModal}
         isLoading={isLoadingUpdateCategory || isLoadingSaveCategory}

@@ -1,4 +1,4 @@
-import { Balance, Category, Maybe, User } from '@/interfaces';
+import { Balance, Category, Maybe, SavingGoal, User } from '@/interfaces';
 import { Dispatch } from 'react';
 
 import { ActionTypes } from './constants';
@@ -12,6 +12,11 @@ export interface ContextState {
   };
   balance: {
     value: Maybe<Balance>;
+    refetch: () => void;
+    isLoading: boolean;
+  };
+  savingGoals: {
+    value: Maybe<SavingGoal[]>;
     refetch: () => void;
     isLoading: boolean;
   };
@@ -29,4 +34,9 @@ export interface ResponsePayload<T> {
   isLoading: boolean;
 }
 
-export type ContextPayload = User | null | ResponsePayload<Category[]> | ResponsePayload<Balance>;
+export type ContextPayload =
+  | User
+  | null
+  | ResponsePayload<Category[]>
+  | ResponsePayload<Balance>
+  | ResponsePayload<SavingGoal[]>;

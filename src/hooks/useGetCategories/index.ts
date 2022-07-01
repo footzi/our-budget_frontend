@@ -1,8 +1,9 @@
 import { ApiConfig, useQuery } from '@/api';
 import { setCategories, useAppContext } from '@/context';
-import { UseGetCategoriesResult } from '@/hooks/useGetCategories/interfaces';
 import { Category, Maybe } from '@/interfaces';
 import { useEffect } from 'react';
+
+import { UseGetCategoriesResult } from './interfaces';
 
 export const useGetCategories = (): UseGetCategoriesResult => {
   const { dispatch, user } = useAppContext();

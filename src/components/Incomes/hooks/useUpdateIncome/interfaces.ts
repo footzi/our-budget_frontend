@@ -1,12 +1,6 @@
-export interface UseUpdateIncomeBody {
-  id: number;
-  date: string;
-  categoryId: string;
-  value: number;
-  comment?: string;
-}
+import { UpdateIncomeBody } from '../../interfaces';
 
 export interface UseUpdateIncomeResult {
   isLoading: boolean;
-  update: (body: UseUpdateIncomeBody) => void;
+  update: (body: UpdateIncomeBody) => void;
 }

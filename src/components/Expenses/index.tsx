@@ -1,21 +1,27 @@
-import { CARD_TYPES, Card, CardSaveBody, UpdateSaveBody } from '@/components/Card';
+import {
+  CARD_TYPES,
+  Card,
+  CardAddBalancesBody,
+  CardSaveBody,
+  CardUpdateBalancesBody,
+  UpdateSaveBody,
+} from '@/components/Card';
 import { CATEGORIES_TYPES } from '@/constants';
 import { useAppContext } from '@/context';
-import { Spin } from 'antd';
 import React, { useCallback } from 'react';
 
+import { useAddExpense } from './hooks/useAddExpense';
 import { useDeleteExpense } from './hooks/useDeleteExpense';
 import { useGetExpenses } from './hooks/useGetExpenses';
-import { useSaveExpense } from './hooks/useSaveExpense';
 import { useUpdateExpense } from './hooks/useUpdateExpense';
 import './index.less';
 import { ExpensesProps } from './interfaces';
 
 export const Expenses: React.FC<ExpensesProps> = ({ date }) => {
   const { categories, balance } = useAppContext();
-  const { expenses, isLoading, refetch } = useGetExpenses(date);
-  const { save: saveFact, isLoading: isLoadingSaveFact } = useSaveExpense();
-  const { save: savePlan, isLoading: isLoadingSavePlan } = useSaveExpense(true);
+  const { expenses, refetch } = useGetExpenses(date);
+  const { add: addFact, isLoading: isLoadingSaveFact } = useAddExpense();
+  const { add: addPlan, isLoading: isLoadingSavePlan } = useAddExpense(true);
 
   const { update: updateFact, isLoading: isLoadingUpdateFact } = useUpdateExpense();
   const { update: updatePlan, isLoading: isLoadingUpdatePlan } = useUpdateExpense(true);
@@ -23,15 +29,15 @@ export const Expenses: React.FC<ExpensesProps> = ({ date }) => {
   const { delete: deleteFact, isLoading: isLoadingDeleteFact } = useDeleteExpense();
   const { delete: deletePlan, isLoading: isLoadingDeletePlan } = useDeleteExpense(true);
 
-  const handleSave = useCallback(
+  const handleAdd = useCallback(
     async (type: CARD_TYPES, body: CardSaveBody) => {
-      const { value, categoryId, comment } = body;
+      const { value, categoryId, comment } = body as CardAddBalancesBody;
 
       if (type === CARD_TYPES.EXPENSE_FACT && body.date) {
-        await saveFact({ date: body.date.format('YYYY-MM-DD'), categoryId, comment, value });
+        await addFact({ date: body.date.format('YYYY-MM-DD'), categoryId, comment, value });
         balance.refetch();
       } else {
-        await savePlan({ date: date.format('YYYY-MM-DD'), categoryId, comment, value });
+        await addPlan({ date: date.format('YYYY-MM-DD'), categoryId, comment, value });
       }
 
       refetch();
@@ -41,7 +47,7 @@ export const Expenses: React.FC<ExpensesProps> = ({ date }) => {
 
   const handleUpdate = useCallback(
     async (type: CARD_TYPES, body: UpdateSaveBody) => {
-      const { id, value, categoryId, comment } = body;
+      const { id, value, categoryId, comment } = body as CardUpdateBalancesBody;
 
       if (type === CARD_TYPES.EXPENSE_FACT && body.date) {
         await updateFact({ date: body.date.format('YYYY-MM-DD'), id, categoryId, comment, value });
@@ -82,42 +88,36 @@ export const Expenses: React.FC<ExpensesProps> = ({ date }) => {
   const filteredCategories = categories.value.filter((category) => category.type === CATEGORIES_TYPES.EXPENSE);
 
   return (
-    <>
-      {false ? (
-        <Spin />
-      ) : (
-        <div className="expenses">
-          <Card
-            title="План"
-            categories={filteredCategories}
-            list={plan}
-            total={planTotal}
-            onSave={handleSave}
-            onUpdate={handleUpdate}
-            onDelete={handleDelete}
-            isLoadingSave={isLoadingSave}
-            isLoadingUpdate={isLoadingUpdate}
-            isLoadingDelete={isLoadingDelete}
-            type={CARD_TYPES.EXPENSE_PLAN}
-          />
+    <div className="expenses">
+      <Card
+        title="План"
+        categories={filteredCategories}
+        list={plan}
+        total={planTotal}
+        onAdd={handleAdd}
+        onUpdate={handleUpdate}
+        onDelete={handleDelete}
+        isLoadingSave={isLoadingSave}
+        isLoadingUpdate={isLoadingUpdate}
+        isLoadingDelete={isLoadingDelete}
+        type={CARD_TYPES.EXPENSE_PLAN}
+      />
 
-          <Card
-            title="Факт"
-            categories={filteredCategories}
-            list={fact}
-            total={factTotal}
-            onSave={handleSave}
-            onUpdate={handleUpdate}
-            onDelete={handleDelete}
-            isLoadingSave={isLoadingSave}
-            isLoadingUpdate={isLoadingUpdate}
-            isLoadingDelete={isLoadingDelete}
-            isShowDate
-            isShowComment
-            type={CARD_TYPES.EXPENSE_FACT}
-          />
-        </div>
-      )}
-    </>
+      <Card
+        title="Факт"
+        categories={filteredCategories}
+        list={fact}
+        total={factTotal}
+        onAdd={handleAdd}
+        onUpdate={handleUpdate}
+        onDelete={handleDelete}
+        isLoadingSave={isLoadingSave}
+        isLoadingUpdate={isLoadingUpdate}
+        isLoadingDelete={isLoadingDelete}
+        isShowDate
+        isShowComment
+        type={CARD_TYPES.EXPENSE_FACT}
+      />
+    </div>
   );
 };

@@ -1,5 +1,5 @@
 import { CARD_TYPES } from '@/components/Card';
-import { Category, Maybe } from '@/interfaces';
+import { Category, Maybe, SavingGoal } from '@/interfaces';
 
 import { CardItem, UpdateSaveBody } from '../../interfaces';
 
@@ -11,7 +11,8 @@ export interface CardModalProps {
   onSubmit: (type: CARD_TYPES, body: UpdateSaveBody) => void;
   onDelete: (type: CARD_TYPES, id: number) => void;
   isShowDate: boolean;
-  categories: Category[];
+  categories?: Category[];
+  savingGoals?: SavingGoal[];
   isShowComment: boolean;
   isLoadingUpdate: boolean;
   isLoadingDelete: boolean;

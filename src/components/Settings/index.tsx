@@ -1,4 +1,6 @@
 import { Categories } from '@/components/Settings/Categories';
+import { SavingGoals } from '@/components/Settings/SavingGoals';
+import MoneyCollectOutlined from '@ant-design/icons/MoneyCollectOutlined';
 import UnorderedListOutlined from '@ant-design/icons/UnorderedListOutlined';
 import UserOutlined from '@ant-design/icons/UserOutlined';
 import { Tabs } from 'antd';
@@ -29,6 +31,16 @@ export const Content: React.FC = () => {
             </span>
           }>
           <Categories />
+        </Tabs.TabPane>
+        <Tabs.TabPane
+          key="savingGoal"
+          tab={
+            <span>
+              <MoneyCollectOutlined />
+              Копилки
+            </span>
+          }>
+          <SavingGoals />
         </Tabs.TabPane>
         <Tabs.TabPane
           key="profile"

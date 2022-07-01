@@ -1,5 +1,6 @@
 import { Expenses } from '@/components/Expenses';
 import { Incomes } from '@/components/Incomes';
+import { Savings } from '@/components/Savings';
 import ArrowDownOutlined from '@ant-design/icons/ArrowDownOutlined';
 import ArrowUpOutlined from '@ant-design/icons/ArrowUpOutlined';
 import MoneyCollectOutlined from '@ant-design/icons/MoneyCollectOutlined';
@@ -42,13 +43,13 @@ const Content: React.FC<{ date: Dayjs }> = ({ date }) => {
         {date && <Expenses date={date} />}
       </Tabs.TabPane>
       <Tabs.TabPane
-        key="summ"
+        key="savings"
         tab={
           <span>
-            <MoneyCollectOutlined /> Сбережения
+            <MoneyCollectOutlined /> Копилки
           </span>
         }>
-        Сбережения
+        {date && <Savings date={date} />}
       </Tabs.TabPane>
       <Tabs.TabPane
         key="analytics"

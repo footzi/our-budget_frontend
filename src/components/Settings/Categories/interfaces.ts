@@ -2,7 +2,7 @@ import { CATEGORIES_TYPES } from '@/constants';
 import { Category } from '@/interfaces';
 import { Dayjs } from 'dayjs';
 
-export interface CategorySaveBody {
+export interface CategoryAddBody {
   name: string;
   type: CATEGORIES_TYPES;
   period: [Dayjs, Dayjs];

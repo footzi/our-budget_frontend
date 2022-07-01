@@ -14,3 +14,16 @@ export const CATEGORIES_TYPES_LIST = [
     text: 'Расходы',
   },
 ];
+
+export enum SAVING_ACTION_TYPE {
+  INCOME = 'INCOME',
+  EXPENSE = 'EXPENSE',
+}
+
+export const SAVING_ACTION_TYPES_LIST = [
+  { type: SAVING_ACTION_TYPE.INCOME, text: 'Положить' },
+  {
+    type: SAVING_ACTION_TYPE.EXPENSE,
+    text: 'Вынуть',
+  },
+];

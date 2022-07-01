@@ -1,11 +1,11 @@
 import { Maybe } from '@/interfaces';
 
-import { CategoryRender, CategorySaveBody, CategoryUpdateBody } from '../interfaces';
+import { CategoryAddBody, CategoryRender, CategoryUpdateBody } from '../interfaces';
 
 export interface CategoryModalProps {
   isShow: boolean;
   editedCategory: Maybe<CategoryRender>;
-  onCreate(body: CategorySaveBody): void;
+  onAdd(body: CategoryAddBody): void;
   onUpdate(body: CategoryUpdateBody): void;
   onCancel(): void;
   isLoading: boolean;

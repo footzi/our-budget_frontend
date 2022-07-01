@@ -12,6 +12,11 @@ export const initialState: ContextState = {
     refetch: () => {},
     isLoading: false,
   },
+  savingGoals: {
+    value: [],
+    refetch: () => {},
+    isLoading: false,
+  },
   // eslint-disable-next-line
   dispatch: () => {},
 };

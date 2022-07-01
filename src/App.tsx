@@ -1,6 +1,7 @@
 import { Layout } from '@/components/Layout';
 import { useGetBalance } from '@/hooks/useGetBalance';
 import { useGetCategories } from '@/hooks/useGetCategories';
+import { useGetSavingGoals } from '@/hooks/useGetSavingGoals';
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
@@ -11,8 +12,9 @@ export const App = () => {
   const { isLoading } = useGetUser();
   const { isLoading: isLoadingGetCategories } = useGetCategories();
   const { isLoading: isLoadingBalance } = useGetBalance();
+  const { isLoading: isLoadingSavingGoals } = useGetSavingGoals();
 
-  const isProcessing = isLoading || isLoadingGetCategories || isLoadingBalance || isLoading;
+  const isProcessing = isLoading || isLoadingGetCategories || isLoadingBalance || isLoading || isLoadingSavingGoals;
 
   if (isProcessing) {
     return <div>Загрузка</div>;
@@ -20,8 +22,10 @@ export const App = () => {
 
   return (
     <Routes>
-      <Route path="/*" element={<Layout />} />
-      <Route path="login" element={<LoginForm />} />
+      <Route>
+        <Route path="/*" element={<Layout />} />
+        <Route path="login" element={<LoginForm />} />
+      </Route>
     </Routes>
   );
 };

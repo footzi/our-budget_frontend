@@ -40,7 +40,6 @@ export const useGetUser = (): UseGetUserResult => {
 
         if (response?.data?.user) {
           dispatch(setUser(response.data.user));
-          navigate(ROUTES.MAIN);
         }
       } catch (e) {
         dispatch(removeUser());

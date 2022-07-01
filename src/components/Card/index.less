@@ -30,6 +30,10 @@
     cursor: pointer;
     padding: 12px !important;
 
+    .ant-typography {
+      flex-shrink: 0;
+    }
+
     &.ant-list-item {
       align-items: flex-start;
       flex-direction: column;
@@ -46,6 +50,9 @@
 
     &-value {
       margin-left: auto;
+      width: 100px;
+      flex-shrink: 0;
+      text-align: right;
     }
 
     &-date {
@@ -54,6 +61,24 @@
 
     &-comment.ant-typography {
       margin-bottom: 0;
+    }
+
+    &-action-type {
+      margin-left: 24px;
+      width: 100%;
+      text-align: right;
+
+      svg {
+        fill: @red-5;
+        width: 20px;
+        height: 20px;
+      }
+
+      &_income {
+        svg {
+          fill: @green-5;
+        }
+      }
     }
   }
 

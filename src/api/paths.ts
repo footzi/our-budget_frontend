@@ -32,10 +32,10 @@ export const ApiConfig: { [key: string]: ApiConfigItem } = {
   expenses: {
     url: '/api/expenses/getAll',
   },
-  saveExpensePlan: {
+  addExpensePlan: {
     url: '/api/expenses/plan',
   },
-  saveExpenseFact: {
+  addExpenseFact: {
     url: '/api/expenses/fact',
   },
   updateExpenseFact: {
@@ -57,10 +57,10 @@ export const ApiConfig: { [key: string]: ApiConfigItem } = {
   incomes: {
     url: '/api/incomes/getAll',
   },
-  saveIncomePlan: {
+  addIncomePlan: {
     url: '/api/incomes/plan',
   },
-  saveIncomeFact: {
+  addIncomeFact: {
     url: '/api/incomes/fact',
   },
   updateIncomeFact: {
@@ -81,5 +81,45 @@ export const ApiConfig: { [key: string]: ApiConfigItem } = {
   },
   balance: {
     url: '/api/balance',
+  },
+  savingGoals: {
+    url: '/api/savings/goal',
+  },
+  addSavingGoals: {
+    url: '/api/savings/goal',
+    method: 'POST',
+  },
+  updateSavingGoals: {
+    url: '/api/savings/goal',
+    method: 'PUT',
+  },
+  deleteSavingGoals: {
+    url: '/api/savings/goal',
+    method: 'DELETE',
+  },
+  savings: {
+    url: '/api/savings/getAll',
+  },
+  addSavingPlan: {
+    url: '/api/savings/plan',
+  },
+  updateSavingPlan: {
+    url: '/api/savings/plan',
+    method: 'PUT',
+  },
+  deleteSavingPlan: {
+    url: '/api/savings/plan',
+    method: 'DELETE',
+  },
+  addSavingFact: {
+    url: '/api/savings/fact',
+  },
+  updateSavingFact: {
+    url: '/api/savings/fact',
+    method: 'PUT',
+  },
+  deleteSavingFact: {
+    url: '/api/savings/fact',
+    method: 'DELETE',
   },
 };

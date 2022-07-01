@@ -1,4 +1,4 @@
-import { Balance, Category, User } from '@/interfaces';
+import { Balance, Category, SavingGoal, User } from '@/interfaces';
 
 import { ActionTypes } from './constants';
 import { Action, ContextPayload, ContextState, ResponsePayload } from './interfaces';
@@ -16,6 +16,8 @@ export const reducer = (state: ContextState, action: Action<ContextPayload>): Co
           ...(action.payload as ResponsePayload<Balance>),
         },
       };
+    case ActionTypes.SET_SAVING_GOALS:
+      return { ...state, savingGoals: { ...(action.payload as ResponsePayload<SavingGoal[]>) } };
     default:
       return state;
   }
