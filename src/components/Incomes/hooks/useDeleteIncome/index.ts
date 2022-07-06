@@ -3,17 +3,20 @@ import { useCallback } from 'react';
 
 import { UseDeleteIncomeResult } from './interfaces';
 
-export const useDeleteIncome = (isPlan: boolean = false): UseDeleteIncomeResult => {
+export const useDeleteIncome = (isPlan = false): UseDeleteIncomeResult => {
   const config = isPlan ? ApiConfig.deleteIncomePlan : ApiConfig.deleteIncomeFact;
   const { isLoading, executePut } = useMutation({ config });
 
-  const remove = useCallback(async (id: number) => {
-    await executePut({
-      data: {
-        id,
-      },
-    });
-  }, []);
+  const remove = useCallback(
+    async (id: number) => {
+      await executePut({
+        data: {
+          id,
+        },
+      });
+    },
+    [executePut]
+  );
 
   return {
     isLoading,

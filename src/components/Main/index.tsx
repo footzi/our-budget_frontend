@@ -10,7 +10,7 @@ import dayjs, { Dayjs } from 'dayjs';
 import React, { useState } from 'react';
 import { Route, Routes, useNavigate, useParams } from 'react-router-dom';
 
-const Content: React.FC<{ date: Dayjs }> = ({ date }) => {
+const Content: React.FC<{ date: Dayjs }> = React.memo(({ date }) => {
   const params = useParams();
   const navigate = useNavigate();
 
@@ -62,7 +62,7 @@ const Content: React.FC<{ date: Dayjs }> = ({ date }) => {
       </Tabs.TabPane>
     </Tabs>
   );
-};
+});
 
 export const Main: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState(dayjs());

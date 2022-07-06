@@ -1,8 +1,8 @@
 import { ApiConfig, useQuery } from '@/api';
 import { LocalStorageItems } from '@/constants';
 import { ROUTES } from '@/constants/routes';
-import { removeUser, setUser, useAppContext } from '@/context';
 import { Maybe, User, UserLocalStorage } from '@/interfaces';
+import { removeUser, setUser, useAppDispatch } from '@/store';
 import { LocalStorage } from '@/utils/localStorage';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -13,7 +13,7 @@ import { UseGetUserResult } from './interfaces';
  * Хук получения пользователя
  */
 export const useGetUser = (): UseGetUserResult => {
-  const { dispatch } = useAppContext();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const { isLoading, refetch: getUser } = useQuery<{ user: Maybe<User> }>({
@@ -46,7 +46,7 @@ export const useGetUser = (): UseGetUserResult => {
         navigate(ROUTES.LOGIN);
       }
     })();
-  }, []);
+  }, [getUser, navigate, dispatch]);
 
   return {
     isLoading,

@@ -1,3 +1,4 @@
+import { useRefetchSavingGoals } from '@/api';
 import {
   CARD_TYPES,
   Card,
@@ -6,18 +7,21 @@ import {
   CardUpdateSavingBody,
   UpdateSaveBody,
 } from '@/components/Card';
-import { useAppContext } from '@/context';
+import { Goals } from '@/components/Savings/Goals';
+import { useAppSelector } from '@/store';
 import React, { useCallback } from 'react';
 
 import { useAddSaving } from './hooks/useAddSaving';
 import { useDeleteSaving } from './hooks/useDeleteSaving';
 import { useGetSavings } from './hooks/useGetSavings';
 import { useUpdateSaving } from './hooks/useUpdateSaving';
+import './index.less';
 import { SavingsProps } from './interfaces';
 
 export const Savings: React.FC<SavingsProps> = ({ date }) => {
-  const { savingGoals } = useAppContext();
+  const { savingGoals } = useAppSelector();
   const { savings, refetch } = useGetSavings(date);
+  const refetchSavingGoals = useRefetchSavingGoals();
 
   const { add: addFact, isLoading: isLoadingAddFact } = useAddSaving();
   const { add: addPlan, isLoading: isLoadingAddPlan } = useAddSaving(true);
@@ -34,14 +38,14 @@ export const Savings: React.FC<SavingsProps> = ({ date }) => {
 
       if (type === CARD_TYPES.SAVINGS_FACT && body.date) {
         await addFact({ date: body.date.format('YYYY-MM-DD'), goalId, comment, value, actionType });
-        savingGoals.refetch();
+        refetchSavingGoals();
       } else {
         await addPlan({ date: date.format('YYYY-MM-DD'), goalId, comment, value, actionType });
       }
 
       refetch();
     },
-    [date, savingGoals]
+    [date, refetchSavingGoals, addFact, addPlan, refetch]
   );
 
   const handleUpdate = useCallback(
@@ -50,28 +54,28 @@ export const Savings: React.FC<SavingsProps> = ({ date }) => {
 
       if (type === CARD_TYPES.SAVINGS_FACT && body.date) {
         await updateFact({ date: body.date.format('YYYY-MM-DD'), id, value, goalId, comment, actionType });
-        savingGoals.refetch();
+        refetchSavingGoals();
       } else {
         await updatePlan({ date: date.format('YYYY-MM-DD'), id, value, goalId, comment, actionType });
       }
 
       refetch();
     },
-    [date, savingGoals]
+    [date, refetchSavingGoals, refetch, updateFact, updatePlan]
   );
 
   const handleDelete = useCallback(
     async (type: CARD_TYPES, id: number) => {
       if (type === CARD_TYPES.SAVINGS_FACT) {
         await deleteFact(id);
-        savingGoals.refetch();
+        refetchSavingGoals();
       } else {
         await deletePlan(id);
       }
 
       refetch();
     },
-    [savingGoals]
+    [refetchSavingGoals, refetch, deleteFact, deletePlan]
   );
 
   const plan = savings?.plan?.list ?? [];
@@ -85,36 +89,40 @@ export const Savings: React.FC<SavingsProps> = ({ date }) => {
   const isLoadingDelete = isLoadingDeleteFact || isLoadingDeletePlan;
 
   return (
-    <div className="incomes">
-      <Card
-        title="План"
-        savingGoals={savingGoals.value ?? []}
-        list={plan}
-        total={planTotal}
-        onAdd={handleAdd}
-        onUpdate={handleUpdate}
-        onDelete={handleDelete}
-        isLoadingSave={isLoadingAdd}
-        isLoadingUpdate={isLoadingUpdate}
-        isLoadingDelete={isLoadingDelete}
-        type={CARD_TYPES.SAVINGS_PLAN}
-      />
+    <>
+      <Goals />
 
-      <Card
-        title="Факт"
-        savingGoals={savingGoals.value ?? []}
-        list={fact}
-        total={factTotal}
-        isShowDate
-        isShowComment
-        onAdd={handleAdd}
-        onUpdate={handleUpdate}
-        onDelete={handleDelete}
-        isLoadingSave={isLoadingAdd}
-        isLoadingUpdate={isLoadingUpdate}
-        isLoadingDelete={isLoadingDelete}
-        type={CARD_TYPES.SAVINGS_FACT}
-      />
-    </div>
+      <div className="savings">
+        <Card
+          title="План"
+          savingGoals={savingGoals.value ?? []}
+          list={plan}
+          total={planTotal}
+          onAdd={handleAdd}
+          onUpdate={handleUpdate}
+          onDelete={handleDelete}
+          isLoadingSave={isLoadingAdd}
+          isLoadingUpdate={isLoadingUpdate}
+          isLoadingDelete={isLoadingDelete}
+          type={CARD_TYPES.SAVINGS_PLAN}
+        />
+
+        <Card
+          title="Факт"
+          savingGoals={savingGoals.value ?? []}
+          list={fact}
+          total={factTotal}
+          isShowDate
+          isShowComment
+          onAdd={handleAdd}
+          onUpdate={handleUpdate}
+          onDelete={handleDelete}
+          isLoadingSave={isLoadingAdd}
+          isLoadingUpdate={isLoadingUpdate}
+          isLoadingDelete={isLoadingDelete}
+          type={CARD_TYPES.SAVINGS_FACT}
+        />
+      </div>
+    </>
   );
 };

@@ -1,28 +1,24 @@
 import { ApiConfig, useQuery } from '@/api';
-import { setBalance, useAppContext } from '@/context';
 import { Balance } from '@/interfaces';
-import dayjs from 'dayjs';
+import { setBalance, useAppDispatch, useAppSelector } from '@/store';
 import { useEffect } from 'react';
 
 import { UseGetBalanceResult } from './interfases';
 
 export const useGetBalance = (): UseGetBalanceResult => {
-  const date = dayjs();
-  const start = date.format('YYYY');
-  const end = date.add(1, 'year').format('YYYY');
+  const { user } = useAppSelector();
+  const dispatch = useAppDispatch();
 
-  const { dispatch } = useAppContext();
-
-  const { isLoading, data, refetch } = useQuery<{ balance: Balance }>({
+  const { isLoading, data } = useQuery<{ balance: Balance }>({
     config: ApiConfig.balance,
-    params: { start, end },
+    isSkip: !user,
   });
 
   useEffect(() => {
     if (data?.balance) {
-      dispatch(setBalance(data.balance, refetch, isLoading));
+      dispatch(setBalance({ value: data.balance, isLoading }));
     }
-  }, [data]);
+  }, [dispatch, isLoading, data]);
 
   return { isLoading };
 };

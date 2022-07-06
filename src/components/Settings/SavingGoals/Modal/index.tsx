@@ -40,16 +40,18 @@ export const SavingGoalModal: React.FC<SavingGoalModalProps> = ({
     }
   }, [editedGoal, form]);
 
+  const title = editedGoal ? `Редактирование копилки "${editedGoal.name}"` : 'Новая копилка';
+
   return (
     <Modal
       visible={isShow}
       onOk={handleOk}
       okButtonProps={{ loading: isLoading }}
       onCancel={onCancel}
-      title="Новая копилка"
+      title={title}
       okText="Сохранить"
-      destroyOnClose
       cancelText="Закрыть"
+      destroyOnClose
       className="saving-goal-modal">
       <Form layout="vertical" form={form} onFinish={handleSubmit} preserve={false}>
         <Form.Item label="Название" name="name" rules={[{ required: true, message: 'Введите название' }]}>

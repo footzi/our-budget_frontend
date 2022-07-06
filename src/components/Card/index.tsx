@@ -55,7 +55,7 @@ export const Card: React.FC<CardProps> = ({
         comment,
       };
 
-      return onAdd(type, body);
+      onAdd(type, body);
     }
 
     // Сохранение копилки
@@ -68,8 +68,10 @@ export const Card: React.FC<CardProps> = ({
         comment,
       };
 
-      return onAdd(type, body);
+      onAdd(type, body);
     }
+
+    setEditedItem(null);
   };
 
   const handleItemClick = (item: CardItem) => {

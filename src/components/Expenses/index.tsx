@@ -1,3 +1,4 @@
+import { useRefetchBalance } from '@/api';
 import {
   CARD_TYPES,
   Card,
@@ -7,7 +8,7 @@ import {
   UpdateSaveBody,
 } from '@/components/Card';
 import { CATEGORIES_TYPES } from '@/constants';
-import { useAppContext } from '@/context';
+import { useAppSelector } from '@/store';
 import React, { useCallback } from 'react';
 
 import { useAddExpense } from './hooks/useAddExpense';
@@ -18,8 +19,10 @@ import './index.less';
 import { ExpensesProps } from './interfaces';
 
 export const Expenses: React.FC<ExpensesProps> = ({ date }) => {
-  const { categories, balance } = useAppContext();
   const { expenses, refetch } = useGetExpenses(date);
+  const { categories } = useAppSelector();
+  const refetchBalance = useRefetchBalance();
+
   const { add: addFact, isLoading: isLoadingSaveFact } = useAddExpense();
   const { add: addPlan, isLoading: isLoadingSavePlan } = useAddExpense(true);
 
@@ -35,14 +38,14 @@ export const Expenses: React.FC<ExpensesProps> = ({ date }) => {
 
       if (type === CARD_TYPES.EXPENSE_FACT && body.date) {
         await addFact({ date: body.date.format('YYYY-MM-DD'), categoryId, comment, value });
-        balance.refetch();
+        refetchBalance();
       } else {
         await addPlan({ date: date.format('YYYY-MM-DD'), categoryId, comment, value });
       }
 
       refetch();
     },
-    [date, balance]
+    [date, refetchBalance, addFact, addPlan, refetch]
   );
 
   const handleUpdate = useCallback(
@@ -51,28 +54,28 @@ export const Expenses: React.FC<ExpensesProps> = ({ date }) => {
 
       if (type === CARD_TYPES.EXPENSE_FACT && body.date) {
         await updateFact({ date: body.date.format('YYYY-MM-DD'), id, categoryId, comment, value });
-        balance.refetch();
+        refetchBalance();
       } else {
         await updatePlan({ date: date.format('YYYY-MM-DD'), id, categoryId, comment, value });
       }
 
       refetch();
     },
-    [date, balance]
+    [date, refetchBalance, updateFact, updatePlan, refetch]
   );
 
   const handleDelete = useCallback(
     async (type: CARD_TYPES, id: number) => {
       if (type === CARD_TYPES.EXPENSE_FACT) {
         await deleteFact(id);
-        balance.refetch();
+        refetchBalance();
       } else {
         await deletePlan(id);
       }
 
       refetch();
     },
-    [balance]
+    [refetchBalance, deleteFact, deletePlan, refetch]
   );
 
   const plan = expenses?.plan?.list ?? [];

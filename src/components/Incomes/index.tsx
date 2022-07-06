@@ -1,3 +1,4 @@
+import { useRefetchBalance } from '@/api';
 import {
   CARD_TYPES,
   Card,
@@ -7,7 +8,7 @@ import {
   UpdateSaveBody,
 } from '@/components/Card';
 import { CATEGORIES_TYPES } from '@/constants';
-import { useAppContext } from '@/context';
+import { useAppSelector } from '@/store';
 import React, { useCallback } from 'react';
 
 import { useAddIncome } from './hooks/useAddIncome';
@@ -17,9 +18,10 @@ import { useUpdateIncome } from './hooks/useUpdateIncome';
 import './index.less';
 import { IncomesProps } from './interfaces';
 
-export const Incomes: React.FC<IncomesProps> = ({ date }) => {
-  const { categories, balance } = useAppContext();
+export const Incomes: React.FC<IncomesProps> = React.memo(({ date }) => {
   const { incomes, refetch } = useGetIncomes(date);
+  const refetchBalance = useRefetchBalance();
+  const { categories } = useAppSelector();
 
   const { add: addFact, isLoading: isLoadingSaveFact } = useAddIncome();
   const { add: addPlan, isLoading: isLoadingSavePlan } = useAddIncome(true);
@@ -36,14 +38,14 @@ export const Incomes: React.FC<IncomesProps> = ({ date }) => {
 
       if (type === CARD_TYPES.INCOME_FACT && body.date) {
         await addFact({ date: body.date.format('YYYY-MM-DD'), categoryId, comment, value });
-        balance.refetch();
+        refetchBalance();
       } else {
         await addPlan({ date: date.format('YYYY-MM-DD'), categoryId, comment, value });
       }
 
       refetch();
     },
-    [date, balance]
+    [date, addFact, addPlan, refetch, refetchBalance]
   );
 
   const handleUpdate = useCallback(
@@ -52,28 +54,28 @@ export const Incomes: React.FC<IncomesProps> = ({ date }) => {
 
       if (type === CARD_TYPES.INCOME_FACT && body.date) {
         await updateFact({ date: body.date.format('YYYY-MM-DD'), id, categoryId, comment, value });
-        balance.refetch();
+        refetchBalance();
       } else {
         await updatePlan({ date: date.format('YYYY-MM-DD'), id, categoryId, comment, value });
       }
 
       refetch();
     },
-    [date, balance]
+    [date, refetchBalance, updateFact, updatePlan, refetch]
   );
 
   const handleDelete = useCallback(
     async (type: CARD_TYPES, id: number) => {
       if (type === CARD_TYPES.INCOME_FACT) {
         await deleteFact(id);
-        balance.refetch();
+        refetchBalance();
       } else {
         await deletePlan(id);
       }
 
       refetch();
     },
-    [balance]
+    [refetchBalance, deleteFact, deletePlan, refetch]
   );
 
   const plan = incomes?.plan?.list ?? [];
@@ -121,4 +123,4 @@ export const Incomes: React.FC<IncomesProps> = ({ date }) => {
       />
     </div>
   );
-};
+});

@@ -7,11 +7,14 @@ import { UseAddSavingResult } from './interfaces';
 export const useAddSavingGoal = (): UseAddSavingResult => {
   const { isLoading, executePut } = useMutation({ config: ApiConfig.addSavingGoals });
 
-  const add = useCallback(async (body: SavingGoalAddBody) => {
-    await executePut({
-      data: { ...body },
-    });
-  }, []);
+  const add = useCallback(
+    async (body: SavingGoalAddBody) => {
+      await executePut({
+        data: { ...body },
+      });
+    },
+    [executePut]
+  );
 
   return {
     isLoading,

@@ -1,4 +1,4 @@
-import { useAppContext } from '@/context';
+import { useRefetchSavingGoals } from '@/api';
 import { Maybe } from '@/interfaces';
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined';
 import EditOutlined from '@ant-design/icons/EditOutlined';
@@ -17,31 +17,34 @@ export const SavingGoals = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [editedGoal, setEditedGoal] = useState<Maybe<SavingGoalRender>>(null);
 
-  const { savingGoals } = useAppContext();
   const goals = useFormatSavingGoals();
+  const refetchSavings = useRefetchSavingGoals();
 
   const { add, isLoading: isLoadingAddGoal } = useAddSavingGoal();
   const { update, isLoading: isLoadingUpdateGoal } = useUpdateSavingGoal();
   const { remove } = useDeleteSavingGoal();
 
   const handleOpenModal = () => setIsOpenModal(true);
-  const handleCloseModal = () => setIsOpenModal(false);
+  const handleCloseModal = () => {
+    setIsOpenModal(false);
+    setEditedGoal(null);
+  };
 
   const handleAddModal = async (body: SavingGoalAddBody) => {
     await add(body);
-    await savingGoals.refetch();
-    setIsOpenModal(false);
+    await refetchSavings();
+    handleCloseModal();
   };
 
   const handleUpdateModal = async (body: SavingGoalUpdateBody) => {
     await update(body);
-    await savingGoals.refetch();
-    setIsOpenModal(false);
+    await refetchSavings();
+    handleCloseModal();
   };
 
   const handleDelete = async (_: undefined, goal: SavingGoalRender) => {
     await remove(goal.id);
-    await savingGoals.refetch();
+    refetchSavings();
   };
 
   const handleEdit = (_: undefined, goal: SavingGoalRender) => {

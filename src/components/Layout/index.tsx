@@ -26,8 +26,10 @@ export const Layout = () => {
   return (
     <div className="layout">
       <aside className="layout__sidebar">
-        <Balance />
-        <Button onClick={handleOpenSettings}>{buttonText}</Button>
+        <div className="layout__sidebar-content">
+          <Balance />
+          <Button onClick={handleOpenSettings}>{buttonText}</Button>
+        </div>
       </aside>
       <div className="layout__content">
         <main>

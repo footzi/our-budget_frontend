@@ -14,11 +14,11 @@ export const App = () => {
   const { isLoading: isLoadingBalance } = useGetBalance();
   const { isLoading: isLoadingSavingGoals } = useGetSavingGoals();
 
-  const isProcessing = isLoading || isLoadingGetCategories || isLoadingBalance || isLoading || isLoadingSavingGoals;
+  // const isProcessing = isLoading || isLoadingGetCategories || isLoadingBalance || isLoading || isLoadingSavingGoals;
 
-  if (isProcessing) {
-    return <div>Загрузка</div>;
-  }
+  // if (isProcessing) {
+  //   return <div>Загрузка</div>;
+  // }
 
   return (
     <Routes>

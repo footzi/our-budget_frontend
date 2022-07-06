@@ -4,10 +4,11 @@ import dayjs from 'dayjs';
 import 'dayjs/locale/ru';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
+import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
 import { App } from './App';
-import { ContextProvider } from './context';
+import { store } from './store';
 
 dayjs.locale('ru_RU');
 
@@ -17,10 +18,10 @@ if (container) {
   const root = createRoot(container);
 
   root.render(
-    <ContextProvider>
+    <Provider store={store}>
       <BrowserRouter>
         <App />
       </BrowserRouter>
-    </ContextProvider>
+    </Provider>
   );
 }

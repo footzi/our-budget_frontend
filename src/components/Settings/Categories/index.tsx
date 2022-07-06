@@ -1,4 +1,4 @@
-import { useAppContext } from '@/context';
+import { useRefetchCategories } from '@/api';
 import { Maybe } from '@/interfaces';
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined';
 import EditOutlined from '@ant-design/icons/EditOutlined';
@@ -19,7 +19,7 @@ import { CategoryAddBody, CategoryRender, CategoryUpdateBody } from './interface
 export const Categories = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [editedCategory, setEditedCategory] = useState<Maybe<CategoryRender>>(null);
-  const { categories } = useAppContext();
+  const refetchCategories = useRefetchCategories();
 
   const { expense, income } = useFilterCategories();
   const { add, isLoading: isLoadingSaveCategory } = useAddCategory();
@@ -27,18 +27,21 @@ export const Categories = () => {
   const { remove } = useDeleteCategory();
 
   const handleOpenModal = () => setIsOpenModal(true);
-  const handleCloseModal = () => setIsOpenModal(false);
+  const handleCloseModal = () => {
+    setIsOpenModal(false);
+    setEditedCategory(null);
+  };
 
   const handleAddModal = async (body: CategoryAddBody) => {
     await add(body);
-    await categories.refetch();
-    setIsOpenModal(false);
+    await refetchCategories();
+    handleCloseModal();
   };
 
   const handleUpdateModal = async (body: CategoryUpdateBody) => {
     await update(body);
-    await categories.refetch();
-    setIsOpenModal(false);
+    await refetchCategories();
+    handleCloseModal();
   };
 
   const handleEdit = (_: undefined, category: CategoryRender) => {
@@ -48,7 +51,7 @@ export const Categories = () => {
 
   const handleDelete = async (_: undefined, category: CategoryRender) => {
     await remove(category.id);
-    await categories.refetch();
+    refetchCategories();
   };
 
   return (

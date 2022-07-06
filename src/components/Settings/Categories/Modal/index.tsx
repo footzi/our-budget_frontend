@@ -43,16 +43,18 @@ export const CategoryModal: React.FC<CategoryModalProps> = ({
     }
   }, [editedCategory, form]);
 
+  const title = editedCategory ? `Редактирование категории "${editedCategory.name}"` : 'Новая категории';
+
   return (
     <Modal
       visible={isShow}
       onOk={handleOk}
       okButtonProps={{ loading: isLoading }}
       onCancel={onCancel}
-      title="Новая категория"
+      title={title}
       okText="Сохранить"
-      destroyOnClose
-      cancelText="Закрыть">
+      cancelText="Закрыть"
+      destroyOnClose>
       <Form layout="vertical" form={form} onFinish={handleSubmit} preserve={false}>
         <Form.Item label="Название" name="name" rules={[{ required: true, message: 'Введите название' }]}>
           <Input />

@@ -1,3 +1,4 @@
+import { refetches } from '@/api/refetches';
 import { LocalStorageItems } from '@/constants';
 import { UserLocalStorage } from '@/interfaces';
 import { LocalStorage } from '@/utils/localStorage';
@@ -43,8 +44,8 @@ export const useQuery = <T>({ config, params, onSuccess, onError, options }: Use
     if (error) {
       onError && onError();
       notification.error({
-        message: 'При получении данных произошла ошибка',
-        description: error.message,
+        message: 'Произошла ошибка',
+        description: error.response?.data?.message,
       });
     }
 
@@ -52,6 +53,12 @@ export const useQuery = <T>({ config, params, onSuccess, onError, options }: Use
       onSuccess && onSuccess();
     }
   }, [data, error, onSuccess, onError]);
+
+  useEffect(() => {
+    if (config.refetch) {
+      refetches.add(config.refetch, refetch);
+    }
+  }, [config, refetch]);
 
   return {
     data,
@@ -84,15 +91,21 @@ export const useMutation = <T>({ config, onSuccess, onError }: UseMutationProps)
     if (error) {
       onError && onError();
       notification.error({
-        message: 'При получении данных произошла ошибка',
-        description: error.message,
+        message: 'Произошла ошибка',
+        description: error.response?.data?.message,
       });
     }
 
     if (data && !error) {
       onSuccess && onSuccess();
+
+      if (config.successMessage) {
+        notification.success({
+          message: config.successMessage,
+        });
+      }
     }
-  }, [data, error, onSuccess, onError]);
+  }, [data, error, onSuccess, onError, config]);
 
   return {
     data,
@@ -104,4 +117,6 @@ export const useMutation = <T>({ config, onSuccess, onError }: UseMutationProps)
 };
 
 export { ApiConfig } from './paths';
+export * from './refetches';
+
 // export * from './types';

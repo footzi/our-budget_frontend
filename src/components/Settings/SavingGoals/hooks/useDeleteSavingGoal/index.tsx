@@ -6,13 +6,16 @@ import { UseDeleteSavingGoalResult } from './interfaces';
 export const useDeleteSavingGoal = (): UseDeleteSavingGoalResult => {
   const { isLoading, executePut } = useMutation({ config: ApiConfig.deleteSavingGoals });
 
-  const remove = useCallback(async (id: number) => {
-    await executePut({
-      data: {
-        id,
-      },
-    });
-  }, []);
+  const remove = useCallback(
+    async (id: number) => {
+      await executePut({
+        data: {
+          id,
+        },
+      });
+    },
+    [executePut]
+  );
 
   return {
     isLoading,

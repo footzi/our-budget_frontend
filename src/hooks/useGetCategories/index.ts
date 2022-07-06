@@ -1,23 +1,24 @@
 import { ApiConfig, useQuery } from '@/api';
-import { setCategories, useAppContext } from '@/context';
 import { Category, Maybe } from '@/interfaces';
+import { setCategories, useAppDispatch, useAppSelector } from '@/store';
 import { useEffect } from 'react';
 
 import { UseGetCategoriesResult } from './interfaces';
 
 export const useGetCategories = (): UseGetCategoriesResult => {
-  const { dispatch, user } = useAppContext();
+  const { user } = useAppSelector();
+  const dispatch = useAppDispatch();
 
-  const { isLoading, data, refetch } = useQuery<{ categories: Maybe<Category[]> }>({
+  const { isLoading, data } = useQuery<{ categories: Maybe<Category[]> }>({
     config: ApiConfig.categories,
     isSkip: !user,
   });
 
   useEffect(() => {
     if (data?.categories) {
-      dispatch(setCategories(data.categories, refetch, isLoading));
+      dispatch(setCategories({ value: data.categories, isLoading }));
     }
-  }, [data]);
+  }, [data, dispatch, isLoading]);
 
   return { isLoading };
 };

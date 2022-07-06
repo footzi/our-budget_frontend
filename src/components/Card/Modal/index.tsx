@@ -3,7 +3,7 @@ import { SAVING_ACTION_TYPE, SAVING_ACTION_TYPES_LIST } from '@/constants';
 import { Button, DatePicker, Form, Input, InputNumber, Modal, Select } from 'antd';
 import { useForm } from 'antd/es/form/Form';
 import dayjs, { Dayjs } from 'dayjs';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { CardModalProps } from './interfaces';
 
@@ -24,17 +24,6 @@ export const CardModal: React.FC<CardModalProps> = ({
   isLoadingDelete,
 }) => {
   const [form] = useForm();
-
-  const initialValues = item
-    ? {
-        date: dayjs(item.date),
-        categoryId: 'category' in item ? item.category.id : null,
-        goalId: 'goal' in item ? item.goal.id : null,
-        actionType: 'actionType' in item ? item.actionType : null,
-        value: item.value,
-        comment: item.comment,
-      }
-    : undefined;
 
   const handleOk = () => {
     form.submit();
@@ -73,9 +62,9 @@ export const CardModal: React.FC<CardModalProps> = ({
         };
 
         await onSubmit(type, body);
-
-        onCancel();
       }
+
+      onCancel();
     }
   };
 
@@ -86,6 +75,19 @@ export const CardModal: React.FC<CardModalProps> = ({
     }
   };
 
+  useEffect(() => {
+    if (item) {
+      form.setFieldsValue({
+        date: dayjs(item.date),
+        categoryId: 'category' in item ? item.category.id : null,
+        goalId: 'goal' in item ? item.goal.id : null,
+        actionType: 'actionType' in item ? item.actionType : null,
+        value: item.value,
+        comment: item.comment,
+      });
+    }
+  }, [item, form]);
+
   return (
     <Modal
       title="Редактирование"
@@ -93,9 +95,10 @@ export const CardModal: React.FC<CardModalProps> = ({
       onOk={handleOk}
       onCancel={onCancel}
       className="card-modal"
-      okButtonProps={{ loading: isLoadingUpdate }}>
+      okButtonProps={{ loading: isLoadingUpdate }}
+      destroyOnClose>
       {item && (
-        <Form layout="vertical" initialValues={initialValues} onFinish={handleSubmit} form={form}>
+        <Form layout="vertical" onFinish={handleSubmit} form={form} preserve={false}>
           {isShowDate && (
             <Form.Item name="date" label="Дата" rules={[{ required: true, message: 'Выберите дату' }]}>
               <DatePicker picker="date" />

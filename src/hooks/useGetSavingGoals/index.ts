@@ -1,23 +1,24 @@
 import { ApiConfig, useQuery } from '@/api';
-import { setSavingGoal, useAppContext } from '@/context';
 import { Maybe, SavingGoal } from '@/interfaces';
+import { setSavingGoals, useAppDispatch, useAppSelector } from '@/store';
 import { useEffect } from 'react';
 
 import { UseGetSavingGoalsResult } from './interfaces';
 
 export const useGetSavingGoals = (): UseGetSavingGoalsResult => {
-  const { dispatch, user } = useAppContext();
+  const dispatch = useAppDispatch();
+  const { user } = useAppSelector();
 
-  const { isLoading, data, refetch } = useQuery<{ savingGoals: Maybe<SavingGoal[]> }>({
+  const { isLoading, data } = useQuery<{ savingGoals: Maybe<SavingGoal[]> }>({
     config: ApiConfig.savingGoals,
     isSkip: !user,
   });
 
   useEffect(() => {
     if (data?.savingGoals) {
-      dispatch(setSavingGoal(data.savingGoals, refetch, isLoading));
+      dispatch(setSavingGoals({ value: data.savingGoals, isLoading }));
     }
-  }, [data]);
+  }, [data, isLoading, dispatch]);
 
   return { isLoading };
 };

@@ -2,6 +2,8 @@ import { Maybe } from '@/interfaces';
 import { AxiosError, AxiosPromise } from 'axios';
 import { Options } from 'axios-hooks';
 
+import { REFETCHES_LIST } from './constants';
+
 export interface UseQueryProps {
   config: ApiConfigItem;
   params?: unknown;
@@ -38,4 +40,8 @@ export interface ApiConfigItem {
   json?: string;
   method?: 'GET' | 'POST' | 'PUT' | 'DELETE';
   isPublic?: false;
+  refetch?: REFETCHES_LIST;
+  successMessage?: string;
 }
+
+export type RefetchValues = Record<REFETCHES_LIST, () => void>;

@@ -4,17 +4,20 @@ import { useCallback } from 'react';
 import { UpdateExpenseBody } from '../../interfaces';
 import { UseUpdateExpenseResult } from './interfaces';
 
-export const useUpdateExpense = (isPlan: boolean = false): UseUpdateExpenseResult => {
+export const useUpdateExpense = (isPlan = false): UseUpdateExpenseResult => {
   const config = isPlan ? ApiConfig.updateExpensePlan : ApiConfig.updateExpenseFact;
   const { isLoading, executePut } = useMutation({ config });
 
-  const update = useCallback(async (body: UpdateExpenseBody) => {
-    await executePut({
-      data: {
-        ...body,
-      },
-    });
-  }, []);
+  const update = useCallback(
+    async (body: UpdateExpenseBody) => {
+      await executePut({
+        data: {
+          ...body,
+        },
+      });
+    },
+    [executePut]
+  );
 
   return {
     isLoading,

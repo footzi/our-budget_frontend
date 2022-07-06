@@ -6,13 +6,16 @@ import { UseDeleteCategoryResult } from './interfaces';
 export const useDeleteCategory = (): UseDeleteCategoryResult => {
   const { isLoading, executePut } = useMutation({ config: ApiConfig.deleteCategory });
 
-  const remove = useCallback(async (id: number) => {
-    await executePut({
-      data: {
-        id,
-      },
-    });
-  }, []);
+  const remove = useCallback(
+    async (id: number) => {
+      await executePut({
+        data: {
+          id,
+        },
+      });
+    },
+    [executePut]
+  );
 
   return {
     isLoading,

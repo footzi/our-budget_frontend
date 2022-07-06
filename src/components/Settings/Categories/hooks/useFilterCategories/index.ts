@@ -1,6 +1,6 @@
 import { CATEGORIES_TYPES } from '@/constants';
-import { useAppContext } from '@/context';
 import { Category } from '@/interfaces';
+import { useAppSelector } from '@/store';
 import dayjs from 'dayjs';
 
 import { CategoryRender } from '../../interfaces';
@@ -18,7 +18,7 @@ export const formatTableData = (category: Category): CategoryRender => {
 };
 
 export const useFilterCategories = (): UseFilterCategoriesResult => {
-  const { categories } = useAppContext();
+  const { categories } = useAppSelector();
 
   const expense = categories.value
     .filter((category) => category.type === CATEGORIES_TYPES.EXPENSE)

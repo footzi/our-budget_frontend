@@ -9,7 +9,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, './dist'),
     filename: 'bundle.js',
-    publicPath: '/',
+    publicPath: 'auto',
   },
   module: {
     rules: [
@@ -79,7 +79,7 @@ module.exports = {
   },
   devServer: {
     static: {
-      directory: path.join(__dirname, '/'),
+      directory: path.join(__dirname, './'),
     },
     client: {
       overlay: false,

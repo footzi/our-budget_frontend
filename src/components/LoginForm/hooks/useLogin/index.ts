@@ -1,8 +1,8 @@
 import { ApiConfig, useMutation } from '@/api';
 import { LocalStorageItems } from '@/constants';
 import { ROUTES } from '@/constants/routes';
-import { setUser, useAppContext } from '@/context';
 import { UserLocalStorage } from '@/interfaces';
+import { setUser, useAppDispatch } from '@/store';
 import { LocalStorage } from '@/utils/localStorage';
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -11,7 +11,8 @@ import { UseLoginQueryData } from './interfaces';
 
 export const useLogin = () => {
   const { isLoading, executePut } = useMutation<UseLoginQueryData>({ config: ApiConfig.login });
-  const { dispatch } = useAppContext();
+  const dispatch = useAppDispatch();
+
   const navigate = useNavigate();
 
   const login = useCallback(
@@ -34,7 +35,7 @@ export const useLogin = () => {
         navigate(ROUTES.MAIN);
       }
     },
-    [executePut, dispatch]
+    [executePut, dispatch, navigate]
   );
 
   return {

@@ -1,4 +1,4 @@
-import { useAppContext } from '@/context';
+import { useAppSelector } from '@/store';
 import { formatPrice } from '@/utils/formatPrice';
 import { Card, Typography } from 'antd';
 import React from 'react';
@@ -6,7 +6,7 @@ import React from 'react';
 import './index.less';
 
 export const Balance: React.FC = () => {
-  const { balance } = useAppContext();
+  const { balance } = useAppSelector();
 
   const value = balance?.value?.common ?? 0;
 

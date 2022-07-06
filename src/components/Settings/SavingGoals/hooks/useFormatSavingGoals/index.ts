@@ -1,10 +1,10 @@
-import { useAppContext } from '@/context';
+import { useAppSelector } from '@/store';
 
 import { SavingGoalRender } from '../../interfaces';
 import { formatSavingToTable } from './utils/formatSavingToTable';
 
 export const useFormatSavingGoals = (): SavingGoalRender[] => {
-  const { savingGoals } = useAppContext();
+  const { savingGoals } = useAppSelector();
 
   return formatSavingToTable(savingGoals.value ?? []);
 };
