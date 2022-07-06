@@ -11,8 +11,8 @@ import { useEffect } from 'react';
 import { UseMutationProps, UseMutationResult, UseQueryProps, UseQueryResult } from './interfaces';
 import { refreshAuthLogic } from './refresh';
 
-const USE_LOCAL_JSON = false;
-const USE_LOCAL_BACKEND = true;
+const USE_LOCAL_JSON = process.env.USE_LOCAL_JSON === 'true';
+const USE_LOCAL_BACKEND = process.env.USE_LOCAL_BACKEND === 'true';
 
 const axios = Axios.create();
 

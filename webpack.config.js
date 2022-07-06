@@ -2,6 +2,7 @@ const AntdDayjsWebpackPlugin = require('antd-dayjs-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const path = require('path');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   entry: './src/index.tsx',
@@ -89,6 +90,7 @@ module.exports = {
     historyApiFallback: true,
   },
   plugins: [
+    new Dotenv(),
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({ template: './src/index.html' }),
     new AntdDayjsWebpackPlugin(),

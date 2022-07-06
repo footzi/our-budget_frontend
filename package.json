@@ -50,6 +50,7 @@
     "antd-dayjs-webpack-plugin": "^1.0.6",
     "babel-jest": "28.1.1",
     "babel-loader": "8.2.5",
+    "dotenv-webpack": "7.1.1",
     "eslint": "8.18.0",
     "eslint-config-airbnb": "19.0.4",
     "eslint-config-prettier": "8.5.0",
