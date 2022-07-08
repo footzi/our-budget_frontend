@@ -1,4 +1,4 @@
-import { useRefetchSavingGoals } from '@/api';
+import { useRefetchBalance, useRefetchSavingGoals } from '@/api';
 import {
   CARD_TYPES,
   Card,
@@ -22,6 +22,7 @@ export const Savings: React.FC<SavingsProps> = ({ date }) => {
   const { savingGoals } = useAppSelector();
   const { savings, refetch } = useGetSavings(date);
   const refetchSavingGoals = useRefetchSavingGoals();
+  const refetchBalance = useRefetchBalance();
 
   const { add: addFact, isLoading: isLoadingAddFact } = useAddSaving();
   const { add: addPlan, isLoading: isLoadingAddPlan } = useAddSaving(true);
@@ -39,13 +40,14 @@ export const Savings: React.FC<SavingsProps> = ({ date }) => {
       if (type === CARD_TYPES.SAVINGS_FACT && body.date) {
         await addFact({ date: body.date.format('YYYY-MM-DD'), goalId, comment, value, actionType });
         refetchSavingGoals();
+        refetchBalance();
       } else {
         await addPlan({ date: date.format('YYYY-MM-DD'), goalId, comment, value, actionType });
       }
 
       refetch();
     },
-    [date, refetchSavingGoals, addFact, addPlan, refetch]
+    [date, refetchSavingGoals, addFact, addPlan, refetch, refetchBalance]
   );
 
   const handleUpdate = useCallback(
@@ -55,13 +57,14 @@ export const Savings: React.FC<SavingsProps> = ({ date }) => {
       if (type === CARD_TYPES.SAVINGS_FACT && body.date) {
         await updateFact({ date: body.date.format('YYYY-MM-DD'), id, value, goalId, comment, actionType });
         refetchSavingGoals();
+        refetchBalance();
       } else {
         await updatePlan({ date: date.format('YYYY-MM-DD'), id, value, goalId, comment, actionType });
       }
 
       refetch();
     },
-    [date, refetchSavingGoals, refetch, updateFact, updatePlan]
+    [date, refetchSavingGoals, refetch, updateFact, updatePlan, refetchBalance]
   );
 
   const handleDelete = useCallback(
@@ -69,13 +72,14 @@ export const Savings: React.FC<SavingsProps> = ({ date }) => {
       if (type === CARD_TYPES.SAVINGS_FACT) {
         await deleteFact(id);
         refetchSavingGoals();
+        refetchBalance();
       } else {
         await deletePlan(id);
       }
 
       refetch();
     },
-    [refetchSavingGoals, refetch, deleteFact, deletePlan]
+    [refetchSavingGoals, refetch, deleteFact, deletePlan, refetchBalance]
   );
 
   const plan = savings?.plan?.list ?? [];

@@ -7,7 +7,7 @@ import CaretUpOutlined from '@ant-design/icons/CaretUpOutlined';
 import { Card as AntCard, Button, DatePicker, Form, Input, InputNumber, List, Select, Typography } from 'antd';
 import { useForm } from 'antd/es/form/Form';
 import cx from 'classnames';
-import { Dayjs } from 'dayjs';
+import dayjs, { Dayjs } from 'dayjs';
 import React, { useEffect, useState } from 'react';
 
 import { CardModal } from './Modal';
@@ -36,7 +36,7 @@ export const Card: React.FC<CardProps> = ({
   const [form] = useForm();
   const [editedItem, setEditedItem] = useState<CardItem | null>(null);
 
-  const handleFinish = (form: {
+  const handleFinish = (formBody: {
     date: Dayjs;
     categoryId?: string;
     value: number;
@@ -44,7 +44,11 @@ export const Card: React.FC<CardProps> = ({
     goalId?: number;
     actionType?: SAVING_ACTION_TYPE;
   }) => {
-    const { date, categoryId, value, comment, goalId, actionType } = form;
+    if (isLoadingSave) {
+      return;
+    }
+
+    const { date, categoryId, value, comment, goalId, actionType } = formBody;
 
     // Сохранение доходов / расходов
     if (categoryId) {
@@ -72,6 +76,11 @@ export const Card: React.FC<CardProps> = ({
     }
 
     setEditedItem(null);
+
+    form.setFieldsValue({
+      comment: '',
+      value: '',
+    });
   };
 
   const handleItemClick = (item: CardItem) => {
@@ -84,6 +93,7 @@ export const Card: React.FC<CardProps> = ({
 
   useEffect(() => {
     form.setFieldsValue({
+      date: dayjs(),
       actionType: SAVING_ACTION_TYPES_LIST[0].type,
       categoryId: categories && categories.length > 0 ? categories[0].id : null,
       goalId: savingGoals && savingGoals.length > 0 ? savingGoals[0].id : null,
@@ -93,7 +103,7 @@ export const Card: React.FC<CardProps> = ({
   return (
     <>
       <AntCard title={title} className="card">
-        <Form className="card__form" onFinish={handleFinish} form={form}>
+        <Form className="card__form" onFinish={handleFinish} form={form} layout="vertical">
           <div className="card__form-control">
             {isShowDate && (
               <Form.Item name="date" rules={[{ required: true, message: 'Выберите дату' }]}>
@@ -143,15 +153,22 @@ export const Card: React.FC<CardProps> = ({
           )}
 
           {isShowComment && (
-            <Form.Item name="comment">
+            <Form.Item name="comment" label="Комментарий:">
               <Input.TextArea />
             </Form.Item>
           )}
 
-          <Form.Item>
-            <Button htmlType="submit" loading={isLoadingSave}>
-              Добавить
-            </Button>
+          <Form.Item dependencies={['value', 'date']}>
+            {({ getFieldsValue }) => {
+              const values = getFieldsValue();
+              const isValid = values.value && (isShowDate ? values.date : true);
+
+              return (
+                <Button htmlType="submit" loading={isLoadingSave} disabled={!isValid}>
+                  Добавить
+                </Button>
+              );
+            }}
           </Form.Item>
         </Form>
 
@@ -191,7 +208,7 @@ export const Card: React.FC<CardProps> = ({
           )}
         />
 
-        {total > 0 && (
+        {total !== 0 && (
           <div className="card__sum">
             <Typography.Title level={4}>Итого</Typography.Title>
             <Typography.Title level={4} type="success">

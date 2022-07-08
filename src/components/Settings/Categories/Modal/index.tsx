@@ -1,8 +1,9 @@
+import { SubmitHiddenButton } from '@/components/SubmitHiddenButton';
 import { CATEGORIES_TYPES, CATEGORIES_TYPES_LIST } from '@/constants';
 import { DatePicker, Form, Input, Modal, Select, Switch } from 'antd';
 import { useForm } from 'antd/es/form/Form';
 import dayjs, { Dayjs } from 'dayjs';
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import { CategoryModalProps } from './interfaces';
 
@@ -16,12 +17,18 @@ export const CategoryModal: React.FC<CategoryModalProps> = ({
 }) => {
   const [form] = useForm();
 
+  const [isValidForm, setIsValidForm] = useState(false);
+
   const handleOk = () => {
     form.submit();
   };
 
   const handleSubmit = (form: { name: string; type: CATEGORIES_TYPES; period: [Dayjs, Dayjs] }) => {
     const { name, type, period } = form;
+
+    if (isLoading) {
+      return;
+    }
 
     if (editedCategory?.id) {
       onUpdate({ name, type, period, id: editedCategory.id });
@@ -30,18 +37,35 @@ export const CategoryModal: React.FC<CategoryModalProps> = ({
     }
   };
 
+  const formValidator = useCallback((name: string, isCustomPeriod: boolean, period?: Dayjs[]): boolean => {
+    return (isCustomPeriod ? (period ? period.length > 0 : false) : true) && Boolean(name);
+  }, []);
+
   useEffect(() => {
     if (editedCategory) {
       const { name, type, startDate, endDate } = editedCategory;
+      const isCustomPeriod = Boolean(startDate);
+      const period = isCustomPeriod ? [dayjs(startDate), dayjs(endDate)] : [];
 
       form.setFieldsValue({
         name,
         type,
-        period: startDate && endDate ? [dayjs(startDate), dayjs(endDate)] : [],
-        isCustomPeriod: Boolean(startDate),
+        period,
+        isCustomPeriod,
+      });
+
+      const isValidForm = formValidator(name, isCustomPeriod, period);
+      setIsValidForm(isValidForm);
+    }
+  }, [editedCategory, form, formValidator]);
+
+  useEffect(() => {
+    if (!editedCategory && isShow) {
+      form.setFieldsValue({
+        type: CATEGORIES_TYPES.EXPENSE,
       });
     }
-  }, [editedCategory, form]);
+  }, [isShow, form, editedCategory]);
 
   const title = editedCategory ? `Редактирование категории "${editedCategory.name}"` : 'Новая категории';
 
@@ -49,7 +73,7 @@ export const CategoryModal: React.FC<CategoryModalProps> = ({
     <Modal
       visible={isShow}
       onOk={handleOk}
-      okButtonProps={{ loading: isLoading }}
+      okButtonProps={{ loading: isLoading, disabled: !isValidForm }}
       onCancel={onCancel}
       title={title}
       okText="Сохранить"
@@ -84,6 +108,20 @@ export const CategoryModal: React.FC<CategoryModalProps> = ({
                   <DatePicker.RangePicker picker="month" format="MM.YYYY" />
                 </Form.Item>
               )
+            );
+          }}
+        </Form.Item>
+
+        <Form.Item hidden dependencies={['name', 'isCustomPeriod', 'period']}>
+          {({ getFieldsValue }) => {
+            const values = getFieldsValue();
+            const { name, isCustomPeriod, period } = values;
+
+            return (
+              <SubmitHiddenButton
+                onValid={setIsValidForm}
+                validator={() => formValidator(name, isCustomPeriod, period)}
+              />
             );
           }}
         </Form.Item>

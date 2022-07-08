@@ -1,6 +1,7 @@
+import { SubmitHiddenButton } from '@/components/SubmitHiddenButton';
 import { Form, Input, InputNumber, Modal } from 'antd';
 import { useForm } from 'antd/es/form/Form';
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import { SavingGoalModalProps } from './interfaces';
 
@@ -14,6 +15,8 @@ export const SavingGoalModal: React.FC<SavingGoalModalProps> = ({
 }) => {
   const [form] = useForm();
 
+  const [isValidForm, setIsValidForm] = useState(false);
+
   const handleOk = () => {
     form.submit();
   };
@@ -21,12 +24,20 @@ export const SavingGoalModal: React.FC<SavingGoalModalProps> = ({
   const handleSubmit = (form: { name: string; description: string; value: number }) => {
     const { name, description, value } = form;
 
+    if (isLoading) {
+      return;
+    }
+
     if (editedGoal?.id) {
       onUpdate({ name, description, value, id: editedGoal.id });
     } else {
       onAdd({ name, description, value });
     }
   };
+
+  const formValidator = useCallback((name: string): boolean => {
+    return Boolean(name);
+  }, []);
 
   useEffect(() => {
     if (editedGoal) {
@@ -37,8 +48,11 @@ export const SavingGoalModal: React.FC<SavingGoalModalProps> = ({
         description,
         value,
       });
+
+      const isValidForm = formValidator(name);
+      setIsValidForm(isValidForm);
     }
-  }, [editedGoal, form]);
+  }, [editedGoal, form, formValidator]);
 
   const title = editedGoal ? `Редактирование копилки "${editedGoal.name}"` : 'Новая копилка';
 
@@ -46,7 +60,7 @@ export const SavingGoalModal: React.FC<SavingGoalModalProps> = ({
     <Modal
       visible={isShow}
       onOk={handleOk}
-      okButtonProps={{ loading: isLoading }}
+      okButtonProps={{ loading: isLoading, disabled: !isValidForm }}
       onCancel={onCancel}
       title={title}
       okText="Сохранить"
@@ -64,6 +78,15 @@ export const SavingGoalModal: React.FC<SavingGoalModalProps> = ({
 
         <Form.Item label="Начальное значение" name="value">
           <InputNumber addonAfter={<span>₽</span>} />
+        </Form.Item>
+
+        <Form.Item hidden dependencies={['name']}>
+          {({ getFieldsValue }) => {
+            const values = getFieldsValue();
+            const { name } = values;
+
+            return <SubmitHiddenButton onValid={setIsValidForm} validator={() => formValidator(name)} />;
+          }}
         </Form.Item>
       </Form>
     </Modal>

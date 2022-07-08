@@ -1,9 +1,10 @@
 import { CARD_TYPES, CardUpdateBalancesBody, CardUpdateSavingBody } from '@/components/Card';
+import { SubmitHiddenButton } from '@/components/SubmitHiddenButton';
 import { SAVING_ACTION_TYPE, SAVING_ACTION_TYPES_LIST } from '@/constants';
 import { Button, DatePicker, Form, Input, InputNumber, Modal, Select } from 'antd';
 import { useForm } from 'antd/es/form/Form';
 import dayjs, { Dayjs } from 'dayjs';
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import { CardModalProps } from './interfaces';
 
@@ -25,6 +26,8 @@ export const CardModal: React.FC<CardModalProps> = ({
 }) => {
   const [form] = useForm();
 
+  const [isValidForm, setIsValidForm] = useState(false);
+
   const handleOk = () => {
     form.submit();
   };
@@ -37,7 +40,7 @@ export const CardModal: React.FC<CardModalProps> = ({
     goalId?: number;
     actionType?: SAVING_ACTION_TYPE;
   }) => {
-    if (item?.id) {
+    if (item?.id && isValidForm && !isLoadingUpdate && !isLoadingDelete) {
       const { date, categoryId, value, comment, goalId, actionType } = form;
 
       if (categoryId) {
@@ -75,6 +78,13 @@ export const CardModal: React.FC<CardModalProps> = ({
     }
   };
 
+  const formValidator = useCallback(
+    (date: string, value: number): boolean => {
+      return (isShowDate ? Boolean(date) : true) && Boolean(value);
+    },
+    [isShowDate]
+  );
+
   useEffect(() => {
     if (item) {
       form.setFieldsValue({
@@ -85,8 +95,12 @@ export const CardModal: React.FC<CardModalProps> = ({
         value: item.value,
         comment: item.comment,
       });
+
+      const isValidForm = formValidator(item.date, item.value);
+
+      setIsValidForm(isValidForm);
     }
-  }, [item, form]);
+  }, [item, form, formValidator]);
 
   return (
     <Modal
@@ -95,7 +109,9 @@ export const CardModal: React.FC<CardModalProps> = ({
       onOk={handleOk}
       onCancel={onCancel}
       className="card-modal"
-      okButtonProps={{ loading: isLoadingUpdate }}
+      okButtonProps={{ loading: isLoadingUpdate, disabled: !isValidForm }}
+      okText="Сохранить"
+      cancelText="Закрыть"
       destroyOnClose>
       {item && (
         <Form layout="vertical" onFinish={handleSubmit} form={form} preserve={false}>
@@ -158,6 +174,19 @@ export const CardModal: React.FC<CardModalProps> = ({
             <Button danger onClick={handleClickDelete} loading={isLoadingDelete}>
               Удалить
             </Button>
+          </Form.Item>
+
+          <Form.Item hidden dependencies={['value', 'date']}>
+            {({ getFieldsValue }) => {
+              const values = getFieldsValue();
+
+              return (
+                <SubmitHiddenButton
+                  onValid={setIsValidForm}
+                  validator={() => formValidator(values.date, values.value)}
+                />
+              );
+            }}
           </Form.Item>
         </Form>
       )}

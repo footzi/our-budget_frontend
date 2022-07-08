@@ -12,7 +12,7 @@ import { UseMutationProps, UseMutationResult, UseQueryProps, UseQueryResult } fr
 import { refreshAuthLogic } from './refresh';
 
 const USE_LOCAL_JSON = process.env.USE_LOCAL_JSON === 'true';
-const USE_LOCAL_BACKEND = process.env.USE_LOCAL_BACKEND === 'true';
+const BACKEND_HOST = process.env.BACKEND_HOST ?? '/';
 
 const axios = Axios.create();
 
@@ -25,12 +25,10 @@ export const useQuery = <T>({ config, params, onSuccess, onError, options }: Use
   const accessToken = savedUser ? savedUser.tokens.accessToken : null;
 
   const url = USE_LOCAL_JSON ? config.json : config.url;
-  // const method = USE_LOCAL_JSON ? 'GET' : config.method ? config.method : 'GET';
-  const host = USE_LOCAL_BACKEND ? 'http://localhost:8888' : '';
 
   const [{ data, loading, error }, refetch] = useAxios(
     {
-      url: host + url,
+      url: BACKEND_HOST + url,
       params,
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -74,11 +72,10 @@ export const useMutation = <T>({ config, onSuccess, onError }: UseMutationProps)
 
   const url = USE_LOCAL_JSON ? config.json : config.url;
   const method = USE_LOCAL_JSON ? 'GET' : config.method ? config.method : 'POST';
-  const host = USE_LOCAL_BACKEND ? 'http://localhost:8888' : '';
 
   const [{ data, loading, error }, executePut] = useAxios(
     {
-      url: host + url,
+      url: BACKEND_HOST + url,
       method,
       headers: {
         Authorization: `${!config.isPublic ? 'Bearer ' + accessToken : null}`,
