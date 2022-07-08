@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { UseGetUserResult } from './interfaces';
 
 /**
- * Хук получения пользователя
+ * Hook for get user data
  */
 export const useGetUser = (): UseGetUserResult => {
   const dispatch = useAppDispatch();
@@ -28,7 +28,8 @@ export const useGetUser = (): UseGetUserResult => {
       const savedUser = LocalStorage.get<UserLocalStorage>(LocalStorageItems.USER);
 
       if (!savedUser) {
-        navigate(ROUTES.LOGIN);
+        dispatch(setUser(null));
+        return navigate(ROUTES.LOGIN);
       }
 
       try {
@@ -46,7 +47,9 @@ export const useGetUser = (): UseGetUserResult => {
         navigate(ROUTES.LOGIN);
       }
     })();
-  }, [getUser, navigate, dispatch]);
+    // navigate вызывает useEffect
+    // eslint-disable-next-line
+  }, [getUser, dispatch]);
 
   return {
     isLoading,

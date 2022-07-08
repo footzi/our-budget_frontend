@@ -2,6 +2,9 @@ import { Balance } from '@/components/Balance';
 import { Main } from '@/components/Main';
 import { Settings } from '@/components/Settings';
 import { ROUTES } from '@/constants/routes';
+import { useGetBalance } from '@/hooks/useGetBalance';
+import { useGetCategories } from '@/hooks/useGetCategories';
+import { useGetSavingGoals } from '@/hooks/useGetSavingGoals';
 import { Button } from 'antd';
 import React from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
@@ -9,6 +12,10 @@ import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import './index.less';
 
 export const Layout = () => {
+  useGetCategories();
+  useGetBalance();
+  useGetSavingGoals();
+
   const navigate = useNavigate();
   const location = useLocation();
 
