@@ -55,6 +55,7 @@ export const SavingGoalModal: React.FC<SavingGoalModalProps> = ({
   }, [editedGoal, form, formValidator]);
 
   const title = editedGoal ? `Редактирование копилки "${editedGoal.name}"` : 'Новая копилка';
+  const valueLabel = editedGoal ? 'Текущее значение' : 'Начальное значение';
 
   return (
     <Modal
@@ -76,7 +77,7 @@ export const SavingGoalModal: React.FC<SavingGoalModalProps> = ({
           <Input.TextArea />
         </Form.Item>
 
-        <Form.Item label="Начальное значение" name="value">
+        <Form.Item label={valueLabel} name="value">
           <InputNumber addonAfter={<span>₽</span>} />
         </Form.Item>
 

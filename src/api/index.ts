@@ -108,12 +108,10 @@ export const useMutation = <T>({ config, onSuccess, onError }: UseMutationProps)
     data,
     isLoading: loading,
     error,
-    errorMessage: error?.response?.data.message,
+    errorMessage: error?.response?.data?.message,
     executePut,
   };
 };
 
 export { ApiConfig } from './paths';
 export * from './refetches';
-
-// export * from './types';

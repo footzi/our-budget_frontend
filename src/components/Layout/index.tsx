@@ -1,5 +1,6 @@
 import { Balance } from '@/components/Balance';
 import { Main } from '@/components/Main';
+import { MainLoader } from '@/components/MainLoader';
 import { Settings } from '@/components/Settings';
 import { ROUTES } from '@/constants/routes';
 import { useGetBalance } from '@/hooks/useGetBalance';
@@ -12,15 +13,12 @@ import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import './index.less';
 
 export const Layout = () => {
-  useGetCategories();
-  useGetBalance();
-  useGetSavingGoals();
+  const { isLoading: isLoadingGetCategories } = useGetCategories();
+  const { isLoading: isLoadingGetBalance } = useGetBalance();
+  const { isLoading: isLoadingGetSavingGoals } = useGetSavingGoals();
 
   const navigate = useNavigate();
   const location = useLocation();
-
-  const isSettings = location.pathname.includes(ROUTES.SETTINGS);
-  const buttonText = isSettings ? 'Назад' : 'Настройки';
 
   const handleOpenSettings = () => {
     if (isSettings) {
@@ -29,6 +27,13 @@ export const Layout = () => {
       navigate(ROUTES.SETTINGS);
     }
   };
+
+  if (isLoadingGetBalance || isLoadingGetCategories || isLoadingGetSavingGoals) {
+    return <MainLoader />;
+  }
+
+  const isSettings = location.pathname.includes(ROUTES.SETTINGS);
+  const buttonText = isSettings ? 'Назад' : 'Настройки';
 
   return (
     <div className="layout">

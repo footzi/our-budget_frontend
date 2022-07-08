@@ -3,6 +3,8 @@ import { UserLocalStorage } from '@/interfaces';
 import { LocalStorage } from '@/utils/localStorage';
 import axios, { AxiosError } from 'axios';
 
+const BACKEND_HOST = process.env.BACKEND_HOST ?? '/';
+
 export const refreshAuthLogic = async (failedRequest: AxiosError): Promise<void | string | undefined> => {
   const savedUser = LocalStorage.get<UserLocalStorage>(LocalStorageItems.USER);
 
@@ -13,7 +15,7 @@ export const refreshAuthLogic = async (failedRequest: AxiosError): Promise<void 
   try {
     const response = await axios({
       method: 'put',
-      url: '/api/auth/refresh',
+      url: BACKEND_HOST + '/api/auth/refresh',
       headers: {
         Authorization: 'Bearer ' + savedUser.tokens.refreshToken,
       },

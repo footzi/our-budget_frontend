@@ -4,7 +4,7 @@ import { ROUTES } from '@/constants/routes';
 import { Maybe, User, UserLocalStorage } from '@/interfaces';
 import { removeUser, setUser, useAppDispatch } from '@/store';
 import { LocalStorage } from '@/utils/localStorage';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { UseGetUserResult } from './interfaces';
@@ -13,10 +13,12 @@ import { UseGetUserResult } from './interfaces';
  * Hook for get user data
  */
 export const useGetUser = (): UseGetUserResult => {
+  const [isLoading, setIsLoading] = useState(true);
+
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const { isLoading, refetch: getUser } = useQuery<{ user: Maybe<User> }>({
+  const { refetch: getUser } = useQuery<{ user: Maybe<User> }>({
     config: ApiConfig.user,
     options: {
       manual: true,
@@ -29,6 +31,7 @@ export const useGetUser = (): UseGetUserResult => {
 
       if (!savedUser) {
         dispatch(setUser(null));
+        setIsLoading(false);
         return navigate(ROUTES.LOGIN);
       }
 
@@ -45,11 +48,13 @@ export const useGetUser = (): UseGetUserResult => {
       } catch (e) {
         dispatch(removeUser());
         navigate(ROUTES.LOGIN);
+      } finally {
+        setIsLoading(false);
       }
     })();
     // navigate вызывает useEffect
     // eslint-disable-next-line
-  }, [getUser, dispatch]);
+  }, [dispatch]);
 
   return {
     isLoading,
