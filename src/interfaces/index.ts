@@ -3,6 +3,7 @@ import { CATEGORIES_TYPES, SAVING_ACTION_TYPE } from '@/constants';
 export interface User {
   id: number;
   login: string;
+  firstName: string;
 }
 
 export interface Category {

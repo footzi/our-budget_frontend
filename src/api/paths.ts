@@ -12,6 +12,10 @@ export const ApiConfig: { [key: string]: ApiConfigItem } = {
     json: '/json/success.json',
     method: 'DELETE',
   },
+  signUp: {
+    url: '/api/auth/signUp',
+    method: 'POST',
+  },
   user: {
     url: '/api/users',
     json: '/json/user.json',

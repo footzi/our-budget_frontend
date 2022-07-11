@@ -1,7 +1,9 @@
+import { ROUTES } from '@/constants/routes';
 import LockOutlined from '@ant-design/icons/LockOutlined';
 import UserOutlined from '@ant-design/icons/UserOutlined';
 import { Button, Card, Col, Form, Input, Row, Typography } from 'antd';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { useLogin } from './hooks/useLogin';
 import './index.less';
@@ -11,6 +13,7 @@ import './index.less';
  */
 export const LoginForm: React.FC = () => {
   const { login, isLoading } = useLogin();
+  const navigate = useNavigate();
 
   const onFinish = (form: { login: string; password: string }) => {
     const replacedLogin = form.login.replace(/[- )(]/g, '');
@@ -18,11 +21,18 @@ export const LoginForm: React.FC = () => {
     login(replacedLogin, form.password);
   };
 
+  const handleSignUp = () => navigate(ROUTES.SIGNUP);
+
   return (
     <Row className="login-form">
       <Col span={6}>
         <Card>
-          <Typography.Title level={3}>Авторизация</Typography.Title>
+          <div className="login-form__title">
+            <Typography.Title level={3}>Авторизация</Typography.Title>
+            <Button type="link" onClick={handleSignUp}>
+              Регистрация
+            </Button>
+          </div>
 
           <Form name="loginForm" layout="vertical" autoComplete="off" onFinish={onFinish}>
             <Form.Item

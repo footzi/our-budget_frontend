@@ -2,17 +2,20 @@ import { Balance } from '@/components/Balance';
 import { Main } from '@/components/Main';
 import { MainLoader } from '@/components/MainLoader';
 import { Settings } from '@/components/Settings';
+import { UserWidget } from '@/components/UserWidget';
 import { ROUTES } from '@/constants/routes';
 import { useGetBalance } from '@/hooks/useGetBalance';
 import { useGetCategories } from '@/hooks/useGetCategories';
 import { useGetSavingGoals } from '@/hooks/useGetSavingGoals';
 import { Button } from 'antd';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 
 import './index.less';
 
 export const Layout = () => {
+  const [isFirstLoading, setIsFirstLoading] = useState(true);
+
   const { isLoading: isLoadingGetCategories } = useGetCategories();
   const { isLoading: isLoadingGetBalance } = useGetBalance();
   const { isLoading: isLoadingGetSavingGoals } = useGetSavingGoals();
@@ -28,7 +31,13 @@ export const Layout = () => {
     }
   };
 
-  if (isLoadingGetBalance || isLoadingGetCategories || isLoadingGetSavingGoals) {
+  useEffect(() => {
+    if (!isLoadingGetCategories && !isLoadingGetSavingGoals && !isLoadingGetBalance) {
+      setIsFirstLoading(false);
+    }
+  }, [isLoadingGetBalance, isLoadingGetCategories, isLoadingGetSavingGoals]);
+
+  if (isFirstLoading) {
     return <MainLoader />;
   }
 
@@ -50,6 +59,9 @@ export const Layout = () => {
             <Route path="settings/*" element={<Settings />} />
           </Routes>
         </main>
+      </div>
+      <div className="layout__user-widget">
+        <UserWidget />
       </div>
     </div>
   );

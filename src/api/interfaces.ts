@@ -45,3 +45,7 @@ export interface ApiConfigItem {
 }
 
 export type RefetchValues = Record<REFETCHES_LIST, () => void>;
+
+export interface UseMutationSuccessResult {
+  success: boolean;
+}
