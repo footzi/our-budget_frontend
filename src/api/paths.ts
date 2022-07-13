@@ -38,6 +38,7 @@ export const ApiConfig: { [key: string]: ApiConfigItem } = {
   },
   expenses: {
     url: '/api/expenses/getAll',
+    refetch: REFETCHES_LIST.EXPENSES,
   },
   addExpensePlan: {
     url: '/api/expenses/plan',
@@ -69,6 +70,7 @@ export const ApiConfig: { [key: string]: ApiConfigItem } = {
   },
   incomes: {
     url: '/api/incomes/getAll',
+    refetch: REFETCHES_LIST.INCOMES,
   },
   addIncomePlan: {
     url: '/api/incomes/plan',

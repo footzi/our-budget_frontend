@@ -37,3 +37,5 @@ export const useRefetch = (type: REFETCHES_LIST): (() => void) => {
 export const useRefetchBalance = () => useRefetch(REFETCHES_LIST.BALANCES);
 export const useRefetchSavingGoals = () => useRefetch(REFETCHES_LIST.SAVING_GOALS);
 export const useRefetchCategories = () => useRefetch(REFETCHES_LIST.CATEGORIES);
+export const useRefetchIncomes = () => useRefetch(REFETCHES_LIST.INCOMES);
+export const useRefetchExpenses = () => useRefetch(REFETCHES_LIST.EXPENSES);

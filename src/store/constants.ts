@@ -16,4 +16,24 @@ export const initialState: State = {
     value: [],
     isLoading: true,
   },
+  expenses: {
+    fact: {
+      list: [],
+      sum: 0,
+    },
+    plan: {
+      list: [],
+      sum: 0,
+    },
+  },
+  incomes: {
+    fact: {
+      list: [],
+      sum: 0,
+    },
+    plan: {
+      list: [],
+      sum: 0,
+    },
+  },
 };

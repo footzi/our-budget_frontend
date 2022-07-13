@@ -117,8 +117,6 @@ export const Incomes: React.FC<IncomesProps> = React.memo(({ date }) => {
         isLoadingSave={isLoadingSave}
         isLoadingUpdate={isLoadingUpdate}
         isLoadingDelete={isLoadingDelete}
-        isShowDate
-        isShowComment
         type={CARD_TYPES.INCOME_FACT}
       />
     </div>

@@ -8,10 +8,6 @@
   &__form-control {
     display: flex;
 
-    .ant-form-item:last-child {
-      margin-left: auto;
-    }
-
     .ant-form-item:not(:last-child) {
       margin-right: 12px;
     }
@@ -21,8 +17,13 @@
     }
 
     .ant-select {
-      width: 250px !important;
+      width: 200px !important;
     }
+  }
+
+  &__form-control-right {
+    margin-left: auto;
+    display: flex;
   }
 
   &__list-item {

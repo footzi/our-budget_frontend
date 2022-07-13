@@ -8,7 +8,7 @@ import { Card as AntCard, Button, DatePicker, Form, Input, InputNumber, List, Se
 import { useForm } from 'antd/es/form/Form';
 import cx from 'classnames';
 import dayjs, { Dayjs } from 'dayjs';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 import { CardModal } from './Modal';
 import './index.less';
@@ -29,8 +29,6 @@ export const Card: React.FC<CardProps> = ({
   list,
   title,
   total,
-  isShowDate,
-  isShowComment,
   isLoadingUpdate,
 }) => {
   const [form] = useForm();
@@ -100,6 +98,29 @@ export const Card: React.FC<CardProps> = ({
     });
   }, [form, categories, savingGoals]);
 
+  const isShowDate =
+    type === CARD_TYPES.INCOME_FACT || type === CARD_TYPES.SAVINGS_FACT || type === CARD_TYPES.EXPENSE_FACT;
+  const isShowComment =
+    type === CARD_TYPES.INCOME_FACT || type === CARD_TYPES.SAVINGS_FACT || type === CARD_TYPES.EXPENSE_FACT;
+
+  const SubmitButton = useMemo(
+    () => (
+      <Form.Item dependencies={['value', 'date']}>
+        {({ getFieldsValue }) => {
+          const values = getFieldsValue();
+          const isValid = values.value && (isShowDate ? values.date : true);
+
+          return (
+            <Button htmlType="submit" loading={isLoadingSave} disabled={!isValid}>
+              Добавить
+            </Button>
+          );
+        }}
+      </Form.Item>
+    ),
+    [isLoadingSave, isShowDate]
+  );
+
   return (
     <>
       <AntCard title={title} className="card">
@@ -135,9 +156,13 @@ export const Card: React.FC<CardProps> = ({
               </Form.Item>
             )}
 
-            <Form.Item name="value" rules={[{ required: true, message: 'Введите сумму' }]}>
-              <InputNumber addonAfter={<span>₽</span>}></InputNumber>
-            </Form.Item>
+            <div className="card__form-control-right">
+              <Form.Item name="value" rules={[{ required: true, message: 'Введите сумму' }]}>
+                <InputNumber addonAfter={<span>₽</span>}></InputNumber>
+              </Form.Item>
+
+              {!isShowDate && SubmitButton}
+            </div>
           </div>
 
           {(type === CARD_TYPES.SAVINGS_FACT || type === CARD_TYPES.SAVINGS_PLAN) && (
@@ -152,24 +177,13 @@ export const Card: React.FC<CardProps> = ({
             </Form.Item>
           )}
 
-          {isShowComment && (
+          {(type === CARD_TYPES.INCOME_FACT || type === CARD_TYPES.SAVINGS_FACT) && (
             <Form.Item name="comment" label="Комментарий:">
               <Input.TextArea />
             </Form.Item>
           )}
 
-          <Form.Item dependencies={['value', 'date']}>
-            {({ getFieldsValue }) => {
-              const values = getFieldsValue();
-              const isValid = values.value && (isShowDate ? values.date : true);
-
-              return (
-                <Button htmlType="submit" loading={isLoadingSave} disabled={!isValid}>
-                  Добавить
-                </Button>
-              );
-            }}
-          </Form.Item>
+          {isShowDate && SubmitButton}
         </Form>
 
         <List

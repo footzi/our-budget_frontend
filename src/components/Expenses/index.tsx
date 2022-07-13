@@ -117,8 +117,6 @@ export const Expenses: React.FC<ExpensesProps> = ({ date }) => {
         isLoadingSave={isLoadingSave}
         isLoadingUpdate={isLoadingUpdate}
         isLoadingDelete={isLoadingDelete}
-        isShowDate
-        isShowComment
         type={CARD_TYPES.EXPENSE_FACT}
       />
     </div>

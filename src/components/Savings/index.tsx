@@ -116,8 +116,6 @@ export const Savings: React.FC<SavingsProps> = ({ date }) => {
           savingGoals={savingGoals.value ?? []}
           list={fact}
           total={factTotal}
-          isShowDate
-          isShowComment
           onAdd={handleAdd}
           onUpdate={handleUpdate}
           onDelete={handleDelete}

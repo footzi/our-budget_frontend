@@ -17,7 +17,7 @@ export const UserWidget = () => {
 
   return (
     <Popover
-      placement="bottom"
+      placement="bottomRight"
       content={<Content logout={logout} user={user} isLoading={isLoading} />}
       trigger="click"
       className="user-widget">

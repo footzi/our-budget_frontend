@@ -19,9 +19,11 @@ export const Content: React.FC = () => {
     navigate(link);
   };
 
+  const activeKey = params.tab ? params.tab : '/';
+
   return (
     <div className="settings">
-      <Tabs defaultActiveKey={params.tab} onChange={handleChange}>
+      <Tabs activeKey={activeKey} onChange={handleChange}>
         <Tabs.TabPane
           key="/"
           tab={
