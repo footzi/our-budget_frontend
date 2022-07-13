@@ -12,7 +12,7 @@ import {
   Tooltip,
 } from 'chart.js';
 import React from 'react';
-import { Bar, PolarArea } from 'react-chartjs-2';
+import { Bar, Pie } from 'react-chartjs-2';
 
 import { useGetSumByCategories } from './hooks/useGetSumByCategories';
 import './index.less';
@@ -24,6 +24,7 @@ import { getOptionsPolar } from './utils/getOptionsPolar';
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip);
 ChartJS.register(RadialLinearScale, ArcElement, Legend, Tooltip);
 
+// @todo Прибраться тут, разбить на компоненты
 export const Analytics: React.FC = () => {
   const { incomes, expenses } = useAppSelector();
 
@@ -60,11 +61,11 @@ export const Analytics: React.FC = () => {
 
       <div className="analytics__row">
         <div className="analytics__chart-polar">
-          <PolarArea data={expensesPolarData} options={expensesPolarOptions} />
+          <Pie data={expensesPolarData} options={expensesPolarOptions} />
         </div>
 
         <div className="analytics__chart-polar">
-          <PolarArea data={incomesPolarData} options={incomesPolarOptions} />
+          <Pie data={incomesPolarData} options={incomesPolarOptions} />
         </div>
       </div>
     </div>

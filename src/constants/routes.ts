@@ -2,5 +2,10 @@ export enum ROUTES {
   MAIN = '/',
   LOGIN = '/login',
   SIGNUP = '/signup',
-  SETTINGS = '/settings',
+  PLANS = '/plans',
+  FACTS = '/facts',
+  CATEGORIES = '/categories',
+  SAVINGS = '/savings',
+  SAVING_GOALS = '/savingGoals',
+  PROFILE = '/profile',
 }

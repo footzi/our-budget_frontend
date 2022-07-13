@@ -7,10 +7,10 @@ import {
   CardUpdateSavingBody,
   UpdateSaveBody,
 } from '@/components/Card';
-import { Goals } from '@/components/Savings/Goals';
 import { useAppSelector } from '@/store';
 import React, { useCallback } from 'react';
 
+import { Goals } from './Goals';
 import { useAddSaving } from './hooks/useAddSaving';
 import { useDeleteSaving } from './hooks/useDeleteSaving';
 import { useGetSavings } from './hooks/useGetSavings';

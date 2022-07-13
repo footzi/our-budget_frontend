@@ -1,0 +1,28 @@
+@import '~antd/lib/style/themes/default.less';
+
+.menu-item {
+  transition: 0.3s color, background-color;
+  color: #d9d9d9;
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  border-radius: 16px;
+  margin-bottom: 8px;
+
+  svg {
+    width: 20px;
+    height: 20px;
+    margin-left: 6px;
+    margin-right: 8px;
+  }
+
+  &.is-active {
+    background-color: @purple-7;
+    color: @white;
+  }
+
+  &:hover {
+    background-color: @purple-7;
+    color: @white;
+  }
+}

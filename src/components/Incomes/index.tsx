@@ -18,6 +18,7 @@ import { useUpdateIncome } from './hooks/useUpdateIncome';
 import './index.less';
 import { IncomesProps } from './interfaces';
 
+// @todo удалить
 export const Incomes: React.FC<IncomesProps> = React.memo(({ date }) => {
   const { incomes, refetch } = useGetIncomes(date);
   const refetchBalance = useRefetchBalance();

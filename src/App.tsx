@@ -1,8 +1,8 @@
-import { Layout } from '@/components/Layout';
 import { MainLoader } from '@/components/MainLoader';
 import { SignUpForm } from '@/components/SignUpForm';
 import { ROUTES } from '@/constants/routes';
 import { useGetUser } from '@/hooks/useGetUser';
+import { Layout } from '@/pages/Layout';
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 

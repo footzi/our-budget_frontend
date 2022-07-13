@@ -1,7 +1,7 @@
 import { ApiConfig, useMutation } from '@/api';
-import { AddPlanBody } from '@/components/Plans/interfaces';
 import { useCallback } from 'react';
 
+import { AddPlanBody } from '../../interfaces';
 import { UseAddPlanResult } from './interfaces';
 
 export const useAddPlan = (isIncome = false): UseAddPlanResult => {

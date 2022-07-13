@@ -18,6 +18,7 @@ import { useUpdateExpense } from './hooks/useUpdateExpense';
 import './index.less';
 import { ExpensesProps } from './interfaces';
 
+// @todo удалить
 export const Expenses: React.FC<ExpensesProps> = ({ date }) => {
   const { expenses, refetch } = useGetExpenses(date);
   const { categories } = useAppSelector();
