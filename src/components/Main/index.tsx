@@ -1,3 +1,4 @@
+import { Analytics } from '@/components/Analytics';
 import { Facts } from '@/components/Facts';
 import { Plans } from '@/components/Plans';
 import { Savings } from '@/components/Savings';
@@ -30,6 +31,15 @@ const Content: React.FC<{ date: Dayjs }> = React.memo(({ date }) => {
         key="/"
         tab={
           <span>
+            <PieChartOutlined /> Аналитика
+          </span>
+        }>
+        <Analytics />
+      </Tabs.TabPane>
+      <Tabs.TabPane
+        key="plans"
+        tab={
+          <span>
             <AimOutlined /> Планирование
           </span>
         }>
@@ -52,15 +62,6 @@ const Content: React.FC<{ date: Dayjs }> = React.memo(({ date }) => {
           </span>
         }>
         {date && <Savings date={date} />}
-      </Tabs.TabPane>
-      <Tabs.TabPane
-        key="analytics"
-        tab={
-          <span>
-            <PieChartOutlined /> Аналитика
-          </span>
-        }>
-        Аналитика
       </Tabs.TabPane>
     </Tabs>
   );
