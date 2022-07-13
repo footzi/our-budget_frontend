@@ -1,13 +1,28 @@
+import { CATEGORIES_TYPES } from '@/constants';
 import { useAppSelector } from '@/store';
-import { BarElement, CategoryScale, Chart as ChartJS, LinearScale, Title, Tooltip } from 'chart.js';
+import {
+  ArcElement,
+  BarElement,
+  CategoryScale,
+  Chart as ChartJS,
+  Legend,
+  LinearScale,
+  RadialLinearScale,
+  Title,
+  Tooltip,
+} from 'chart.js';
 import React from 'react';
-import { Bar } from 'react-chartjs-2';
+import { Bar, PolarArea } from 'react-chartjs-2';
 
+import { useGetSumByCategories } from './hooks/useGetSumByCategories';
 import './index.less';
 import { getData } from './utils/getData';
+import { getDataPolar } from './utils/getDataPolar';
 import { getOptions } from './utils/getOptions';
+import { getOptionsPolar } from './utils/getOptionsPolar';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip);
+ChartJS.register(RadialLinearScale, ArcElement, Legend, Tooltip);
 
 export const Analytics: React.FC = () => {
   const { incomes, expenses } = useAppSelector();
@@ -24,13 +39,33 @@ export const Analytics: React.FC = () => {
   const expensesData = getData([expensesPlan, expensesFact]);
   const incomesData = getData([incomesPlan, incomesFact]);
 
+  const expensesPolar = useGetSumByCategories(CATEGORIES_TYPES.EXPENSE);
+  const expensesPolarData = getDataPolar(expensesPolar);
+  const expensesPolarOptions = getOptionsPolar('Расходы');
+
+  const incomesPolar = useGetSumByCategories(CATEGORIES_TYPES.INCOME);
+  const incomesPolarData = getDataPolar(incomesPolar);
+  const incomesPolarOptions = getOptionsPolar('Доходы');
+
   return (
     <div className="analytics">
-      <div className="analytics__chart">
-        <Bar data={expensesData} options={expensesOptions} />
+      <div className="analytics__row">
+        <div className="analytics__chart-bar">
+          <Bar data={expensesData} options={expensesOptions} />
+        </div>
+        <div className="analytics__chart-bar">
+          <Bar data={incomesData} options={incomesOptions} />
+        </div>
       </div>
-      <div className="analytics__chart">
-        <Bar data={incomesData} options={incomesOptions} />
+
+      <div className="analytics__row">
+        <div className="analytics__chart-polar">
+          <PolarArea data={expensesPolarData} options={expensesPolarOptions} />
+        </div>
+
+        <div className="analytics__chart-polar">
+          <PolarArea data={incomesPolarData} options={incomesPolarOptions} />
+        </div>
       </div>
     </div>
   );

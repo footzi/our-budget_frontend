@@ -61,3 +61,8 @@ export interface UserLocalStorage {
   id: number;
   tokens: Tokens;
 }
+
+export interface SumByCategory {
+  category: Category;
+  sum: number;
+}

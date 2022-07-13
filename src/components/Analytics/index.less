@@ -1,8 +1,21 @@
 .analytics {
-  display: flex;
   margin-top: 24px;
 
-  &__chart {
+  &__row {
+    width: 100%;
+    margin-bottom: 24px;
+    display: flex;
+  }
+
+  &__chart-bar {
+    flex: 0 0 40%;
+
+    &:last-child {
+      margin-left: 48px;
+    }
+  }
+
+  &__chart-polar {
     flex: 0 0 40%;
 
     &:last-child {
