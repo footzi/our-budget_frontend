@@ -1,4 +1,5 @@
 import { MainLoader } from '@/components/MainLoader';
+import { PageTitle } from '@/components/PageTitle';
 import { Sidebar } from '@/components/Sidebar';
 import { UserWidget } from '@/components/UserWidget';
 import { ROUTES } from '@/constants/routes';
@@ -36,12 +37,14 @@ export const Layout = () => {
         <Sidebar />
       </div>
       <div className="layout__content">
+        <PageTitle />
+
         <main>
           <Routes>
             <Route path="/*" element={<Main />} />
             <Route path={ROUTES.CATEGORIES} element={<Categories />} />
             <Route path={ROUTES.SAVING_GOALS} element={<SavingGoals />} />
-            <Route path={ROUTES.PROFILE} element={<h1>Профиль</h1>} />
+            <Route path={ROUTES.PROFILE} element={<div></div>} />
           </Routes>
         </main>
       </div>

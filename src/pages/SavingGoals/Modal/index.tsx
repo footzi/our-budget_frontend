@@ -1,5 +1,5 @@
 import { SubmitHiddenButton } from '@/components/SubmitHiddenButton';
-import { Form, Input, InputNumber, Modal } from 'antd';
+import { Button, Form, Input, InputNumber, Modal, Popconfirm } from 'antd';
 import { useForm } from 'antd/es/form/Form';
 import React, { useCallback, useEffect, useState } from 'react';
 
@@ -11,7 +11,9 @@ export const SavingGoalModal: React.FC<SavingGoalModalProps> = ({
   onAdd,
   onUpdate,
   onCancel,
+  onDelete,
   isLoading,
+  isLoadingDelete,
 }) => {
   const [form] = useForm();
 
@@ -32,6 +34,13 @@ export const SavingGoalModal: React.FC<SavingGoalModalProps> = ({
       onUpdate({ name, description, value, id: editedGoal.id });
     } else {
       onAdd({ name, description, value });
+    }
+  };
+
+  const handleClickDelete = async () => {
+    if (editedGoal?.id) {
+      await onDelete(editedGoal.id);
+      onCancel();
     }
   };
 
@@ -89,6 +98,20 @@ export const SavingGoalModal: React.FC<SavingGoalModalProps> = ({
             return <SubmitHiddenButton onValid={setIsValidForm} validator={() => formValidator(name)} />;
           }}
         </Form.Item>
+
+        {editedGoal && (
+          <Form.Item>
+            <Popconfirm
+              okText="Да"
+              cancelText="Отмена"
+              title="Вы уверены, что хотите удалить копилку?"
+              onConfirm={handleClickDelete}>
+              <Button danger loading={isLoadingDelete}>
+                Удалить
+              </Button>
+            </Popconfirm>
+          </Form.Item>
+        )}
       </Form>
     </Modal>
   );

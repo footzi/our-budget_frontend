@@ -1,5 +1,8 @@
+@import '@/styles/colors.less';
+
 .layout {
     display: flex;
+    background-color: @gray-3;
 
     &__sidebar {
         width: 280px;
@@ -11,9 +14,10 @@
     }
 
     &__content {
-        margin: 20px 20px 20px 300px;
+        margin-left: 280px;
+        padding: 20px 32px;
         width: 100%;
-        //margin: 20px
+        min-height: 100vh;
     }
 
     &__user-widget {

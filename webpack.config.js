@@ -70,6 +70,8 @@ module.exports = (env) => {
                 lessOptions: {
                   modifyVars: {
                     'primary-color': '#531dab',
+                    'control-border-radius': '4px',
+                    'border-radius-base': '4px',
                   },
                   javascriptEnabled: true,
                 },

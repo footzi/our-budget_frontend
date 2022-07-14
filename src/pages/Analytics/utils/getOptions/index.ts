@@ -1,15 +1,8 @@
-export const getOptions = (title: string) => {
+export const getOptions = () => {
   return {
     plugins: {
       title: {
-        display: true,
-        text: title,
-        font: {
-          size: 16,
-        },
-        padding: {
-          bottom: 24,
-        },
+        display: false,
       },
       legend: {
         display: false,

@@ -1,5 +1,3 @@
-import 'antd/dist/antd.less';
-import 'antd/lib/style/themes/default.less';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ru';
 import React from 'react';
@@ -9,6 +7,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 import { App } from './App';
 import { store } from './store';
+import './styles/index.less';
 
 dayjs.locale('ru_RU');
 

@@ -1,8 +1,7 @@
 import { useRefetchCategories } from '@/api';
+import { PADDING_SIZE, Section } from '@/components/Section';
 import { Maybe } from '@/interfaces';
-import DeleteOutlined from '@ant-design/icons/DeleteOutlined';
-import EditOutlined from '@ant-design/icons/EditOutlined';
-import { Button, Popconfirm, Table, Typography } from 'antd';
+import { Button, Table } from 'antd';
 import React, { useState } from 'react';
 
 import { CategoryModal } from './Modal';
@@ -24,7 +23,7 @@ export const Categories = () => {
   const { expense, income } = useFilterCategories();
   const { add, isLoading: isLoadingSaveCategory } = useAddCategory();
   const { update, isLoading: isLoadingUpdateCategory } = useUpdateCategory();
-  const { remove } = useDeleteCategory();
+  const { remove, isLoading: isLoadingDelete } = useDeleteCategory();
 
   const handleOpenModal = () => setIsOpenModal(true);
   const handleCloseModal = () => {
@@ -44,70 +43,50 @@ export const Categories = () => {
     handleCloseModal();
   };
 
-  const handleEdit = (_: undefined, category: CategoryRender) => {
+  const handleEdit = (category: CategoryRender) => {
     setEditedCategory(category);
     setIsOpenModal(true);
   };
 
-  const handleDelete = async (_: undefined, category: CategoryRender) => {
-    await remove(category.id);
+  const handleDelete = async (id: number) => {
+    await remove(id);
     refetchCategories();
   };
 
   return (
     <div className="categories">
-      <Button onClick={handleOpenModal}>Создать</Button>
+      <Section className="categories__create-button" paddingSize={PADDING_SIZE.SMALL}>
+        <Button onClick={handleOpenModal}>Создать новую категорию</Button>
+      </Section>
 
       <div className="categories__tables">
-        <div>
-          <Typography.Title level={4}>Расходы</Typography.Title>
-          <Table dataSource={expense} pagination={false}>
+        <Section title="Расходные категории">
+          <Table
+            dataSource={expense}
+            pagination={false}
+            onRow={(record) => {
+              return {
+                onClick: () => handleEdit(record),
+              };
+            }}>
             <Table.Column title="Название" dataIndex="name" key="name" />
             <Table.Column title="Период" dataIndex="period" key="period" />
-            <Table.Column
-              title="Действия"
-              dataIndex="action"
-              key="period"
-              render={(_, category: CategoryRender) => (
-                <div className="categories__table-action">
-                  <Button icon={<EditOutlined />} size="small" onClick={() => handleEdit(_, category)} />
-                  <Popconfirm
-                    okText="Да"
-                    cancelText="Отмена"
-                    title="Вы уверены, что хотите удалить категорию?"
-                    onConfirm={() => handleDelete(_, category)}>
-                    <Button icon={<DeleteOutlined />} size="small" />
-                  </Popconfirm>
-                </div>
-              )}
-            />
           </Table>
-        </div>
+        </Section>
 
-        <div>
-          <Typography.Title level={4}>Доходы</Typography.Title>
-          <Table dataSource={income} pagination={false}>
+        <Section title="Доходные категории">
+          <Table
+            dataSource={income}
+            pagination={false}
+            onRow={(record) => {
+              return {
+                onClick: () => handleEdit(record),
+              };
+            }}>
             <Table.Column title="Название" dataIndex="name" key="name" />
             <Table.Column title="Период" dataIndex="period" key="period" />
-            <Table.Column
-              title="Действия"
-              dataIndex="action"
-              key="period"
-              render={(_, category: CategoryRender) => (
-                <div className="categories__table-action">
-                  <Button icon={<EditOutlined />} size="small" onClick={() => handleEdit(_, category)} />
-                  <Popconfirm
-                    okText="Да"
-                    cancelText="Отмена"
-                    title="Вы уверены, что хотите удалить категорию?"
-                    onConfirm={() => handleDelete(_, category)}>
-                    <Button icon={<DeleteOutlined />} size="small" />
-                  </Popconfirm>
-                </div>
-              )}
-            />
           </Table>
-        </div>
+        </Section>
       </div>
 
       <CategoryModal
@@ -116,7 +95,9 @@ export const Categories = () => {
         onAdd={handleAddModal}
         onUpdate={handleUpdateModal}
         onCancel={handleCloseModal}
+        onDelete={handleDelete}
         isLoading={isLoadingUpdateCategory || isLoadingSaveCategory}
+        isLoadingDelete={isLoadingDelete}
       />
     </div>
   );

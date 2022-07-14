@@ -1,7 +1,7 @@
 import { CARD_TYPES, CardUpdateBalancesBody, CardUpdateSavingBody } from '@/components/Card';
 import { SubmitHiddenButton } from '@/components/SubmitHiddenButton';
 import { SAVING_ACTION_TYPE, SAVING_ACTION_TYPES_LIST } from '@/constants';
-import { Button, DatePicker, Form, Input, InputNumber, Modal, Select } from 'antd';
+import { Button, DatePicker, Form, Input, InputNumber, Modal, Popconfirm, Select } from 'antd';
 import { useForm } from 'antd/es/form/Form';
 import dayjs, { Dayjs } from 'dayjs';
 import React, { useCallback, useEffect, useState } from 'react';
@@ -171,9 +171,15 @@ export const CardModal: React.FC<CardModalProps> = ({
           )}
 
           <Form.Item>
-            <Button danger onClick={handleClickDelete} loading={isLoadingDelete}>
-              Удалить
-            </Button>
+            <Popconfirm
+              okText="Да"
+              cancelText="Отмена"
+              title="Вы уверены, что хотите удалить?"
+              onConfirm={handleClickDelete}>
+              <Button danger loading={isLoadingDelete}>
+                Удалить
+              </Button>
+            </Popconfirm>
           </Form.Item>
 
           <Form.Item hidden dependencies={['value', 'date']}>

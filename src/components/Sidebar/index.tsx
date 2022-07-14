@@ -1,9 +1,9 @@
 import { Balance } from '@/components/Balance';
+import { MENU } from '@/constants/menu';
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { MenuItem } from './MenuItem';
-import { MENU } from './constants';
 import './index.less';
 
 export const Sidebar: React.FC = () => {

@@ -1,4 +1,4 @@
-@import '~antd/lib/style/themes/default.less';
+@import '@/styles';
 
 .card {
   &__form {
@@ -41,7 +41,7 @@
     }
 
     &:hover {
-      background-color: #f0f0f0;
+      background-color: @gray-4;
     }
 
     &-row {
@@ -84,7 +84,7 @@
   }
 
   &__sum {
-    border-top: 1px solid #f0f0f0;
+    border-top: 1px solid @gray-4;
     margin-top: 20px;
     padding-top: 12px;
     display: flex;

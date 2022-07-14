@@ -1,6 +1,6 @@
 import { SubmitHiddenButton } from '@/components/SubmitHiddenButton';
 import { CATEGORIES_TYPES, CATEGORIES_TYPES_LIST } from '@/constants';
-import { DatePicker, Form, Input, Modal, Select, Switch } from 'antd';
+import { Button, DatePicker, Form, Input, Modal, Popconfirm, Select, Switch } from 'antd';
 import { useForm } from 'antd/es/form/Form';
 import dayjs, { Dayjs } from 'dayjs';
 import React, { useCallback, useEffect, useState } from 'react';
@@ -13,7 +13,9 @@ export const CategoryModal: React.FC<CategoryModalProps> = ({
   onAdd,
   onUpdate,
   onCancel,
+  onDelete,
   isLoading,
+  isLoadingDelete,
 }) => {
   const [form] = useForm();
 
@@ -34,6 +36,13 @@ export const CategoryModal: React.FC<CategoryModalProps> = ({
       onUpdate({ name, type, period, id: editedCategory.id });
     } else {
       onAdd({ name, type, period });
+    }
+  };
+
+  const handleClickDelete = async () => {
+    if (editedCategory?.id) {
+      await onDelete(editedCategory.id);
+      onCancel();
     }
   };
 
@@ -98,7 +107,7 @@ export const CategoryModal: React.FC<CategoryModalProps> = ({
           <Switch />
         </Form.Item>
 
-        <Form.Item dependencies={['isCustomPeriod']}>
+        <Form.Item dependencies={['isCustomPeriod']} noStyle>
           {({ getFieldValue }) => {
             const value = getFieldValue('isCustomPeriod');
 
@@ -125,6 +134,20 @@ export const CategoryModal: React.FC<CategoryModalProps> = ({
             );
           }}
         </Form.Item>
+
+        {editedCategory && (
+          <Form.Item>
+            <Popconfirm
+              okText="Да"
+              cancelText="Отмена"
+              title="Вы уверены, что хотите удалить категорию?"
+              onConfirm={handleClickDelete}>
+              <Button danger loading={isLoadingDelete}>
+                Удалить
+              </Button>
+            </Popconfirm>
+          </Form.Item>
+        )}
       </Form>
     </Modal>
   );

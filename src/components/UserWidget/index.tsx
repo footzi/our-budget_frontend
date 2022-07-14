@@ -1,3 +1,4 @@
+import { PADDING_SIZE, Section } from '@/components/Section';
 import { useLogout } from '@/components/UserWidget/hooks/useLogout';
 import { useAppSelector } from '@/store';
 import UserOutlined from '@ant-design/icons/UserOutlined';
@@ -16,13 +17,15 @@ export const UserWidget = () => {
   }
 
   return (
-    <Popover
-      placement="bottomRight"
-      content={<Content logout={logout} user={user} isLoading={isLoading} />}
-      trigger="click"
-      className="user-widget">
-      <Avatar icon={<UserOutlined />} size="small" />
-      <Typography.Text className="user-widget__name">{user.firstName}</Typography.Text>
-    </Popover>
+    <Section paddingSize={PADDING_SIZE.SMALL}>
+      <Popover
+        placement="bottomRight"
+        content={<Content logout={logout} user={user} isLoading={isLoading} />}
+        trigger="click"
+        className="user-widget">
+        <Avatar icon={<UserOutlined />} size="small" />
+        <Typography.Text className="user-widget__name">{user.firstName}</Typography.Text>
+      </Popover>
+    </Section>
   );
 };

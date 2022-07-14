@@ -8,5 +8,7 @@ export interface CategoryModalProps {
   onAdd(body: CategoryAddBody): void;
   onUpdate(body: CategoryUpdateBody): void;
   onCancel(): void;
+  onDelete(id: number): void;
   isLoading: boolean;
+  isLoadingDelete: boolean;
 }

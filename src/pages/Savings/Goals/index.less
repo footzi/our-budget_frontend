@@ -1,34 +1,17 @@
-@import '~antd/lib/style/themes/default.less';
+@import '@/styles';
 
 .goals {
   display: flex;
-  margin-top: 12px;
   margin-bottom: 48px;
 
   &__item {
-    width: 170px;
-    margin-right: 24px;
+    min-width: 150px;
+    margin-right: 12px;
+    background-color: #d6e4ff;
 
-    &:nth-child(1n) {
-      .ant-card-body {
-        background-color: @cyan-2;
-      }
+    .ant-typography {
+      margin-top: 12px !important;
+      margin-bottom: 0;
     }
-
-    &:nth-child(2n) {
-      .ant-card-body {
-        background-color: @yellow-2;
-      }
-    }
-
-    &:nth-child(3n) {
-      .ant-card-body {
-        background-color: @green-2;
-      }
-    }
-  }
-
-  &__card {
-    text-align: center;
   }
 }

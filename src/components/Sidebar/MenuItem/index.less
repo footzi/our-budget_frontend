@@ -1,4 +1,4 @@
-@import '~antd/lib/style/themes/default.less';
+@import '@/styles';
 
 .menu-item {
   transition: 0.3s color, background-color;
@@ -6,7 +6,7 @@
   display: flex;
   align-items: center;
   padding: 12px;
-  border-radius: 16px;
+  border-radius: @border-radius-main;
   margin-bottom: 8px;
 
   svg {

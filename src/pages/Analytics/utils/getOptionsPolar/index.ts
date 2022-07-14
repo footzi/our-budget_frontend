@@ -1,15 +1,8 @@
-export const getOptionsPolar = (title: string) => {
+export const getOptionsPolar = () => {
   return {
     plugins: {
       title: {
-        display: true,
-        text: title,
-        font: {
-          size: 16,
-        },
-        padding: {
-          bottom: 24,
-        },
+        display: false,
       },
       legend: {
         display: true,

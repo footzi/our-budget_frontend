@@ -1,10 +1,11 @@
 import { CARD_TYPES } from '@/components/Card/constants';
+import { Section } from '@/components/Section';
 import { SAVING_ACTION_TYPE, SAVING_ACTION_TYPES_LIST } from '@/constants';
 import { formatPrice } from '@/utils/formatPrice';
 import { formatToHumanDate } from '@/utils/formatToHumanDate';
 import CaretDownOutlined from '@ant-design/icons/CaretDownOutlined';
 import CaretUpOutlined from '@ant-design/icons/CaretUpOutlined';
-import { Card as AntCard, Button, DatePicker, Form, Input, InputNumber, List, Select, Typography } from 'antd';
+import { Button, DatePicker, Form, Input, InputNumber, List, Select, Typography } from 'antd';
 import { useForm } from 'antd/es/form/Form';
 import cx from 'classnames';
 import dayjs, { Dayjs } from 'dayjs';
@@ -123,7 +124,7 @@ export const Card: React.FC<CardProps> = ({
 
   return (
     <>
-      <AntCard title={title} className="card">
+      <Section title={title} className="card">
         <Form className="card__form" onFinish={handleFinish} form={form} layout="vertical">
           <div className="card__form-control">
             {isShowDate && (
@@ -230,7 +231,7 @@ export const Card: React.FC<CardProps> = ({
             </Typography.Title>
           </div>
         )}
-      </AntCard>
+      </Section>
 
       <CardModal
         item={editedItem}

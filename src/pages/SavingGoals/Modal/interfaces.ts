@@ -8,5 +8,7 @@ export interface SavingGoalModalProps {
   onAdd(body: SavingGoalAddBody): void;
   onUpdate(body: SavingGoalUpdateBody): void;
   onCancel(): void;
+  onDelete(id: number): void;
   isLoading: boolean;
+  isLoadingDelete: boolean;
 }

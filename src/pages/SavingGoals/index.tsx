@@ -1,8 +1,7 @@
 import { useRefetchSavingGoals } from '@/api';
+import { PADDING_SIZE, Section } from '@/components/Section';
 import { Maybe } from '@/interfaces';
-import DeleteOutlined from '@ant-design/icons/DeleteOutlined';
-import EditOutlined from '@ant-design/icons/EditOutlined';
-import { Button, Popconfirm, Table } from 'antd';
+import { Button, Table } from 'antd';
 import React, { useState } from 'react';
 
 import { SavingGoalModal } from './Modal';
@@ -22,7 +21,7 @@ export const SavingGoals = () => {
 
   const { add, isLoading: isLoadingAddGoal } = useAddSavingGoal();
   const { update, isLoading: isLoadingUpdateGoal } = useUpdateSavingGoal();
-  const { remove } = useDeleteSavingGoal();
+  const { remove, isLoading: isLoadingDelete } = useDeleteSavingGoal();
 
   const handleOpenModal = () => setIsOpenModal(true);
   const handleCloseModal = () => {
@@ -42,43 +41,36 @@ export const SavingGoals = () => {
     handleCloseModal();
   };
 
-  const handleDelete = async (_: undefined, goal: SavingGoalRender) => {
-    await remove(goal.id);
+  const handleDelete = async (id: number) => {
+    await remove(id);
     refetchSavings();
   };
 
-  const handleEdit = (_: undefined, goal: SavingGoalRender) => {
+  const handleEdit = (goal: SavingGoalRender) => {
     setEditedGoal(goal);
     setIsOpenModal(true);
   };
 
   return (
     <div className="saving-goal">
-      <Button onClick={handleOpenModal}>Создать</Button>
+      <Section className="saving-goal__create-button" paddingSize={PADDING_SIZE.SMALL}>
+        <Button onClick={handleOpenModal}>Создать новую копилку</Button>
+      </Section>
 
-      <Table className="saving-goal__table" dataSource={goals} pagination={false}>
-        <Table.Column title="Название" dataIndex="name" key="name" />
-        <Table.Column title="Описание" dataIndex="description" key="description" />
-        <Table.Column title="Текущее значение" dataIndex="valueText" key="valueText" />
-
-        <Table.Column
-          title="Действия"
-          dataIndex="action"
-          key="period"
-          render={(_, goal: SavingGoalRender) => (
-            <div className="saving-goal__table-action">
-              <Button icon={<EditOutlined />} size="small" onClick={() => handleEdit(_, goal)} />
-              <Popconfirm
-                okText="Да"
-                cancelText="Отмена"
-                title="Вы уверены, что хотите удалить копилку?"
-                onConfirm={() => handleDelete(_, goal)}>
-                <Button icon={<DeleteOutlined />} size="small" />
-              </Popconfirm>
-            </div>
-          )}
-        />
-      </Table>
+      <Section className="saving-goal__table">
+        <Table
+          dataSource={goals}
+          pagination={false}
+          onRow={(record) => {
+            return {
+              onClick: () => handleEdit(record),
+            };
+          }}>
+          <Table.Column title="Название" dataIndex="name" key="name" />
+          <Table.Column title="Описание" dataIndex="description" key="description" />
+          <Table.Column title="Текущее значение" dataIndex="valueText" key="valueText" />
+        </Table>
+      </Section>
 
       <SavingGoalModal
         isShow={isOpenModal}
@@ -86,7 +78,9 @@ export const SavingGoals = () => {
         onAdd={handleAddModal}
         onCancel={handleCloseModal}
         onUpdate={handleUpdateModal}
+        onDelete={handleDelete}
         isLoading={isLoadingAddGoal || isLoadingUpdateGoal}
+        isLoadingDelete={isLoadingDelete}
       />
     </div>
   );

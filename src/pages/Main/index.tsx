@@ -1,3 +1,4 @@
+import { PADDING_SIZE, Section } from '@/components/Section';
 import { ROUTES } from '@/constants/routes';
 import { useGetExpenses } from '@/hooks/useGetExpenses';
 import { useGetIncomes } from '@/hooks/useGetIncomes';
@@ -25,10 +26,13 @@ export const Main: React.FC = () => {
   return (
     <div className="main">
       <div className="main__top">
-        {/*// @ts-ignore */}
-        <DatePicker onChange={handleChangeMonth} picker="month" value={selectedDate} format="MM.YYYY" />
-        {isLoading && <Spin size="small" />}
+        <Section paddingSize={PADDING_SIZE.SMALL}>
+          {/*// @ts-ignore */}
+          <DatePicker onChange={handleChangeMonth} picker="month" value={selectedDate} format="MM.YYYY" />
+          {isLoading && <Spin size="small" />}
+        </Section>
       </div>
+
       <Routes>
         <Route path="" element={<Analytics />} />
         <Route path={ROUTES.PLANS} element={<Plans selectedDate={selectedDate} />} />
