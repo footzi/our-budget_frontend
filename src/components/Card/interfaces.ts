@@ -2,7 +2,7 @@ import { SAVING_ACTION_TYPE } from '@/constants';
 import { Category, Expense, Income, Saving, SavingGoal } from '@/interfaces';
 import { Dayjs } from 'dayjs';
 
-import { CARD_TYPES } from '../constants';
+import { CARD_TYPES } from './constants';
 
 export interface CardProps {
   title: string;

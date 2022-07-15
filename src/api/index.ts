@@ -20,7 +20,14 @@ configure({ axios });
 
 createAuthRefreshInterceptor(axios, refreshAuthLogic);
 
-export const useQuery = <T>({ config, params, onSuccess, onError, options }: UseQueryProps): UseQueryResult<T> => {
+export const useQuery = <T>({
+  config,
+  params,
+  onSuccess,
+  onError,
+  options,
+  isSkip,
+}: UseQueryProps): UseQueryResult<T> => {
   const savedUser = !config.isPublic ? LocalStorage.get<UserLocalStorage>(LocalStorageItems.USER) : null;
   const accessToken = savedUser ? savedUser.tokens.accessToken : null;
 
@@ -35,7 +42,10 @@ export const useQuery = <T>({ config, params, onSuccess, onError, options }: Use
         'Authorization': `${!config.isPublic ? 'Bearer ' + accessToken : null}`,
       },
     },
-    options
+    {
+      ...options,
+      manual: isSkip,
+    }
   );
 
   useEffect(() => {

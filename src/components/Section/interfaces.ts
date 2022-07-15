@@ -6,4 +6,5 @@ export interface SectionProps extends PropsWithChildren {
   title?: string;
   className?: string;
   paddingSize?: PADDING_SIZE;
+  hideBorder?: boolean;
 }

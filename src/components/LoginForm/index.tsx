@@ -1,7 +1,8 @@
+import { Section } from '@/components/Section';
 import { ROUTES } from '@/constants/routes';
 import LockOutlined from '@ant-design/icons/LockOutlined';
 import UserOutlined from '@ant-design/icons/UserOutlined';
-import { Button, Card, Col, Form, Input, Row, Typography } from 'antd';
+import { Button, Form, Input, Typography } from 'antd';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -24,37 +25,29 @@ export const LoginForm: React.FC = () => {
   const handleSignUp = () => navigate(ROUTES.SIGNUP);
 
   return (
-    <Row className="login-form">
-      <Col span={6}>
-        <Card>
-          <div className="login-form__title">
-            <Typography.Title level={3}>Авторизация</Typography.Title>
-            <Button type="link" onClick={handleSignUp}>
-              Регистрация
-            </Button>
-          </div>
+    <div className="login-form">
+      <Section className="login-form__content">
+        <div className="login-form__title">
+          <Typography.Title level={3}>Авторизация</Typography.Title>
+          <Button type="link" onClick={handleSignUp}>
+            Регистрация
+          </Button>
+        </div>
 
-          <Form name="loginForm" layout="vertical" autoComplete="off" onFinish={onFinish}>
-            <Form.Item
-              label="Логин"
-              name="login"
-              rules={[
-                { required: true, message: 'Введите логин' },
-                // { message: 'Логин введен не верно', pattern: REGEXP_LOGIN },
-              ]}>
-              <Input prefix={<UserOutlined />} />
-            </Form.Item>
-            <Form.Item label="Пароль" name="password" rules={[{ required: true, message: 'Введите пароль' }]}>
-              <Input.Password prefix={<LockOutlined />} />
-            </Form.Item>
-            <Form.Item>
-              <Button type="primary" htmlType="submit" loading={isLoading}>
-                Войти
-              </Button>
-            </Form.Item>
-          </Form>
-        </Card>
-      </Col>
-    </Row>
+        <Form name="loginForm" layout="vertical" autoComplete="off" onFinish={onFinish}>
+          <Form.Item label="Логин" name="login" rules={[{ required: true, message: 'Введите логин' }]}>
+            <Input prefix={<UserOutlined />} />
+          </Form.Item>
+          <Form.Item label="Пароль" name="password" rules={[{ required: true, message: 'Введите пароль' }]}>
+            <Input.Password prefix={<LockOutlined />} />
+          </Form.Item>
+          <Form.Item>
+            <Button type="primary" htmlType="submit" loading={isLoading}>
+              Войти
+            </Button>
+          </Form.Item>
+        </Form>
+      </Section>
+    </div>
   );
 };

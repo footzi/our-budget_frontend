@@ -1,7 +1,7 @@
 import { useRefetchSavingGoals } from '@/api';
 import { PADDING_SIZE, Section } from '@/components/Section';
 import { Maybe } from '@/interfaces';
-import { Button, Table } from 'antd';
+import { Button, Empty, Table } from 'antd';
 import React, { useState } from 'react';
 
 import { SavingGoalModal } from './Modal';
@@ -59,6 +59,7 @@ export const SavingGoals = () => {
 
       <Section className="saving-goal__table">
         <Table
+          locale={{ emptyText: <Empty description="Еще нет копилок" /> }}
           dataSource={goals}
           pagination={false}
           onRow={(record) => {

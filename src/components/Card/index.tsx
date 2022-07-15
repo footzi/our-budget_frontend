@@ -1,3 +1,4 @@
+import { NotCategory } from '@/components/Card/NotCategory';
 import { CARD_TYPES } from '@/components/Card/constants';
 import { Section } from '@/components/Section';
 import { SAVING_ACTION_TYPE, SAVING_ACTION_TYPES_LIST } from '@/constants';
@@ -5,7 +6,7 @@ import { formatPrice } from '@/utils/formatPrice';
 import { formatToHumanDate } from '@/utils/formatToHumanDate';
 import CaretDownOutlined from '@ant-design/icons/CaretDownOutlined';
 import CaretUpOutlined from '@ant-design/icons/CaretUpOutlined';
-import { Button, DatePicker, Form, Input, InputNumber, List, Select, Typography } from 'antd';
+import { Button, DatePicker, Empty, Form, Input, InputNumber, List, Select, Typography } from 'antd';
 import { useForm } from 'antd/es/form/Form';
 import cx from 'classnames';
 import dayjs, { Dayjs } from 'dayjs';
@@ -122,6 +123,14 @@ export const Card: React.FC<CardProps> = ({
     [isLoadingSave, isShowDate]
   );
 
+  if (!categories?.length) {
+    return (
+      <Section title={title} className="card">
+        <NotCategory type={type} />
+      </Section>
+    );
+  }
+
   return (
     <>
       <Section title={title} className="card">
@@ -188,6 +197,7 @@ export const Card: React.FC<CardProps> = ({
         </Form>
 
         <List
+          locale={{ emptyText: <Empty description="Еще нет записей" /> }}
           dataSource={list}
           renderItem={(item) => (
             <List.Item onClick={() => handleItemClick(item)} className="card__list-item">

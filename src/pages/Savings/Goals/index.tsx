@@ -11,6 +11,10 @@ export const Goals: React.FC = () => {
 
   const goals = savingGoals.value ?? [];
 
+  if (!goals.length) {
+    return null;
+  }
+
   return (
     <div className="goals">
       {goals.map(({ name, value }) => (

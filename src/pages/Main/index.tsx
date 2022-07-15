@@ -2,6 +2,7 @@ import { PADDING_SIZE, Section } from '@/components/Section';
 import { ROUTES } from '@/constants/routes';
 import { useGetExpenses } from '@/hooks/useGetExpenses';
 import { useGetIncomes } from '@/hooks/useGetIncomes';
+import { Maybe } from '@/interfaces';
 import { Analytics } from '@/pages/Analytics';
 import { Facts } from '@/pages/Facts';
 import { Plans } from '@/pages/Plans';
@@ -13,8 +14,10 @@ import { Route, Routes } from 'react-router-dom';
 
 import './index.less';
 
+const currentDay = dayjs();
+
 export const Main: React.FC = () => {
-  const [selectedDate, setSelectedDate] = useState(dayjs());
+  const [selectedDate, setSelectedDate] = useState<Maybe<Dayjs>>(currentDay);
 
   const handleChangeMonth = (date: Dayjs) => setSelectedDate(date);
 
@@ -35,9 +38,9 @@ export const Main: React.FC = () => {
 
       <Routes>
         <Route path="" element={<Analytics />} />
-        <Route path={ROUTES.PLANS} element={<Plans selectedDate={selectedDate} />} />
-        <Route path={ROUTES.FACTS} element={<Facts selectedDate={selectedDate} />} />
-        <Route path={ROUTES.SAVINGS} element={<Savings date={selectedDate} />} />
+        <Route path={ROUTES.PLANS} element={<Plans selectedDate={selectedDate ?? currentDay} />} />
+        <Route path={ROUTES.FACTS} element={<Facts selectedDate={selectedDate ?? currentDay} />} />
+        <Route path={ROUTES.SAVINGS} element={<Savings date={selectedDate ?? currentDay} />} />
       </Routes>
     </div>
   );

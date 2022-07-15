@@ -1,7 +1,7 @@
 import { useRefetchCategories } from '@/api';
 import { PADDING_SIZE, Section } from '@/components/Section';
 import { Maybe } from '@/interfaces';
-import { Button, Table } from 'antd';
+import { Button, Empty, Table } from 'antd';
 import React, { useState } from 'react';
 
 import { CategoryModal } from './Modal';
@@ -60,8 +60,9 @@ export const Categories = () => {
       </Section>
 
       <div className="categories__tables">
-        <Section title="Расходные категории">
+        <Section title="Расходные категории" hideBorder>
           <Table
+            locale={{ emptyText: <Empty description="Еще нет категорий" /> }}
             dataSource={expense}
             pagination={false}
             onRow={(record) => {
@@ -74,8 +75,9 @@ export const Categories = () => {
           </Table>
         </Section>
 
-        <Section title="Доходные категории">
+        <Section title="Доходные категории" hideBorder>
           <Table
+            locale={{ emptyText: <Empty description="Еще нет категорий" /> }}
             dataSource={income}
             pagination={false}
             onRow={(record) => {

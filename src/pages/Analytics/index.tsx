@@ -1,5 +1,7 @@
+import { NotContent } from '@/components/NotContent';
 import { Section } from '@/components/Section';
 import { CATEGORIES_TYPES } from '@/constants';
+import { ROUTES } from '@/constants/routes';
 import { useAppSelector } from '@/store';
 import {
   ArcElement,
@@ -48,16 +50,19 @@ export const Analytics: React.FC = () => {
   const incomesPolar = useGetSumByCategories(CATEGORIES_TYPES.INCOME);
   const incomesPolarData = getDataPolar(incomesPolar);
 
+  const showIncomesPolar = incomesPolar.some((item) => item.sum);
+  const showExpensesPolar = expensesPolar.some((item) => item.sum);
+
   return (
     <div className="analytics">
       <div className="analytics__row">
         <div className="analytics__chart-bar">
-          <Section title="Расходы">
+          <Section title="Планируемые / фактические расходы">
             <Bar data={expensesData} options={options} />
           </Section>
         </div>
         <div className="analytics__chart-bar">
-          <Section title="Доходы">
+          <Section title="Планируемые / фактические доходы">
             <Bar data={incomesData} options={options} />
           </Section>
         </div>
@@ -65,14 +70,22 @@ export const Analytics: React.FC = () => {
 
       <div className="analytics__row">
         <div className="analytics__chart-polar">
-          <Section title="Расходы">
-            <Pie data={expensesPolarData} options={optionsPolar} />
+          <Section title="Фактические расходы">
+            {showExpensesPolar ? (
+              <Pie data={expensesPolarData} options={optionsPolar} />
+            ) : (
+              <NotContent text="Нет данных для отображения" to={ROUTES.FACTS} />
+            )}
           </Section>
         </div>
 
         <div className="analytics__chart-polar">
-          <Section title="Доходы">
-            <Pie data={incomesPolarData} options={optionsPolar} />
+          <Section title="Фактические доходы">
+            {showIncomesPolar ? (
+              <Pie data={incomesPolarData} options={optionsPolar} />
+            ) : (
+              <NotContent text="Нет данных для отображения" to={ROUTES.FACTS} />
+            )}
           </Section>
         </div>
       </div>

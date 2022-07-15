@@ -2,7 +2,7 @@ import { PADDING_SIZE, Section } from '@/components/Section';
 import { useLogout } from '@/components/UserWidget/hooks/useLogout';
 import { useAppSelector } from '@/store';
 import UserOutlined from '@ant-design/icons/UserOutlined';
-import { Avatar, Popover, Typography } from 'antd';
+import { Avatar, Popover } from 'antd';
 import React from 'react';
 
 import { Content } from './Content';
@@ -23,8 +23,8 @@ export const UserWidget = () => {
         content={<Content logout={logout} user={user} isLoading={isLoading} />}
         trigger="click"
         className="user-widget">
-        <Avatar icon={<UserOutlined />} size="small" />
-        <Typography.Text className="user-widget__name">{user.firstName}</Typography.Text>
+        <Avatar icon={<UserOutlined />} />
+        <span className="user-widget__name">{user.firstName}</span>
       </Popover>
     </Section>
   );
