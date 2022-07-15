@@ -123,7 +123,9 @@ export const Card: React.FC<CardProps> = ({
     [isLoadingSave, isShowDate]
   );
 
-  if (!categories?.length) {
+  const isShowNotContent = (categories && !categories.length) || (savingGoals && !savingGoals.length);
+
+  if (isShowNotContent) {
     return (
       <Section title={title} className="card">
         <NotCategory type={type} />

@@ -97,7 +97,7 @@ export const Plans: React.FC<PlansProps> = ({ selectedDate }) => {
   return (
     <div className="plans">
       <Card
-        title="Планые расходы"
+        title="Планируемые расходы"
         categories={categoriesExpenses}
         list={expensesList}
         total={expensesSum}
@@ -111,7 +111,7 @@ export const Plans: React.FC<PlansProps> = ({ selectedDate }) => {
       />
 
       <Card
-        title="Плановые доходы"
+        title="Планируемые доходы"
         categories={categoriesIncomes}
         list={incomesList}
         total={incomesSum}
