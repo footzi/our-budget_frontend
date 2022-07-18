@@ -9,6 +9,7 @@ import {
 } from '@/components/Card';
 import { CATEGORIES_TYPES } from '@/constants';
 import { useAppSelector } from '@/store';
+import { formatToBackendDate } from '@/utils/formatToBackendDate';
 import React, { useCallback, useMemo } from 'react';
 
 import { useAddFact } from './hooks/useAddFact';
@@ -40,9 +41,9 @@ export const Facts: React.FC<FactsProps> = ({ selectedDate }) => {
 
   const handleAdd = useCallback(
     async (type: CARD_TYPES, formBody: CardSaveBody) => {
-      const date = formBody.date ? formBody.date.format('YYYY-MM-DD') : selectedDate.format('YYYY-MM-DD');
-      const { value, categoryId } = formBody as CardAddBalancesBody;
-      const body = { date, value, categoryId };
+      const date = formBody.date ? formatToBackendDate(formBody.date) : formatToBackendDate(selectedDate);
+      const { value, categoryId, comment } = formBody as CardAddBalancesBody;
+      const body = { date, value, categoryId, comment };
 
       if (type === CARD_TYPES.INCOME_FACT) {
         await addIncome(body);
@@ -59,9 +60,9 @@ export const Facts: React.FC<FactsProps> = ({ selectedDate }) => {
 
   const handleUpdate = useCallback(
     async (type: CARD_TYPES, formBody: CardUpdateSaveBody) => {
-      const date = formBody.date ? formBody.date.format('YYYY-MM-DD') : selectedDate.format('YYYY-MM-DD');
-      const { id, value, categoryId } = formBody as CardUpdateBalancesBody;
-      const body = { id, date, value, categoryId };
+      const date = formBody.date ? formatToBackendDate(formBody.date) : formatToBackendDate(selectedDate);
+      const { id, value, categoryId, comment } = formBody as CardUpdateBalancesBody;
+      const body = { id, date, value, categoryId, comment };
 
       if (type === CARD_TYPES.INCOME_FACT) {
         await updateIncome(body);

@@ -1,6 +1,6 @@
 import { CARD_TYPES, CardUpdateBalancesBody, CardUpdateSavingBody } from '@/components/Card';
 import { SubmitHiddenButton } from '@/components/SubmitHiddenButton';
-import { SAVING_ACTION_TYPE, SAVING_ACTION_TYPES_LIST } from '@/constants';
+import { FORMAT_UI_DATE, SAVING_ACTION_TYPE, SAVING_ACTION_TYPES_LIST } from '@/constants';
 import { Button, DatePicker, Form, Input, InputNumber, Modal, Popconfirm, Select } from 'antd';
 import { useForm } from 'antd/es/form/Form';
 import dayjs, { Dayjs } from 'dayjs';
@@ -117,7 +117,7 @@ export const CardModal: React.FC<CardModalProps> = ({
         <Form layout="vertical" onFinish={handleSubmit} form={form} preserve={false}>
           {isShowDate && (
             <Form.Item name="date" label="Дата" rules={[{ required: true, message: 'Выберите дату' }]}>
-              <DatePicker picker="date" />
+              <DatePicker picker="date" format={FORMAT_UI_DATE} />
             </Form.Item>
           )}
 

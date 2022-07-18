@@ -27,3 +27,6 @@ export const SAVING_ACTION_TYPES_LIST = [
     text: 'Вынуть',
   },
 ];
+
+export const FORMAT_UI_DATE = 'DD.MM.YYYY';
+export const FORMAT_BACKEND_DATE = 'YYYY-MM-DDTHH:mm:ss';

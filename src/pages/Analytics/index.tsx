@@ -57,12 +57,12 @@ export const Analytics: React.FC = () => {
     <div className="analytics">
       <div className="analytics__row">
         <div className="analytics__chart-bar">
-          <Section title="Планируемые / фактические расходы">
+          <Section title="Расходы">
             <Bar data={expensesData} options={options} />
           </Section>
         </div>
         <div className="analytics__chart-bar">
-          <Section title="Планируемые / фактические доходы">
+          <Section title="Доходы">
             <Bar data={incomesData} options={options} />
           </Section>
         </div>

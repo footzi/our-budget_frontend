@@ -9,6 +9,7 @@ import {
 } from '@/components/Card';
 import { CATEGORIES_TYPES } from '@/constants';
 import { useAppSelector } from '@/store';
+import { formatToBackendDate } from '@/utils/formatToBackendDate';
 import React, { useCallback, useMemo } from 'react';
 
 import { useAddPlan } from './hooks/useAddPlan';
@@ -40,7 +41,7 @@ export const Plans: React.FC<PlansProps> = ({ selectedDate }) => {
 
   const handleAdd = useCallback(
     async (type: CARD_TYPES, formBody: CardSaveBody) => {
-      const date = selectedDate.format('YYYY-MM-DD');
+      const date = formatToBackendDate(selectedDate);
       const { value, categoryId } = formBody as CardAddBalancesBody;
       const body = { date, value, categoryId };
 
@@ -57,7 +58,7 @@ export const Plans: React.FC<PlansProps> = ({ selectedDate }) => {
 
   const handleUpdate = useCallback(
     async (type: CARD_TYPES, formBody: CardUpdateSaveBody) => {
-      const date = selectedDate.format('YYYY-MM-DD');
+      const date = formatToBackendDate(selectedDate);
       const { id, value, categoryId } = formBody as CardUpdateBalancesBody;
       const body = { id, date, value, categoryId };
 

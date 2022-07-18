@@ -1,7 +1,7 @@
 import { NotCategory } from '@/components/Card/NotCategory';
 import { CARD_TYPES } from '@/components/Card/constants';
 import { Section } from '@/components/Section';
-import { SAVING_ACTION_TYPE, SAVING_ACTION_TYPES_LIST } from '@/constants';
+import { FORMAT_UI_DATE, SAVING_ACTION_TYPE, SAVING_ACTION_TYPES_LIST } from '@/constants';
 import { formatPrice } from '@/utils/formatPrice';
 import { formatToHumanDate } from '@/utils/formatToHumanDate';
 import CaretDownOutlined from '@ant-design/icons/CaretDownOutlined';
@@ -140,7 +140,7 @@ export const Card: React.FC<CardProps> = ({
           <div className="card__form-control">
             {isShowDate && (
               <Form.Item name="date" rules={[{ required: true, message: 'Выберите дату' }]}>
-                <DatePicker picker="date" format="DD.MM.YYYY" />
+                <DatePicker picker="date" format={FORMAT_UI_DATE} />
               </Form.Item>
             )}
 
@@ -189,7 +189,7 @@ export const Card: React.FC<CardProps> = ({
             </Form.Item>
           )}
 
-          {(type === CARD_TYPES.INCOME_FACT || type === CARD_TYPES.SAVINGS_FACT) && (
+          {isShowComment && (
             <Form.Item name="comment" label="Комментарий:">
               <Input.TextArea />
             </Form.Item>

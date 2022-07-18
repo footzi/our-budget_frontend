@@ -8,6 +8,7 @@ import {
   UpdateSaveBody,
 } from '@/components/Card';
 import { useAppSelector } from '@/store';
+import { formatToBackendDate } from '@/utils/formatToBackendDate';
 import React, { useCallback } from 'react';
 
 import { Goals } from './Goals';
@@ -38,11 +39,11 @@ export const Savings: React.FC<SavingsProps> = ({ date }) => {
       const { value, goalId, comment, actionType } = body as CardAddSavingBody;
 
       if (type === CARD_TYPES.SAVINGS_FACT && body.date) {
-        await addFact({ date: body.date.format('YYYY-MM-DD'), goalId, comment, value, actionType });
+        await addFact({ date: formatToBackendDate(body.date), goalId, comment, value, actionType });
         refetchSavingGoals();
         refetchBalance();
       } else {
-        await addPlan({ date: date.format('YYYY-MM-DD'), goalId, comment, value, actionType });
+        await addPlan({ date: formatToBackendDate(date), goalId, comment, value, actionType });
       }
 
       refetch();
@@ -55,11 +56,11 @@ export const Savings: React.FC<SavingsProps> = ({ date }) => {
       const { id, value, goalId, comment, actionType } = body as CardUpdateSavingBody;
 
       if (type === CARD_TYPES.SAVINGS_FACT && body.date) {
-        await updateFact({ date: body.date.format('YYYY-MM-DD'), id, value, goalId, comment, actionType });
+        await updateFact({ date: formatToBackendDate(body.date), id, value, goalId, comment, actionType });
         refetchSavingGoals();
         refetchBalance();
       } else {
-        await updatePlan({ date: date.format('YYYY-MM-DD'), id, value, goalId, comment, actionType });
+        await updatePlan({ date: formatToBackendDate(date), id, value, goalId, comment, actionType });
       }
 
       refetch();
