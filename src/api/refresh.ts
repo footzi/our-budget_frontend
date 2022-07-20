@@ -33,9 +33,11 @@ export const refreshAuthLogic = async (failedRequest: AxiosError): Promise<void 
       }
       return Promise.resolve();
     } else {
+      LocalStorage.remove(LocalStorageItems.USER);
       return Promise.reject();
     }
   } catch (e) {
+    LocalStorage.remove(LocalStorageItems.USER);
     return Promise.reject();
   }
 };

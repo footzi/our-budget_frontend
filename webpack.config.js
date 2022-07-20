@@ -5,6 +5,7 @@ const path = require('path');
 const Dotenv = require('dotenv-webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = (env) => {
   const isProduction = env.production;
@@ -89,7 +90,7 @@ module.exports = (env) => {
     },
     devServer: {
       static: {
-        directory: path.join(__dirname, './'),
+        directory: path.join(__dirname, './public'),
       },
       client: {
         overlay: false,
@@ -107,6 +108,9 @@ module.exports = (env) => {
       new MiniCssExtractPlugin({
         filename: '[name].css',
         chunkFilename: '[id].css',
+      }),
+      new CopyPlugin({
+        patterns: [{ from: './public', to: './' }],
       }),
     ],
     devtool: 'source-map',

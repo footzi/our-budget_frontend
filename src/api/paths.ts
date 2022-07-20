@@ -19,6 +19,11 @@ export const ApiConfig: { [key: string]: ApiConfigItem } = {
   user: {
     url: '/api/users',
     json: '/json/user.json',
+    refetch: REFETCHES_LIST.USER,
+  },
+  updateUser: {
+    url: '/api/users',
+    method: 'PUT',
   },
   categories: {
     url: '/api/categories/getAll',
@@ -102,6 +107,11 @@ export const ApiConfig: { [key: string]: ApiConfigItem } = {
   },
   balance: {
     url: '/api/balance',
+    refetch: REFETCHES_LIST.BALANCES,
+  },
+  updateBalance: {
+    url: '/api/balance',
+    method: 'PUT',
     refetch: REFETCHES_LIST.BALANCES,
   },
   savingGoals: {

@@ -1,3 +1,5 @@
+import { ConfigProvider } from 'antd';
+import locale from 'antd/es/locale/ru_RU';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ru';
 import React from 'react';
@@ -19,7 +21,9 @@ if (container) {
   root.render(
     <Provider store={store}>
       <BrowserRouter>
-        <App />
+        <ConfigProvider locale={locale}>
+          <App />
+        </ConfigProvider>
       </BrowserRouter>
     </Provider>
   );

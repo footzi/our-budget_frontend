@@ -28,9 +28,7 @@ export const CardModal: React.FC<CardModalProps> = ({
 
   const [isValidForm, setIsValidForm] = useState(false);
 
-  const handleOk = () => {
-    form.submit();
-  };
+  const handleOk = useCallback(() => form.submit(), [form]);
 
   const handleSubmit = async (form: {
     date: Dayjs;

@@ -1,6 +1,7 @@
 import { MainLoader } from '@/components/MainLoader';
 import { SignUpForm } from '@/components/SignUpForm';
 import { ROUTES } from '@/constants/routes';
+import { useGetFirstLoading } from '@/hooks/useGetFirstLoading';
 import { useGetUser } from '@/hooks/useGetUser';
 import { Layout } from '@/pages/Layout';
 import React from 'react';
@@ -11,8 +12,9 @@ import { RequireAuth } from './components/RequireAuth';
 
 export const App = () => {
   const { isLoading } = useGetUser();
+  const isFirstLoading = useGetFirstLoading([isLoading]);
 
-  if (isLoading) {
+  if (isFirstLoading) {
     return <MainLoader />;
   }
 

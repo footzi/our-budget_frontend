@@ -1,0 +1,4 @@
+export enum PROFILE_ITEM_TYPES {
+  FIRST_NAME = 'FIRST_NAME',
+  BALANCE = 'BALANCE',
+}

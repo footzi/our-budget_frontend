@@ -31,9 +31,9 @@ export const Main: React.FC = () => {
       <div className="main__top">
         <Section paddingSize={PADDING_SIZE.SMALL}>
           {/*// @ts-ignore */}
-          <DatePicker onChange={handleChangeMonth} picker="month" value={selectedDate} format="MM.YYYY" />
-          {isLoading && <Spin size="small" />}
+          <DatePicker onChange={handleChangeMonth} picker="month" value={selectedDate} format="MMMM.YYYY" />
         </Section>
+        {isLoading && <Spin size="small" />}
       </div>
 
       <Routes>
