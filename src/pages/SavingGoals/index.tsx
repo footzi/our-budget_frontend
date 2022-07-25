@@ -1,5 +1,5 @@
 import { useRefetchSavingGoals } from '@/api';
-import { PADDING_SIZE, Section } from '@/components/Section';
+import { Section } from '@/components/Section';
 import { Maybe } from '@/interfaces';
 import { Button, Empty, Table } from 'antd';
 import React, { useState } from 'react';
@@ -53,9 +53,9 @@ export const SavingGoals = () => {
 
   return (
     <div className="saving-goal">
-      <Section className="saving-goal__create-button" paddingSize={PADDING_SIZE.SMALL}>
-        <Button onClick={handleOpenModal}>Создать новую копилку</Button>
-      </Section>
+      <Button onClick={handleOpenModal} type="primary" className="saving-goal__create-button">
+        Создать копилку
+      </Button>
 
       <Section className="saving-goal__table">
         <Table

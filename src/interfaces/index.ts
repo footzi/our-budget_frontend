@@ -30,6 +30,8 @@ export interface Income {
   date: string;
 }
 
+export type Item = Income | Expense;
+
 export interface Balance {
   common: number;
 }

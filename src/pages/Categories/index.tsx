@@ -1,5 +1,6 @@
 import { useRefetchCategories } from '@/api';
-import { PADDING_SIZE, Section } from '@/components/Section';
+import { Section } from '@/components/Section';
+import { CATEGORIES_TYPES } from '@/constants';
 import { Maybe } from '@/interfaces';
 import { Button, Empty, Table } from 'antd';
 import React, { useState } from 'react';
@@ -17,6 +18,7 @@ import { CategoryAddBody, CategoryRender, CategoryUpdateBody } from './interface
  */
 export const Categories = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const [modalType, setIsModalType] = useState<CATEGORIES_TYPES>(CATEGORIES_TYPES.INCOME);
   const [editedCategory, setEditedCategory] = useState<Maybe<CategoryRender>>(null);
   const refetchCategories = useRefetchCategories();
 
@@ -25,7 +27,11 @@ export const Categories = () => {
   const { update, isLoading: isLoadingUpdateCategory } = useUpdateCategory();
   const { remove, isLoading: isLoadingDelete } = useDeleteCategory();
 
-  const handleOpenModal = () => setIsOpenModal(true);
+  const handleOpenModal = (type: CATEGORIES_TYPES) => {
+    setIsModalType(type);
+    setIsOpenModal(true);
+  };
+
   const handleCloseModal = () => {
     setIsOpenModal(false);
     setEditedCategory(null);
@@ -55,44 +61,59 @@ export const Categories = () => {
 
   return (
     <div className="categories">
-      <Section className="categories__create-button" paddingSize={PADDING_SIZE.SMALL}>
-        <Button onClick={handleOpenModal}>Создать новую категорию</Button>
-      </Section>
-
       <div className="categories__tables">
-        <Section title="Расходные категории" hideBorder>
-          <Table
-            locale={{ emptyText: <Empty description="Еще нет категорий" /> }}
-            dataSource={expense}
-            pagination={false}
-            onRow={(record) => {
-              return {
-                onClick: () => handleEdit(record),
-              };
-            }}>
-            <Table.Column title="Название" dataIndex="name" key="name" />
-            <Table.Column title="Период" dataIndex="period" key="period" />
-          </Table>
-        </Section>
+        <div>
+          <Button
+            onClick={() => handleOpenModal(CATEGORIES_TYPES.EXPENSE)}
+            type="primary"
+            className="categories__create-button">
+            Создать категорию
+          </Button>
 
-        <Section title="Доходные категории" hideBorder>
-          <Table
-            locale={{ emptyText: <Empty description="Еще нет категорий" /> }}
-            dataSource={income}
-            pagination={false}
-            onRow={(record) => {
-              return {
-                onClick: () => handleEdit(record),
-              };
-            }}>
-            <Table.Column title="Название" dataIndex="name" key="name" />
-            <Table.Column title="Период" dataIndex="period" key="period" />
-          </Table>
-        </Section>
+          <Section title="Расходные категории" hideBorder>
+            <Table
+              locale={{ emptyText: <Empty description="Еще нет категорий" /> }}
+              dataSource={expense}
+              pagination={false}
+              onRow={(record) => {
+                return {
+                  onClick: () => handleEdit(record),
+                };
+              }}>
+              <Table.Column title="Название" dataIndex="name" key="name" />
+              <Table.Column title="Период" dataIndex="period" key="period" />
+            </Table>
+          </Section>
+        </div>
+
+        <div>
+          <Button
+            onClick={() => handleOpenModal(CATEGORIES_TYPES.INCOME)}
+            type="primary"
+            className="categories__create-button">
+            Создать категорию
+          </Button>
+
+          <Section title="Доходные категории" hideBorder>
+            <Table
+              locale={{ emptyText: <Empty description="Еще нет категорий" /> }}
+              dataSource={income}
+              pagination={false}
+              onRow={(record) => {
+                return {
+                  onClick: () => handleEdit(record),
+                };
+              }}>
+              <Table.Column title="Название" dataIndex="name" key="name" />
+              <Table.Column title="Период" dataIndex="period" key="period" />
+            </Table>
+          </Section>
+        </div>
       </div>
 
       <CategoryModal
         isShow={isOpenModal}
+        type={modalType}
         editedCategory={editedCategory}
         onAdd={handleAddModal}
         onUpdate={handleUpdateModal}

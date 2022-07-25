@@ -1,24 +1,13 @@
 .analytics {
-
   &__row {
     width: 100%;
     margin-bottom: 24px;
-    display: flex;
+    display: grid;
+    grid-column-gap: 48px;
+    grid-template-columns: 1fr 1fr;
   }
 
-  &__chart-bar {
-    flex: 0 0 40%;
-
-    &:last-child {
-      margin-left: 48px;
-    }
-  }
-
-  &__chart-polar {
-    flex: 0 0 40%;
-
-    &:last-child {
-      margin-left: 48px;
-    }
+  &__row_full {
+    width: 100%;
   }
 }

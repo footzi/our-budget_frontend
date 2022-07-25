@@ -17,6 +17,7 @@ import {
 import React from 'react';
 import { Bar, Pie } from 'react-chartjs-2';
 
+import { CategoriesAnalytics } from './Categories';
 import { useGetSumByCategories } from './hooks/useGetSumByCategories';
 import './index.less';
 import { getData } from './utils/getData';
@@ -56,38 +57,34 @@ export const Analytics: React.FC = () => {
   return (
     <div className="analytics">
       <div className="analytics__row">
-        <div className="analytics__chart-bar">
-          <Section title="Расходы">
-            <Bar data={expensesData} options={options} />
-          </Section>
-        </div>
-        <div className="analytics__chart-bar">
-          <Section title="Доходы">
-            <Bar data={incomesData} options={options} />
-          </Section>
-        </div>
+        <Section title="Расходы">
+          <Bar data={expensesData} options={options} />
+        </Section>
+        <Section title="Доходы">
+          <Bar data={incomesData} options={options} />
+        </Section>
       </div>
 
       <div className="analytics__row">
-        <div className="analytics__chart-polar">
-          <Section title="Фактические расходы">
-            {showExpensesPolar ? (
-              <Pie data={expensesPolarData} options={optionsPolar} />
-            ) : (
-              <NotContent text="Нет данных для отображения" to={ROUTES.FACTS} />
-            )}
-          </Section>
-        </div>
+        <Section title="Фактические расходы">
+          {showExpensesPolar ? (
+            <Pie data={expensesPolarData} options={optionsPolar} />
+          ) : (
+            <NotContent text="Нет данных для отображения" to={ROUTES.FACTS} />
+          )}
+        </Section>
 
-        <div className="analytics__chart-polar">
-          <Section title="Фактические доходы">
-            {showIncomesPolar ? (
-              <Pie data={incomesPolarData} options={optionsPolar} />
-            ) : (
-              <NotContent text="Нет данных для отображения" to={ROUTES.FACTS} />
-            )}
-          </Section>
-        </div>
+        <Section title="Фактические доходы">
+          {showIncomesPolar ? (
+            <Pie data={incomesPolarData} options={optionsPolar} />
+          ) : (
+            <NotContent text="Нет данных для отображения" to={ROUTES.FACTS} />
+          )}
+        </Section>
+      </div>
+
+      <div className="analytics__row_full">
+        <CategoriesAnalytics />
       </div>
     </div>
   );

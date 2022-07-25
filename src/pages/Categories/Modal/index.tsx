@@ -1,5 +1,6 @@
 import { SubmitHiddenButton } from '@/components/SubmitHiddenButton';
 import { CATEGORIES_TYPES, CATEGORIES_TYPES_LIST } from '@/constants';
+import { getModalTitle } from '@/pages/Categories/Modal/utils/getModalTitle';
 import { Button, DatePicker, Form, Input, Modal, Popconfirm, Select, Switch } from 'antd';
 import { useForm } from 'antd/es/form/Form';
 import dayjs, { Dayjs } from 'dayjs';
@@ -10,6 +11,7 @@ import { CategoryModalProps } from './interfaces';
 export const CategoryModal: React.FC<CategoryModalProps> = ({
   isShow,
   editedCategory,
+  type,
   onAdd,
   onUpdate,
   onCancel,
@@ -26,14 +28,14 @@ export const CategoryModal: React.FC<CategoryModalProps> = ({
   };
 
   const handleSubmit = (form: { name: string; type: CATEGORIES_TYPES; period: [Dayjs, Dayjs] }) => {
-    const { name, type, period } = form;
+    const { name, type: updatedType, period } = form;
 
     if (isLoading) {
       return;
     }
 
     if (editedCategory?.id) {
-      onUpdate({ name, type, period, id: editedCategory.id });
+      onUpdate({ name, type: updatedType, period, id: editedCategory.id });
     } else {
       onAdd({ name, type, period });
     }
@@ -76,7 +78,7 @@ export const CategoryModal: React.FC<CategoryModalProps> = ({
     }
   }, [isShow, form, editedCategory]);
 
-  const title = editedCategory ? `Редактирование категории "${editedCategory.name}"` : 'Новая категории';
+  const title = getModalTitle(editedCategory, type);
 
   return (
     <Modal
@@ -93,15 +95,17 @@ export const CategoryModal: React.FC<CategoryModalProps> = ({
           <Input />
         </Form.Item>
 
-        <Form.Item label="Тип" name="type" rules={[{ required: true, message: 'Выберите тип' }]}>
-          <Select>
-            {CATEGORIES_TYPES_LIST.map((item) => (
-              <Select.Option value={item.type} key={item.type}>
-                {item.text}
-              </Select.Option>
-            ))}
-          </Select>
-        </Form.Item>
+        {editedCategory && (
+          <Form.Item label="Тип" name="type" rules={[{ required: true, message: 'Выберите тип' }]}>
+            <Select>
+              {CATEGORIES_TYPES_LIST.map((item) => (
+                <Select.Option value={item.type} key={item.type}>
+                  {item.text}
+                </Select.Option>
+              ))}
+            </Select>
+          </Form.Item>
+        )}
 
         <Form.Item label="Временная категория" name="isCustomPeriod" valuePropName="checked">
           <Switch />

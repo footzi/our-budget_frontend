@@ -1,3 +1,4 @@
+import { CATEGORIES_TYPES } from '@/constants';
 import { Maybe } from '@/interfaces';
 
 import { CategoryAddBody, CategoryRender, CategoryUpdateBody } from '../interfaces';
@@ -5,6 +6,7 @@ import { CategoryAddBody, CategoryRender, CategoryUpdateBody } from '../interfac
 export interface CategoryModalProps {
   isShow: boolean;
   editedCategory: Maybe<CategoryRender>;
+  type: CATEGORIES_TYPES;
   onAdd(body: CategoryAddBody): void;
   onUpdate(body: CategoryUpdateBody): void;
   onCancel(): void;
