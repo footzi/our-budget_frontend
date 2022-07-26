@@ -9,7 +9,8 @@
     "lint": "tsc && eslint --ext .js,.jsx,.ts,.tsx src/",
     "lint:fix": "eslint --fix --ext .js,.jsx,.ts,.tsx src/",
     "test": "jest",
-    "upgrade": "npm-upgrade"
+    "upgrade": "npm-upgrade",
+    "bundle-analyze": "webpack --mode=production --profile --json > stats.json && webpack-bundle-analyzer stats.json"
   },
   "keywords": [],
   "author": "",
@@ -69,6 +70,7 @@
     "npm-upgrade": "3.1.0",
     "ts-loader": "9.3.0",
     "typescript": "4.7.4",
-    "typescript-plugin-css-modules": "3.4.0"
+    "typescript-plugin-css-modules": "3.4.0",
+    "webpack-bundle-analyzer": "4.5.0"
   }
 }

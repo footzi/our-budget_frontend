@@ -1,4 +1,5 @@
 import { ConfigProvider } from 'antd';
+import 'antd/dist/antd.less';
 import locale from 'antd/es/locale/ru_RU';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ru';
@@ -9,7 +10,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 import { App } from './App';
 import { store } from './store';
-import './styles/index.less';
+import './styles/default.less';
 
 dayjs.locale('ru_RU');
 

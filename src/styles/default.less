@@ -1,0 +1,25 @@
+@import './index.less';
+
+body {
+  background-color: @gray-3;
+}
+
+.ant-modal-content {
+  border-radius: @border-radius-main;
+
+  .ant-modal-header {
+    border-radius: @border-radius-main @border-radius-main 0 0;
+  }
+}
+
+.ant-table-tbody {
+  .ant-table-row:last-child {
+    .ant-table-cell {
+      border-bottom: none;
+    }
+  }
+}
+
+.ant-input-number {
+  width: 100%;
+}
