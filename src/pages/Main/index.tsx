@@ -2,6 +2,7 @@ import { PADDING_SIZE, Section } from '@/components/Section';
 import { ROUTES } from '@/constants/routes';
 import { useGetExpenses } from '@/hooks/useGetExpenses';
 import { useGetIncomes } from '@/hooks/useGetIncomes';
+import { useGetSavings } from '@/hooks/useGetSavings';
 import { Maybe } from '@/interfaces';
 import { Analytics } from '@/pages/Analytics';
 import { Facts } from '@/pages/Facts';
@@ -23,8 +24,9 @@ export const Main: React.FC = () => {
 
   const { isLoading: isLoadingGetExpenses } = useGetExpenses(selectedDate);
   const { isLoading: isLoadingGetIncomes } = useGetIncomes(selectedDate);
+  const { isLoading: isLoadingGetSavings } = useGetSavings(selectedDate);
 
-  const isLoading = isLoadingGetExpenses || isLoadingGetIncomes;
+  const isLoading = isLoadingGetExpenses || isLoadingGetIncomes || isLoadingGetSavings;
 
   return (
     <div className="main">

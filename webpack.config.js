@@ -106,7 +106,7 @@ module.exports = (env) => {
       new HtmlWebpackPlugin({ template: './src/index.html' }),
       new AntdDayjsWebpackPlugin(),
       new MiniCssExtractPlugin({
-        filename: '[name].css',
+        filename: '[id].[name].css',
         chunkFilename: '[id].css',
       }),
       new CopyPlugin({

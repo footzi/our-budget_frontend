@@ -18,6 +18,7 @@ import React from 'react';
 import { Bar, Pie } from 'react-chartjs-2';
 
 import { CategoriesAnalytics } from './Categories';
+import { SavingsAnalytics } from './Savings';
 import { useGetSumByCategories } from './hooks/useGetSumByCategories';
 import './index.less';
 import { getData } from './utils/getData';
@@ -85,6 +86,10 @@ export const Analytics: React.FC = () => {
 
       <div className="analytics__row_full">
         <CategoriesAnalytics />
+      </div>
+
+      <div className="analytics__row_full">
+        <SavingsAnalytics />
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import { useRefetchBalance, useRefetchSavingGoals } from '@/api';
+import { useRefetchBalance, useRefetchSavingGoals, useRefetchSavings } from '@/api';
 import {
   CARD_TYPES,
   Card,
@@ -14,14 +14,14 @@ import React, { useCallback } from 'react';
 import { Goals } from './Goals';
 import { useAddSaving } from './hooks/useAddSaving';
 import { useDeleteSaving } from './hooks/useDeleteSaving';
-import { useGetSavings } from './hooks/useGetSavings';
 import { useUpdateSaving } from './hooks/useUpdateSaving';
 import './index.less';
 import { SavingsProps } from './interfaces';
 
 export const Savings: React.FC<SavingsProps> = ({ date }) => {
-  const { savingGoals } = useAppSelector();
-  const { savings, refetch } = useGetSavings(date);
+  const { savingGoals, savings } = useAppSelector();
+
+  const refetchSavings = useRefetchSavings();
   const refetchSavingGoals = useRefetchSavingGoals();
   const refetchBalance = useRefetchBalance();
 
@@ -46,9 +46,9 @@ export const Savings: React.FC<SavingsProps> = ({ date }) => {
         await addPlan({ date: formatToBackendDate(date), goalId, comment, value, actionType });
       }
 
-      refetch();
+      refetchSavings();
     },
-    [date, refetchSavingGoals, addFact, addPlan, refetch, refetchBalance]
+    [date, refetchSavingGoals, addFact, addPlan, refetchSavings, refetchBalance]
   );
 
   const handleUpdate = useCallback(
@@ -63,9 +63,9 @@ export const Savings: React.FC<SavingsProps> = ({ date }) => {
         await updatePlan({ date: formatToBackendDate(date), id, value, goalId, comment, actionType });
       }
 
-      refetch();
+      refetchSavings();
     },
-    [date, refetchSavingGoals, refetch, updateFact, updatePlan, refetchBalance]
+    [date, refetchSavingGoals, refetchSavings, updateFact, updatePlan, refetchBalance]
   );
 
   const handleDelete = useCallback(
@@ -78,9 +78,9 @@ export const Savings: React.FC<SavingsProps> = ({ date }) => {
         await deletePlan(id);
       }
 
-      refetch();
+      refetchSavings();
     },
-    [refetchSavingGoals, refetch, deleteFact, deletePlan, refetchBalance]
+    [refetchSavingGoals, refetchSavings, deleteFact, deletePlan, refetchBalance]
   );
 
   const plan = savings?.plan?.list ?? [];

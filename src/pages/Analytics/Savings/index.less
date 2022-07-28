@@ -1,0 +1,47 @@
+@import '@/styles';
+
+.analytics-savings {
+  &__name {
+    width: 50%;
+  }
+
+  &__cell {
+    width: 16.6%;
+  }
+
+  &__diff {
+    color: @red-6;
+  }
+
+  &__diff_positive {
+    color: @green-6;
+  }
+
+  &__total {
+    display: grid;
+    grid-template-columns: 50% 16.6% 16.6% 16.6%;
+    border-top: 1px solid @gray-4;
+    padding: 16px 0;
+
+    &-name {
+      font-weight: bold;
+      font-size: 16px;
+      padding: 0 16px;
+    }
+
+    &-value {
+      padding: 0 16px;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    &-value-all {
+      color: @red-6;
+    }
+
+    &-value-all_positive {
+      color: @green-6;
+    }
+  }
+}
+

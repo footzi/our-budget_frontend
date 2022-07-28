@@ -70,7 +70,7 @@ export const Categories = () => {
             Создать категорию
           </Button>
 
-          <Section title="Расходные категории" hideBorder>
+          <Section title="Расходные категории">
             <Table
               locale={{ emptyText: <Empty description="Еще нет категорий" /> }}
               dataSource={expense}
@@ -94,7 +94,7 @@ export const Categories = () => {
             Создать категорию
           </Button>
 
-          <Section title="Доходные категории" hideBorder>
+          <Section title="Доходные категории">
             <Table
               locale={{ emptyText: <Empty description="Еще нет категорий" /> }}
               dataSource={income}

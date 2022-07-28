@@ -1,8 +1,8 @@
 import { CATEGORIES_TYPES } from '@/constants';
 
-import { formatToTableData } from './index';
+import { formatToTableCategoriesAnalytics } from './index';
 
-describe('Analytics.Categories.useGetCategoriesAnalytics.formatToTableData', () => {
+describe('Analytics.Categories.useGetCategoriesAnalytics.formatToTableCategoriesAnalytics', () => {
   it('Возвращает корректные данные', () => {
     const category = [
       {
@@ -141,6 +141,6 @@ describe('Analytics.Categories.useGetCategoriesAnalytics.formatToTableData', () 
       },
     ];
 
-    expect(formatToTableData(category, itemsPlan, itemsFact)).toEqual(expectedResult);
+    expect(formatToTableCategoriesAnalytics(category, itemsPlan, itemsFact)).toEqual(expectedResult);
   });
 });

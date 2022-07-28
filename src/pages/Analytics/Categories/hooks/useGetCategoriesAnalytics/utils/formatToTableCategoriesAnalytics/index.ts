@@ -6,7 +6,11 @@ import { AnalyticsCategoryRender } from '../../../../interfaces';
 /**
  * Преобразует данные для отображение в аналитике по категориям
  */
-export const formatToTableData = (categories: Category[], plans: Item[], facts: Item[]): AnalyticsCategoryRender[] => {
+export const formatToTableCategoriesAnalytics = (
+  categories: Category[],
+  plans: Item[],
+  facts: Item[]
+): AnalyticsCategoryRender[] => {
   return categories.map((category) => {
     const plan = calculateSumByCategory(category, plans);
     const fact = calculateSumByCategory(category, facts);

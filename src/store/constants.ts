@@ -36,4 +36,14 @@ export const initialState: State = {
       sum: 0,
     },
   },
+  savings: {
+    fact: {
+      list: [],
+      sum: 0,
+    },
+    plan: {
+      list: [],
+      sum: 0,
+    },
+  },
 };

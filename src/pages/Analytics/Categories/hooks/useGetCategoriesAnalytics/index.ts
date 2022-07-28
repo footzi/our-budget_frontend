@@ -2,7 +2,7 @@ import { CATEGORIES_TYPES } from '@/constants';
 import { useAppSelector } from '@/store';
 import { useMemo } from 'react';
 
-import { formatToTableData } from './utils/formatToTableData';
+import { formatToTableCategoriesAnalytics } from './utils/formatToTableCategoriesAnalytics';
 
 /**
  * Хук возвращает данные для отображения в аналитике по категориям
@@ -12,7 +12,7 @@ export const useGetCategoriesAnalytics = () => {
   const expensesCategories = categories.value.filter((category) => category.type === CATEGORIES_TYPES.EXPENSE);
 
   return useMemo(
-    () => formatToTableData(expensesCategories, expenses.plan.list, expenses.fact.list),
+    () => formatToTableCategoriesAnalytics(expensesCategories, expenses.plan.list, expenses.fact.list),
     [expenses.fact.list, expenses.plan.list, expensesCategories]
   );
 };

@@ -1,4 +1,4 @@
-import { Category, Expense, Income, Maybe, SavingGoal, User } from '@/interfaces';
+import { Category, Expense, Income, Maybe, Saving, SavingGoal, User } from '@/interfaces';
 
 import { store } from './index';
 
@@ -35,6 +35,16 @@ export interface State {
     };
     plan: {
       list: Income[];
+      sum: number;
+    };
+  };
+  savings: {
+    plan: {
+      list: Saving[];
+      sum: number;
+    };
+    fact: {
+      list: Saving[];
       sum: number;
     };
   };

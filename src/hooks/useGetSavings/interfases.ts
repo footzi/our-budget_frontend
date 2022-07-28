@@ -1,18 +1,16 @@
-import { Income, Maybe } from '@/interfaces';
+import { Saving } from '@/interfaces';
 
 export interface UseGetIncomesResult {
   isLoading: boolean;
-  savings: Maybe<SavingsResult>;
-  refetch: () => void;
 }
 
 export interface SavingsResult {
   plan: {
-    list: Income[];
+    list: Saving[];
     sum: number;
   };
   fact: {
-    list: Income[];
+    list: Saving[];
     sum: number;
   };
 }

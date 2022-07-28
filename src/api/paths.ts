@@ -135,6 +135,7 @@ export const ApiConfig: { [key: string]: ApiConfigItem } = {
   },
   savings: {
     url: '/api/savings/getAll',
+    refetch: REFETCHES_LIST.SAVINGS,
   },
   addSavingPlan: {
     url: '/api/savings/plan',

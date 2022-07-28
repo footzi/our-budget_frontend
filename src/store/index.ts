@@ -23,6 +23,9 @@ const slice = createSlice({
     setSavingGoals(state, action) {
       state.savingGoals = action.payload;
     },
+    setSavings(state, action) {
+      state.savings = action.payload;
+    },
     setExpensesFact(state, action) {
       state.expenses.fact = action.payload;
     },
@@ -44,6 +47,7 @@ export const {
   setBalance,
   setCategories,
   setSavingGoals,
+  setSavings,
   setExpensesFact,
   setExpensesPlan,
   setIncomesFact,

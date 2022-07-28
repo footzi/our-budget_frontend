@@ -46,7 +46,8 @@ export const CategoriesAnalytics = () => {
               'analytics-categories__diff_positive': diff.isPositive,
             });
             return <span className={cxDiff}>{formatPrice(diff.value)}</span>;
-          }}></Table.Column>
+          }}
+        />
       </Table>
     </Section>
   );
