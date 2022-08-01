@@ -14,6 +14,7 @@ import { useUpdateUser } from './hooks/useUpdateUser';
 import './index.less';
 import { ProfileEditableItem } from './interfaces';
 
+// @todo Переименовать на Settings
 export const Profile: React.FC = () => {
   const { user, balance } = useAppSelector();
   const [editableItem, setEditableItem] = useState<Maybe<ProfileEditableItem>>(null);

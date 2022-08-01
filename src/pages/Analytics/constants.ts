@@ -1,5 +1,5 @@
 export const LABELS = ['План', 'Факт'];
-export const COLORS = ['#adc6ff', '#d3adf7'];
+export const COLORS = ['#6D4BBF', '#4E8CE5'];
 
 export const POLAR_COLORS = [
   '#adc6ff',

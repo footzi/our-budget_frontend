@@ -5,4 +5,5 @@ export interface MenuItemProps {
   to: string;
   name: string;
   isActive: boolean;
+  isBorder?: boolean;
 }

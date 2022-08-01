@@ -1,3 +1,4 @@
+import { Typography } from 'antd';
 import cx from 'classnames';
 import React from 'react';
 
@@ -14,7 +15,11 @@ export const Section: React.FC<SectionProps> = ({ children, title, className, pa
 
   return (
     <section className={cxSection}>
-      {title && <div className="section__title">{title}</div>}
+      {title && (
+        <Typography.Title level={4} className="section__title">
+          {title}
+        </Typography.Title>
+      )}
       {children}
     </section>
   );

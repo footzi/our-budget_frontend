@@ -1,5 +1,6 @@
 import { useAppSelector } from '@/store';
 import { formatPrice } from '@/utils/formatPrice';
+import WalletOutlined from '@ant-design/icons/WalletOutlined';
 import { Typography } from 'antd';
 import React from 'react';
 
@@ -12,7 +13,8 @@ export const Balance: React.FC = () => {
 
   return (
     <div className="balance">
-      <Typography.Title level={5}>Текущий баланс:</Typography.Title>
+      <WalletOutlined />
+      <Typography.Text>Баланс</Typography.Text>
       <Typography.Title level={4}>{formatPrice(value)}</Typography.Title>
     </div>
   );

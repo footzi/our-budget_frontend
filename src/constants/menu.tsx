@@ -1,46 +1,49 @@
+import { Coins } from '@/components/Icons/Coins';
+import { ListCoins } from '@/components/Icons/ListCoins';
 import { ROUTES } from '@/constants/routes';
 import AimOutlined from '@ant-design/icons/AimOutlined';
-import CreditCardOutlined from '@ant-design/icons/CreditCardOutlined';
-import MoneyCollectOutlined from '@ant-design/icons/MoneyCollectOutlined';
-import PieChartOutlined from '@ant-design/icons/PieChartOutlined';
+import EditOutlined from '@ant-design/icons/EditOutlined';
+import LineChartOutlined from '@ant-design/icons/LineChartOutlined';
+import SettingOutlined from '@ant-design/icons/SettingOutlined';
 import UnorderedListOutlined from '@ant-design/icons/UnorderedListOutlined';
-import UserOutlined from '@ant-design/icons/UserOutlined';
 import React from 'react';
 
 export const MENU = [
   {
     to: ROUTES.MAIN,
     name: 'Аналитика',
-    icon: <PieChartOutlined />,
+    icon: <LineChartOutlined />,
   },
   {
     to: ROUTES.PLANS,
-    name: 'Планирование',
+    name: 'План',
     icon: <AimOutlined />,
   },
   {
     to: ROUTES.FACTS,
-    name: 'Факты',
-    icon: <CreditCardOutlined />,
+    name: 'Факт',
+    icon: <EditOutlined />,
   },
   {
     to: ROUTES.SAVINGS,
     name: 'Копилки',
-    icon: <MoneyCollectOutlined />,
+    icon: <Coins />,
+    isBorder: true,
   },
   {
     to: ROUTES.CATEGORIES,
-    name: 'Категории',
+    name: 'Список категорий',
     icon: <UnorderedListOutlined />,
   },
   {
     to: ROUTES.SAVING_GOALS,
     name: 'Список копилок',
-    icon: <MoneyCollectOutlined />,
+    icon: <ListCoins />,
+    isBorder: true,
   },
   {
-    to: ROUTES.PROFILE,
-    name: 'Профиль',
-    icon: <UserOutlined />,
+    to: ROUTES.SETTINGS,
+    name: 'Настройки',
+    icon: <SettingOutlined />,
   },
 ];

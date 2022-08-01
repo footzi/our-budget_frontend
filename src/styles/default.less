@@ -1,7 +1,32 @@
 @import './index.less';
 
+// @todo разобраться почему 400 и 500 выглдядят одинаков
+// @todo почему через style уходит много запросов
+//@font-face {
+//  font-display: swap;
+//  font-family: 'Roboto';
+//  src: url('/public/fonts/Roboto-Regular.woff2') format('woff2');
+//  font-weight: 400;
+//  font-style: normal;
+//}
+//
+//@font-face {
+//  font-display: swap;
+//  font-family: 'Roboto';
+//  src: url('/public/fonts/Roboto-Medium-2.woff2') format('woff2');
+//  font-weight: 500;
+//  font-style: normal;
+//}
+
 body {
-  background-color: @gray-3;
+  background-color: @background;
+  font-family: 'Roboto', sans-serif;
+  color: @ash;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  //font-weight: 500 !important;
+  //color: @ash !important;
 }
 
 .ant-modal-content {
@@ -22,4 +47,16 @@ body {
 
 .ant-input-number {
   width: 100%;
+}
+
+.ant-select-item-option-selected {
+  font-weight: 500 !important;
+}
+
+.ant-table-thead > tr > th {
+  background-color: @gray-3 !important;
+}
+
+.ant-table-cell-row-hover {
+  background-color: @gray-4 !important;
 }

@@ -40,7 +40,7 @@ export const Layout = () => {
             <Route path="/*" element={<Main />} />
             <Route path={ROUTES.CATEGORIES} element={<Categories />} />
             <Route path={ROUTES.SAVING_GOALS} element={<SavingGoals />} />
-            <Route path={ROUTES.PROFILE} element={<Profile />} />
+            <Route path={ROUTES.SETTINGS} element={<Profile />} />
           </Routes>
         </main>
       </div>

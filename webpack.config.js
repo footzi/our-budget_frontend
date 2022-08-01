@@ -70,15 +70,30 @@ module.exports = (env) => {
               options: {
                 lessOptions: {
                   modifyVars: {
-                    'primary-color': '#531dab',
+                    'primary-color': '#6D4BBF',
                     'control-border-radius': '4px',
                     'border-radius-base': '4px',
+                    'text-color': '#414141',
+                    'table-header-color': '#414141',
+                    'modal-heading-color': '#414141',
+                    'label-color': '#414141',
+                    'typography-title-font-weight': 500,
                   },
                   javascriptEnabled: true,
                 },
               },
             },
           ],
+        },
+        {
+          test: /\.(woff2?|ttf|otf|eot|svg)$/,
+          exclude: /node_modules/,
+          loader: 'file-loader',
+          options: {
+            outputPath: './fonts/',
+            publicPath: '/fonts',
+            name: '[name].[ext]',
+          },
         },
       ],
     },
@@ -95,7 +110,6 @@ module.exports = (env) => {
       client: {
         overlay: false,
       },
-      hot: true,
       port: 3000,
       historyApiFallback: true,
     },

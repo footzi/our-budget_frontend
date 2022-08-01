@@ -1,14 +1,13 @@
-import { PADDING_SIZE, Section } from '@/components/Section';
+import { TopDatePicker } from '@/components/TopDatePicker';
 import { ROUTES } from '@/constants/routes';
 import { useGetExpenses } from '@/hooks/useGetExpenses';
 import { useGetIncomes } from '@/hooks/useGetIncomes';
 import { useGetSavings } from '@/hooks/useGetSavings';
-import { Maybe } from '@/interfaces';
 import { Analytics } from '@/pages/Analytics';
 import { Facts } from '@/pages/Facts';
 import { Plans } from '@/pages/Plans';
 import { Savings } from '@/pages/Savings';
-import { DatePicker, Spin } from 'antd';
+import { Spin } from 'antd';
 import dayjs, { Dayjs } from 'dayjs';
 import React, { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
@@ -18,7 +17,7 @@ import './index.less';
 const currentDay = dayjs();
 
 export const Main: React.FC = () => {
-  const [selectedDate, setSelectedDate] = useState<Maybe<Dayjs>>(currentDay);
+  const [selectedDate, setSelectedDate] = useState<Dayjs>(currentDay);
 
   const handleChangeMonth = (date: Dayjs) => setSelectedDate(date);
 
@@ -31,10 +30,7 @@ export const Main: React.FC = () => {
   return (
     <div className="main">
       <div className="main__top">
-        <Section paddingSize={PADDING_SIZE.SMALL}>
-          {/*// @ts-ignore */}
-          <DatePicker onChange={handleChangeMonth} picker="month" value={selectedDate} format="MMMM.YYYY" />
-        </Section>
+        <TopDatePicker onChange={handleChangeMonth} selectedDate={selectedDate} />
         {isLoading && <Spin size="small" />}
       </div>
 

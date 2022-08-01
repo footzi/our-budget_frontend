@@ -140,7 +140,7 @@ export const Card: React.FC<CardProps> = ({
           <div className="card__form-control">
             {isShowDate && (
               <Form.Item name="date" rules={[{ required: true, message: 'Выберите дату' }]}>
-                <DatePicker picker="date" format={FORMAT_UI_DATE} />
+                <DatePicker picker="date" format={FORMAT_UI_DATE} allowClear={false} />
               </Form.Item>
             )}
 

@@ -16,8 +16,6 @@ export const PageTitle: React.FC = () => {
     <h1 className="page-title">
       {menuItem.icon}
       {menuItem.name}
-      <span></span>
-      <span></span>
     </h1>
   );
 };

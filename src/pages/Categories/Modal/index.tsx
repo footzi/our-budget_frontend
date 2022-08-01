@@ -118,7 +118,7 @@ export const CategoryModal: React.FC<CategoryModalProps> = ({
             return (
               value && (
                 <Form.Item label="Период" name="period" rules={[{ required: true, message: 'Выберите даты' }]}>
-                  <DatePicker.RangePicker picker="month" format="MM.YYYY" />
+                  <DatePicker.RangePicker picker="month" format="MM.YYYY" allowClear={false} />
                 </Form.Item>
               )
             );

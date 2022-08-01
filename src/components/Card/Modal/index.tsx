@@ -115,7 +115,7 @@ export const CardModal: React.FC<CardModalProps> = ({
         <Form layout="vertical" onFinish={handleSubmit} form={form} preserve={false}>
           {isShowDate && (
             <Form.Item name="date" label="Дата" rules={[{ required: true, message: 'Выберите дату' }]}>
-              <DatePicker picker="date" format={FORMAT_UI_DATE} />
+              <DatePicker picker="date" format={FORMAT_UI_DATE} allowClear={false} />
             </Form.Item>
           )}
 

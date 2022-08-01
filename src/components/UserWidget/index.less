@@ -5,16 +5,18 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  padding-right: 24px;
+  background-color: @white;
+  border-radius: 50%;
+  box-shadow: @box-shadow-main;
 
-  &:hover {
-    .user-widget__name {
-      color: @primary-color !important;
-    }
+  svg {
+    transition: 0.3s all;
+    fill: @ash;
   }
 
-  &__name {
-    margin-left: 12px;
-    font-size: 16px;
+  &:hover {
+    svg {
+      fill: @flower;
+    }
   }
 }

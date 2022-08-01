@@ -7,5 +7,5 @@ export enum ROUTES {
   CATEGORIES = '/categories',
   SAVINGS = '/savings',
   SAVING_GOALS = '/savingGoals',
-  PROFILE = '/profile',
+  SETTINGS = '/settings',
 }

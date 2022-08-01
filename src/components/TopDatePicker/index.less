@@ -1,0 +1,33 @@
+@import '@/styles';
+
+.top-date-picker {
+  border-color: transparent;
+  padding: 0 8px;
+  width: 180px;
+
+  .ant-picker-input > input {
+    cursor: pointer;
+  }
+
+  .ant-picker-suffix {
+    svg {
+      transition: 0.3s fill;
+    }
+  }
+
+  &:hover,
+  &:focus {
+    border-color: transparent;
+    cursor: pointer;
+
+    .ant-picker-suffix {
+      svg {
+        fill: @flower;
+      }
+    }
+  }
+
+  &.ant-picker-focused {
+    box-shadow: none;
+  }
+}
