@@ -1,6 +1,7 @@
 import { useRefetchSavingGoals } from '@/api';
 import { Section } from '@/components/Section';
 import { Maybe } from '@/interfaces';
+import PlusOutlined from '@ant-design/icons/PlusOutlined';
 import { Button, Empty, Table } from 'antd';
 import React, { useState } from 'react';
 
@@ -53,11 +54,11 @@ export const SavingGoals = () => {
 
   return (
     <div className="saving-goal">
-      <Button onClick={handleOpenModal} type="primary" className="saving-goal__create-button">
-        Создать копилку
-      </Button>
+      <Section className="saving-goal__table" title="Копилки">
+        <Button onClick={handleOpenModal} className="saving-goal__create-button" icon={<PlusOutlined />}>
+          Создать копилку
+        </Button>
 
-      <Section className="saving-goal__table">
         <Table
           locale={{ emptyText: <Empty description="Еще нет копилок" /> }}
           dataSource={goals}

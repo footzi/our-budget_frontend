@@ -1,6 +1,6 @@
 import { SumByCategory } from '@/interfaces';
 
-import { POLAR_COLORS } from '../../constants';
+import { CATEGORY_COLORS } from '../../constants';
 
 export const getDataPolar = (items: SumByCategory[]) => {
   return {
@@ -8,7 +8,7 @@ export const getDataPolar = (items: SumByCategory[]) => {
     datasets: [
       {
         data: items.map((item) => item.sum),
-        backgroundColor: POLAR_COLORS,
+        backgroundColor: CATEGORY_COLORS,
       },
     ],
   };

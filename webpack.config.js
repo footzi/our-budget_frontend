@@ -6,6 +6,7 @@ const Dotenv = require('dotenv-webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+const antModifyVars = require('./src/styles/ant-modify-vars');
 
 module.exports = (env) => {
   const isProduction = env.production;
@@ -69,16 +70,7 @@ module.exports = (env) => {
               loader: 'less-loader',
               options: {
                 lessOptions: {
-                  modifyVars: {
-                    'primary-color': '#6D4BBF',
-                    'control-border-radius': '4px',
-                    'border-radius-base': '4px',
-                    'text-color': '#414141',
-                    'table-header-color': '#414141',
-                    'modal-heading-color': '#414141',
-                    'label-color': '#414141',
-                    'typography-title-font-weight': 500,
-                  },
+                  modifyVars: antModifyVars,
                   javascriptEnabled: true,
                 },
               },

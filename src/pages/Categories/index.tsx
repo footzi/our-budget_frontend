@@ -2,6 +2,7 @@ import { useRefetchCategories } from '@/api';
 import { Section } from '@/components/Section';
 import { CATEGORIES_TYPES } from '@/constants';
 import { Maybe } from '@/interfaces';
+import PlusOutlined from '@ant-design/icons/PlusOutlined';
 import { Button, Empty, Table } from 'antd';
 import React, { useState } from 'react';
 
@@ -62,53 +63,50 @@ export const Categories = () => {
   return (
     <div className="categories">
       <div className="categories__tables">
-        <div>
+        <Section title="Категории расходов">
           <Button
             onClick={() => handleOpenModal(CATEGORIES_TYPES.EXPENSE)}
             type="primary"
+            icon={<PlusOutlined />}
             className="categories__create-button">
-            Создать категорию
+            Создать категорию РАСХОДЫ
           </Button>
 
-          <Section title="Расходные категории">
-            <Table
-              locale={{ emptyText: <Empty description="Еще нет категорий" /> }}
-              dataSource={expense}
-              pagination={false}
-              onRow={(record) => {
-                return {
-                  onClick: () => handleEdit(record),
-                };
-              }}>
-              <Table.Column title="Название" dataIndex="name" key="name" />
-              <Table.Column title="Период" dataIndex="period" key="period" />
-            </Table>
-          </Section>
-        </div>
+          <Table
+            locale={{ emptyText: <Empty description="Еще нет категорий" /> }}
+            dataSource={expense}
+            pagination={false}
+            onRow={(record) => {
+              return {
+                onClick: () => handleEdit(record),
+              };
+            }}>
+            <Table.Column title="Название" dataIndex="name" key="name" />
+            <Table.Column title="Период" dataIndex="period" key="period" />
+          </Table>
+        </Section>
 
-        <div>
+        <Section title="Категории доходов">
           <Button
             onClick={() => handleOpenModal(CATEGORIES_TYPES.INCOME)}
-            type="primary"
+            icon={<PlusOutlined />}
             className="categories__create-button">
-            Создать категорию
+            Создать категорию ДОХОДЫ
           </Button>
 
-          <Section title="Доходные категории">
-            <Table
-              locale={{ emptyText: <Empty description="Еще нет категорий" /> }}
-              dataSource={income}
-              pagination={false}
-              onRow={(record) => {
-                return {
-                  onClick: () => handleEdit(record),
-                };
-              }}>
-              <Table.Column title="Название" dataIndex="name" key="name" />
-              <Table.Column title="Период" dataIndex="period" key="period" />
-            </Table>
-          </Section>
-        </div>
+          <Table
+            locale={{ emptyText: <Empty description="Еще нет категорий" /> }}
+            dataSource={income}
+            pagination={false}
+            onRow={(record) => {
+              return {
+                onClick: () => handleEdit(record),
+              };
+            }}>
+            <Table.Column title="Название" dataIndex="name" key="name" />
+            <Table.Column title="Период" dataIndex="period" key="period" />
+          </Table>
+        </Section>
       </div>
 
       <CategoryModal

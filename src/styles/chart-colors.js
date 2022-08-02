@@ -1,0 +1,20 @@
+module.exports = {
+  main: ['#6D4BBF', '#4E8CE5'],
+  categories: [
+    '#6D4BBF',
+    '#4E8CE5',
+    '#4EE5E5',
+    '#4EE59D',
+    '#90E54E',
+    '#E2E54E',
+    '#E5BB4E',
+    '#E57B4E',
+    '#E5574E',
+    '#E54E84',
+    '#E54ED6',
+    '#B54EE5',
+    '#7E4EE5',
+    '#5A4EE5',
+    '#4E6FE5',
+  ],
+};

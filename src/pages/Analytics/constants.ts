@@ -1,17 +1,6 @@
-export const LABELS = ['План', 'Факт'];
-export const COLORS = ['#6D4BBF', '#4E8CE5'];
+import chartColors from '@/styles/chart-colors';
 
-export const POLAR_COLORS = [
-  '#adc6ff',
-  '#d3adf7',
-  '#ffadd2',
-  '#91d5ff',
-  '#87e8de',
-  '#b7eb8f',
-  '#eaff8f',
-  '#fffb8f',
-  '#ffe58f',
-  '#ffd591',
-  '#ffbb96',
-  '#ffa39e',
-];
+export const LABELS = ['План', 'Факт'];
+
+export const MAIN_COLORS = chartColors.main;
+export const CATEGORY_COLORS = chartColors.categories;

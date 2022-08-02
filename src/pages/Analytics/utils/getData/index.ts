@@ -1,4 +1,4 @@
-import { COLORS, LABELS } from '../../constants';
+import { LABELS, MAIN_COLORS } from '../../constants';
 
 export const getData = (value: number[]) => {
   return {
@@ -6,7 +6,7 @@ export const getData = (value: number[]) => {
     datasets: [
       {
         data: value,
-        backgroundColor: COLORS,
+        backgroundColor: MAIN_COLORS,
       },
     ],
   };
