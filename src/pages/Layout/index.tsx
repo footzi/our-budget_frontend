@@ -9,8 +9,8 @@ import { useGetFirstLoading } from '@/hooks/useGetFirstLoading';
 import { useGetSavingGoals } from '@/hooks/useGetSavingGoals';
 import { Categories } from '@/pages/Categories';
 import { Main } from '@/pages/Main';
-import { Profile } from '@/pages/Profile';
 import { SavingGoals } from '@/pages/SavingGoals';
+import { Settings } from '@/pages/Settings';
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
@@ -40,7 +40,7 @@ export const Layout = () => {
             <Route path="/*" element={<Main />} />
             <Route path={ROUTES.CATEGORIES} element={<Categories />} />
             <Route path={ROUTES.SAVING_GOALS} element={<SavingGoals />} />
-            <Route path={ROUTES.SETTINGS} element={<Profile />} />
+            <Route path={ROUTES.SETTINGS} element={<Settings />} />
           </Routes>
         </main>
       </div>

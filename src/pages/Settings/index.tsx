@@ -1,7 +1,6 @@
 import { useRefetchBalance, useRefetchUser } from '@/api';
 import { Section } from '@/components/Section';
 import { Maybe } from '@/interfaces';
-import { useUpdateBalance } from '@/pages/Profile/hooks/useUpdateBalance';
 import { useAppSelector } from '@/store';
 import { formatPrice } from '@/utils/formatPrice';
 import EditOutlined from '@ant-design/icons/EditOutlined';
@@ -10,12 +9,12 @@ import React, { useCallback, useState } from 'react';
 
 import { ProfileModal } from './Modal';
 import { PROFILE_ITEM_TYPES } from './constants';
+import { useUpdateBalance } from './hooks/useUpdateBalance';
 import { useUpdateUser } from './hooks/useUpdateUser';
 import './index.less';
 import { ProfileEditableItem } from './interfaces';
 
-// @todo Переименовать на Settings
-export const Profile: React.FC = () => {
+export const Settings: React.FC = () => {
   const { user, balance } = useAppSelector();
   const [editableItem, setEditableItem] = useState<Maybe<ProfileEditableItem>>(null);
 

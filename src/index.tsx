@@ -1,7 +1,6 @@
 import { ConfigProvider } from 'antd';
 import 'antd/dist/antd.less';
 import locale from 'antd/es/locale/ru_RU';
-import dayjs from 'dayjs';
 import 'dayjs/locale/ru';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
@@ -9,10 +8,9 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
 import { App } from './App';
+import './dayjs-config';
 import { store } from './store';
 import './styles/default.less';
-
-dayjs.locale('ru_RU');
 
 const container = document.getElementById('root');
 

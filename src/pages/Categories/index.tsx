@@ -66,7 +66,6 @@ export const Categories = () => {
         <Section title="Категории расходов">
           <Button
             onClick={() => handleOpenModal(CATEGORIES_TYPES.EXPENSE)}
-            type="primary"
             icon={<PlusOutlined />}
             className="categories__create-button">
             Создать категорию РАСХОДЫ

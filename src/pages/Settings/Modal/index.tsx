@@ -1,9 +1,9 @@
 import { SubmitHiddenButton } from '@/components/SubmitHiddenButton';
-import { PROFILE_ITEM_TYPES } from '@/pages/Profile/constants';
 import { Form, Input, InputNumber, Modal } from 'antd';
 import { useForm } from 'antd/es/form/Form';
 import React, { useCallback, useEffect, useState } from 'react';
 
+import { PROFILE_ITEM_TYPES } from '../constants';
 import { ProfileModalProps } from './interfaces';
 
 export const ProfileModal: React.FC<ProfileModalProps> = ({ item, onCancel, onSubmit, isLoading }) => {

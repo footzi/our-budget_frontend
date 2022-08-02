@@ -1,7 +1,7 @@
 import { ApiConfig, useMutation } from '@/api';
-import { PROFILE_ITEM_TYPES } from '@/pages/Profile/constants';
 import { useCallback } from 'react';
 
+import { PROFILE_ITEM_TYPES } from '../../constants';
 import { UseUpdateUserBody, UseUpdateUserResult } from './interfaces';
 
 export const useUpdateUser = (): UseUpdateUserResult => {

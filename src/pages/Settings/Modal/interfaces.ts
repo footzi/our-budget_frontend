@@ -1,6 +1,6 @@
 import { Maybe } from '@/interfaces';
-import { PROFILE_ITEM_TYPES } from '@/pages/Profile/constants';
 
+import { PROFILE_ITEM_TYPES } from '../constants';
 import { ProfileEditableItem } from '../interfaces';
 
 export interface ProfileModalProps {
