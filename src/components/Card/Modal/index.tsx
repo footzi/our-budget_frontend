@@ -143,7 +143,7 @@ export const CardModal: React.FC<CardModalProps> = ({
             </Form.Item>
           )}
 
-          {(type === CARD_TYPES.SAVINGS_FACT || type === CARD_TYPES.SAVINGS_PLAN) && (
+          {type === CARD_TYPES.SAVINGS_PLAN && (
             <Form.Item
               name="actionType"
               rules={[{ required: true, message: 'Выберите действие' }]}

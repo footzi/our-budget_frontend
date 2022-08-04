@@ -3,27 +3,42 @@
 .card {
   &__form {
     margin-bottom: 12px !important;
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 24px;
   }
 
-  &__form-control {
-    display: flex;
+  &__form-date-picker {
+    width: 100px
+  }
 
-    .ant-form-item:not(:last-child) {
-      margin-right: 12px;
+  &__form-select {
+    width: 166px !important;
+    margin-right: auto;
+  }
+
+  &__form-price {
+    width: 166px;
+  }
+
+  &__form-comment {
+    width: 100%;
+  }
+
+  &_savings-layout {
+    .card__form-select {
+      margin-right: 0;
     }
 
-    .ant-picker {
-      width: 150px
-    }
-
-    .ant-select {
-      width: 200px !important;
+    .card__form-price {
+      margin-right: auto;
     }
   }
 
-  &__form-control-right {
-    margin-left: auto;
-    display: flex;
+  &_comment-layout {
+    .card__form-button {
+      margin-left: auto;
+    }
   }
 
   &__list-item {

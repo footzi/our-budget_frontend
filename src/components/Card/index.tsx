@@ -1,12 +1,12 @@
 import { NotCategory } from '@/components/Card/NotCategory';
 import { CARD_TYPES } from '@/components/Card/constants';
 import { Section } from '@/components/Section';
-import { FORMAT_UI_DATE, SAVING_ACTION_TYPE, SAVING_ACTION_TYPES_LIST } from '@/constants';
+import { FORMAT_UI_SHORT_DATE, SAVING_ACTION_TYPE, SAVING_ACTION_TYPES_LIST } from '@/constants';
 import { formatPrice } from '@/utils/formatPrice';
 import { formatToHumanDate } from '@/utils/formatToHumanDate';
 import CaretDownOutlined from '@ant-design/icons/CaretDownOutlined';
 import CaretUpOutlined from '@ant-design/icons/CaretUpOutlined';
-import { Button, DatePicker, Empty, Form, Input, InputNumber, List, Select, Typography } from 'antd';
+import { Button, DatePicker, Empty, Form, Input, InputNumber, List, Radio, Select, Typography } from 'antd';
 import { useForm } from 'antd/es/form/Form';
 import cx from 'classnames';
 import dayjs, { Dayjs } from 'dayjs';
@@ -107,13 +107,13 @@ export const Card: React.FC<CardProps> = ({
 
   const SubmitButton = useMemo(
     () => (
-      <Form.Item dependencies={['value', 'date']}>
+      <Form.Item dependencies={['value', 'date']} className="card__form-button">
         {({ getFieldsValue }) => {
           const values = getFieldsValue();
           const isValid = values.value && (isShowDate ? values.date : true);
 
           return (
-            <Button htmlType="submit" loading={isLoadingSave} disabled={!isValid}>
+            <Button htmlType="submit" loading={isLoadingSave} disabled={!isValid} type="primary">
               Добавить
             </Button>
           );
@@ -125,6 +125,11 @@ export const Card: React.FC<CardProps> = ({
 
   const isShowNotContent = (categories && !categories.length) || (savingGoals && !savingGoals.length);
 
+  const cxCard = cx('card', {
+    ['card_savings-layout']: type === CARD_TYPES.SAVINGS_PLAN || type === CARD_TYPES.SAVINGS_FACT,
+    ['card_comment-layout']: isShowComment,
+  });
+
   if (isShowNotContent) {
     return (
       <Section title={title} className="card">
@@ -135,62 +140,64 @@ export const Card: React.FC<CardProps> = ({
 
   return (
     <>
-      <Section title={title} className="card">
+      <Section title={title} className={cxCard}>
         <Form className="card__form" onFinish={handleFinish} form={form} layout="vertical">
-          <div className="card__form-control">
-            {isShowDate && (
-              <Form.Item name="date" rules={[{ required: true, message: 'Выберите дату' }]}>
-                <DatePicker picker="date" format={FORMAT_UI_DATE} allowClear={false} />
-              </Form.Item>
-            )}
+          {isShowDate && (
+            <Form.Item
+              name="date"
+              rules={[{ required: true, message: 'Выберите дату' }]}
+              className="card__form-date-picker">
+              <DatePicker picker="date" format={FORMAT_UI_SHORT_DATE} allowClear={false} />
+            </Form.Item>
+          )}
 
-            {categories && categories?.length > 0 && (
-              <Form.Item name="categoryId" rules={[{ required: true, message: 'Выберите категорию' }]}>
-                <Select>
-                  {categories.map((category) => (
-                    <Select.Option value={category.id} key={category.id}>
-                      {category.name}
-                    </Select.Option>
-                  ))}
-                </Select>
-              </Form.Item>
-            )}
-
-            {savingGoals && savingGoals?.length > 0 && (
-              <Form.Item name="goalId" rules={[{ required: true, message: 'Выберите копилку' }]}>
-                <Select>
-                  {savingGoals.map((goal) => (
-                    <Select.Option value={goal.id} key={goal.id}>
-                      {goal.name}
-                    </Select.Option>
-                  ))}
-                </Select>
-              </Form.Item>
-            )}
-
-            <div className="card__form-control-right">
-              <Form.Item name="value" rules={[{ required: true, message: 'Введите сумму' }]}>
-                <InputNumber addonAfter={<span>₽</span>}></InputNumber>
-              </Form.Item>
-
-              {!isShowDate && SubmitButton}
-            </div>
-          </div>
-
-          {(type === CARD_TYPES.SAVINGS_FACT || type === CARD_TYPES.SAVINGS_PLAN) && (
-            <Form.Item name="actionType" rules={[{ required: true, message: 'Выберите действие' }]}>
+          {categories && categories?.length > 0 && (
+            <Form.Item
+              name="categoryId"
+              rules={[{ required: true, message: 'Выберите категорию' }]}
+              className="card__form-select">
               <Select>
-                {SAVING_ACTION_TYPES_LIST.map((type) => (
-                  <Select.Option value={type.type} key={type.type}>
-                    {type.text}
+                {categories.map((category) => (
+                  <Select.Option value={category.id} key={category.id}>
+                    {category.name}
                   </Select.Option>
                 ))}
               </Select>
             </Form.Item>
           )}
 
+          {savingGoals && savingGoals?.length > 0 && (
+            <Form.Item
+              name="goalId"
+              rules={[{ required: true, message: 'Выберите копилку' }]}
+              className="card__form-select">
+              <Select>
+                {savingGoals.map((goal) => (
+                  <Select.Option value={goal.id} key={goal.id}>
+                    {goal.name}
+                  </Select.Option>
+                ))}
+              </Select>
+            </Form.Item>
+          )}
+
+          {(type === CARD_TYPES.SAVINGS_FACT || type === CARD_TYPES.SAVINGS_PLAN) && (
+            <Form.Item name="actionType" rules={[{ required: true, message: 'Выберите действие' }]}>
+              <Radio.Group>
+                <Radio value={SAVING_ACTION_TYPES_LIST[0].type}>{SAVING_ACTION_TYPES_LIST[0].text}</Radio>
+                <Radio value={SAVING_ACTION_TYPES_LIST[1].type}>{SAVING_ACTION_TYPES_LIST[1].text}</Radio>
+              </Radio.Group>
+            </Form.Item>
+          )}
+
+          <Form.Item name="value" rules={[{ required: true, message: 'Введите сумму' }]} className="card__form-price">
+            <InputNumber addonAfter={<span>₽</span>}></InputNumber>
+          </Form.Item>
+
+          {!isShowDate && SubmitButton}
+
           {isShowComment && (
-            <Form.Item name="comment" label="Комментарий:">
+            <Form.Item name="comment" label="Комментарий:" className="card__form-comment">
               <Input.TextArea />
             </Form.Item>
           )}
