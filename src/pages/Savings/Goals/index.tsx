@@ -16,9 +16,9 @@ export const Goals: React.FC = () => {
   }
 
   return (
-    <div className="goals">
+    <div className="saving-goals">
       {goals.map(({ name, value }) => (
-        <Section className="goals__item" key={name}>
+        <Section className="saving-goals__item" key={name}>
           <div>
             <Typography.Text>{name}</Typography.Text>
             <Typography.Title level={4}>{formatPrice(value)}</Typography.Title>

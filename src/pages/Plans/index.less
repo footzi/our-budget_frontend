@@ -3,4 +3,12 @@
   grid-column-gap: 24px;
   grid-template-columns: 1fr 1fr;
   align-items: flex-start;
+
+  .card:first-child {
+    animation: slide-in 0.3s ease-in-out 0.2s both;
+  }
+
+  .card:last-child {
+    animation: slide-in 0.3s ease-in-out 0.3s both;
+  }
 }

@@ -130,6 +130,10 @@ export const Card: React.FC<CardProps> = ({
     ['card_comment-layout']: isShowComment,
   });
 
+  const cxTotalValue = cx('card__sum-value', {
+    ['card__sum-value_positive']: total > 0,
+  });
+
   if (isShowNotContent) {
     return (
       <Section title={title} className="card">
@@ -245,7 +249,7 @@ export const Card: React.FC<CardProps> = ({
         {total !== 0 && (
           <div className="card__sum">
             <Typography.Title level={4}>Итого</Typography.Title>
-            <Typography.Title level={4} type="success">
+            <Typography.Title level={4} className={cxTotalValue}>
               {formatPrice(total)}
             </Typography.Title>
           </div>

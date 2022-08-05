@@ -9,7 +9,7 @@
   }
 
   &__form-date-picker {
-    width: 100px
+    width: 100px;
   }
 
   &__form-select {
@@ -56,7 +56,7 @@
     }
 
     &:hover {
-      background-color: @gray-4;
+      background-color: @fog;
     }
 
     &-row {
@@ -85,25 +85,37 @@
       text-align: right;
 
       svg {
-        fill: @red-6;
+        fill: @fire;
         width: 20px;
         height: 20px;
       }
 
       &_income {
         svg {
-          fill: @green-6;
+          fill: @forest;
         }
       }
     }
   }
 
   &__sum {
-    border-top: 1px solid @gray-4;
+    border-top: 1px solid @background;
     margin-top: 20px;
     padding: 12px 12px 0 12px;
     display: flex;
     justify-content: space-between;
+
+    &-value {
+      &.ant-typography {
+        color: @fire;
+      }
+
+      &_positive {
+        &.ant-typography {
+          color: @forest;
+        }
+      }
+    }
 
     .ant-typography {
       margin: 0 !important;

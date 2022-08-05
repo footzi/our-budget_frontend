@@ -1,9 +1,13 @@
 @import '@/styles';
 
 .top-date-picker {
-  border-color: transparent;
-  padding: 0 8px;
-  width: 180px;
+  animation: slide-in 0.3s ease-in-out both;
+
+  .ant-picker {
+    border-color: transparent;
+    padding: 0 8px;
+    width: 180px;
+  }
 
   .ant-picker-input > input {
     cursor: pointer;
@@ -29,5 +33,13 @@
 
   &.ant-picker-focused {
     box-shadow: none;
+  }
+
+  &.enter {
+    animation: none;
+  }
+
+  &.enter-active {
+    animation: slide-in 0.3s ease-in-out both;
   }
 }

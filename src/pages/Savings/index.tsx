@@ -94,10 +94,10 @@ export const Savings: React.FC<SavingsProps> = ({ date }) => {
   const isLoadingDelete = isLoadingDeleteFact || isLoadingDeletePlan;
 
   return (
-    <>
+    <div className="savings">
       <Goals />
 
-      <div className="savings">
+      <div className="savings__cards">
         <Card
           title="План"
           savingGoals={savingGoals.value ?? []}
@@ -126,6 +126,6 @@ export const Savings: React.FC<SavingsProps> = ({ date }) => {
           type={CARD_TYPES.SAVINGS_FACT}
         />
       </div>
-    </>
+    </div>
   );
 };

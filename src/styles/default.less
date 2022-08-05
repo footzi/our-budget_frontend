@@ -24,11 +24,6 @@ body {
   color: @ash;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  //font-weight: 500 !important;
-  //color: @ash !important;
-}
-
 // Переменные анта переназначем через ant-modify-vars, все остальное тут
 .ant-modal-content {
   border-radius: @border-radius-main;
@@ -54,24 +49,31 @@ h1, h2, h3, h4, h5, h6 {
   width: 70px;
 }
 
-//.ant-select-item-option-selected {
-//  //font-weight: 500 !important;
-//}
-
 .ant-table-thead > tr > th {
   background-color: @background;
 }
 
 .ant-table-cell-row-hover {
-  background-color: @background !important;
+  background-color: @fog !important;
 }
 
-.ant-btn-default {
+.ant-btn-default:not(.ant-btn-dangerous) {
   &:hover,
   &:focus-visible,
   &:active {
     text-decoration: none;
     background: @flower;
     color: @white;
+  }
+}
+
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
   }
 }
