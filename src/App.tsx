@@ -1,14 +1,14 @@
 import { MainLoader } from '@/components/MainLoader';
-import { SignUpForm } from '@/components/SignUpForm';
 import { ROUTES } from '@/constants/routes';
 import { useGetFirstLoading } from '@/hooks/useGetFirstLoading';
 import { useGetUser } from '@/hooks/useGetUser';
+import { SignUpForm } from '@/modules/SignUpForm';
 import { Layout } from '@/pages/Layout';
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-import { LoginForm } from './components/LoginForm';
 import { RequireAuth } from './components/RequireAuth';
+import { LoginForm } from './modules/LoginForm';
 
 export const App = () => {
   const { isLoading } = useGetUser();

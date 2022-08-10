@@ -1,4 +1,4 @@
-import { CATEGORIES_TYPES, SAVING_ACTION_TYPE } from '@/constants';
+import { CATEGORIES_TYPES, ON_BOARDING_STATUSES, SAVING_ACTION_TYPE } from '@/constants';
 
 export interface User {
   id: number;
@@ -68,3 +68,9 @@ export interface SumByCategory {
   category: Category;
   sum: number;
 }
+
+export interface OnBoardingItem {
+  state: ON_BOARDING_STATUSES;
+}
+
+export type OnBoardingItemsLS = { [key: string]: OnBoardingItem };

@@ -2,6 +2,7 @@ import { State } from './interfaces';
 
 export const initialState: State = {
   user: null,
+  onBoardingStep: null,
   balance: {
     value: {
       common: 0,

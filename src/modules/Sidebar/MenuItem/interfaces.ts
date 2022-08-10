@@ -6,4 +6,5 @@ export interface MenuItemProps {
   name: string;
   isActive: boolean;
   isBorder?: boolean;
+  isOnBoardingsStep: boolean;
 }

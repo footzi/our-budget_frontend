@@ -1,5 +1,6 @@
 import { Coins } from '@/components/Icons/Coins';
 import { ListCoins } from '@/components/Icons/ListCoins';
+import { ON_BOARDING_STEPS } from '@/constants/index';
 import { ROUTES } from '@/constants/routes';
 import AimOutlined from '@ant-design/icons/AimOutlined';
 import EditOutlined from '@ant-design/icons/EditOutlined';
@@ -18,11 +19,13 @@ export const MENU = [
     to: ROUTES.PLANS,
     name: 'План',
     icon: <AimOutlined />,
+    onBoardingsStep: ON_BOARDING_STEPS.PLANS,
   },
   {
     to: ROUTES.FACTS,
     name: 'Факт',
     icon: <EditOutlined />,
+    onBoardingsStep: ON_BOARDING_STEPS.FACTS,
   },
   {
     to: ROUTES.SAVINGS,
@@ -34,6 +37,7 @@ export const MENU = [
     to: ROUTES.CATEGORIES,
     name: 'Список категорий',
     icon: <UnorderedListOutlined />,
+    onBoardingsStep: ON_BOARDING_STEPS.CATEGORIES,
   },
   {
     to: ROUTES.SAVING_GOALS,
@@ -45,5 +49,6 @@ export const MENU = [
     to: ROUTES.SETTINGS,
     name: 'Настройки',
     icon: <SettingOutlined />,
+    onBoardingsStep: ON_BOARDING_STEPS.BALANCE,
   },
 ];

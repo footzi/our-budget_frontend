@@ -1,9 +1,11 @@
+import { ON_BOARDING_STEPS } from '@/constants';
 import { Category, Expense, Income, Maybe, Saving, SavingGoal, User } from '@/interfaces';
 
 import { store } from './index';
 
 export interface State {
   user: Maybe<User>;
+  onBoardingStep: Maybe<ON_BOARDING_STEPS>;
   balance: {
     value: {
       common: number;

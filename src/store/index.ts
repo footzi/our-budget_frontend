@@ -38,6 +38,9 @@ const slice = createSlice({
     setIncomesPlan(state, action) {
       state.incomes.plan = action.payload;
     },
+    setOnBoardingStep(state, action) {
+      state.onBoardingStep = action.payload;
+    },
   },
 });
 
@@ -52,6 +55,7 @@ export const {
   setExpensesPlan,
   setIncomesFact,
   setIncomesPlan,
+  setOnBoardingStep,
 } = slice.actions;
 
 export const store = configureStore({

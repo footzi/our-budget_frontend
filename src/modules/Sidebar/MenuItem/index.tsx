@@ -5,9 +5,10 @@ import { Link } from 'react-router-dom';
 import './index.less';
 import { MenuItemProps } from './interfaces';
 
-export const MenuItem: React.FC<MenuItemProps> = ({ icon, to, name, isActive, isBorder }) => {
+export const MenuItem: React.FC<MenuItemProps> = ({ icon, to, name, isActive, isBorder, isOnBoardingsStep }) => {
   const cxLink = cx('menu-item', {
     ['is-active']: isActive,
+    ['is-onboarding']: isOnBoardingsStep,
   });
 
   return (
