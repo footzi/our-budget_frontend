@@ -31,7 +31,7 @@ export const useSignUp = () => {
           id: response.data.user.id,
         });
         dispatch(setUser(response.data.user));
-        navigate(ROUTES.MAIN);
+        navigate(ROUTES.CATEGORIES);
       }
     },
     [executePut, dispatch, navigate]

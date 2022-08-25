@@ -17,7 +17,7 @@ import './index.less';
 import { CardAddBalancesBody, CardAddSavingBody, CardItem, CardProps } from './interfaces';
 
 /**
- * Компонент отрисовки cписка расходов / доходов
+ * Компонент отрисовки списка расходов / доходов
  */
 export const Card: React.FC<CardProps> = ({
   categories,
@@ -210,7 +210,7 @@ export const Card: React.FC<CardProps> = ({
         </Form>
 
         <List
-          locale={{ emptyText: <Empty description="Еще нет записей" /> }}
+          locale={{ emptyText: <Empty description="Записи отсутствуют" /> }}
           dataSource={list}
           renderItem={(item) => (
             <List.Item onClick={() => handleItemClick(item)} className="card__list-item">

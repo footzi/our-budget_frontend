@@ -60,7 +60,7 @@ export const SavingGoals = () => {
         </Button>
 
         <Table
-          locale={{ emptyText: <Empty description="Еще нет копилок" /> }}
+          locale={{ emptyText: <Empty description="Копилки отсутствуют" /> }}
           dataSource={goals}
           pagination={false}
           onRow={(record) => {

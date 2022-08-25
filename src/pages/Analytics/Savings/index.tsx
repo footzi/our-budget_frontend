@@ -24,7 +24,10 @@ export const SavingsAnalytics: React.FC = () => {
 
   return (
     <Section title="Аналитика копилок" className="analytics-savings">
-      <Table locale={{ emptyText: <Empty description="Еще нет копилок" /> }} dataSource={savings} pagination={false}>
+      <Table
+        locale={{ emptyText: <Empty description="Копилки отсутствуют" /> }}
+        dataSource={savings}
+        pagination={false}>
         <Table.Column title="Копилка" dataIndex="name" key="name" className="analytics-savings__name" />
         <Table.Column
           title="Положили"

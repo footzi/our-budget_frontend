@@ -72,7 +72,7 @@ export const Categories = () => {
           </Button>
 
           <Table
-            locale={{ emptyText: <Empty description="Еще нет категорий" /> }}
+            locale={{ emptyText: <Empty description="Категории отсутствуют" /> }}
             dataSource={expense}
             pagination={false}
             onRow={(record) => {
@@ -94,7 +94,7 @@ export const Categories = () => {
           </Button>
 
           <Table
-            locale={{ emptyText: <Empty description="Еще нет категорий" /> }}
+            locale={{ emptyText: <Empty description="Категории отсутствуют" /> }}
             dataSource={income}
             pagination={false}
             onRow={(record) => {

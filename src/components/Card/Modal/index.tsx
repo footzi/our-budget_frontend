@@ -41,6 +41,7 @@ export const CardModal: React.FC<CardModalProps> = ({
     if (item?.id && isValidForm && !isLoadingUpdate && !isLoadingDelete) {
       const { date, categoryId, value, comment, goalId, actionType } = form;
 
+      // План/Факт
       if (categoryId) {
         const body: CardUpdateBalancesBody = {
           id: item.id,
@@ -52,12 +53,14 @@ export const CardModal: React.FC<CardModalProps> = ({
         await onSubmit(type, body);
       }
 
-      if (goalId && actionType) {
+      // Копилки
+      // Для факта actionType === undefined, поэтому устанавливаем дефолтный
+      if (goalId) {
         const body: CardUpdateSavingBody = {
           id: item.id,
           date,
           goalId,
-          actionType,
+          actionType: actionType || SAVING_ACTION_TYPE.INCOME,
           value,
           comment,
         };

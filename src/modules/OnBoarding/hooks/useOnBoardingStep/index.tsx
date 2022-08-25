@@ -42,5 +42,11 @@ export const useOnBoardingStep = (): UseOnBoardingStepResult => {
     setIsVisible(Boolean(step));
   }, [dispatch, step]);
 
+  useEffect(() => {
+    if (!isVisible) {
+      dispatch(setOnBoardingStep(null));
+    }
+  }, [dispatch, isVisible]);
+
   return { step, update, isVisible };
 };
