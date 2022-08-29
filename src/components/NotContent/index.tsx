@@ -8,7 +8,9 @@ import { NotContentProps } from './interfaces';
 export const NotContent: React.FC<NotContentProps> = ({ text, to }) => {
   return (
     <div className="not-content">
-      <Typography.Title level={5}>{text}</Typography.Title>
+      <Typography.Title level={5} className="not-content__title">
+        {text}
+      </Typography.Title>
       <Link to={to} className="not-content__button">
         <Button>Создать</Button>
       </Link>

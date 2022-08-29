@@ -6,6 +6,7 @@ module.exports = {
   'control-border-radius': '5px',
   'border-radius-base': '5px',
   'text-color': colors.ash,
+  'heading-color': colors.ash,
   'table-header-color': colors.ash,
   'modal-heading-color': colors.ash,
   'label-color': colors.ash,
