@@ -7,6 +7,7 @@ import {
   CardUpdateBalancesBody,
   CardUpdateSaveBody,
 } from '@/components/Card';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { CATEGORIES_TYPES } from '@/constants';
 import { useAppSelector } from '@/store';
 import { formatToBackendDate } from '@/utils/formatToBackendDate';
@@ -103,33 +104,37 @@ const Facts: React.FC<FactsProps> = ({ selectedDate }) => {
 
   return (
     <div className="facts">
-      <Card
-        title="Фактические расходы"
-        categories={categoriesExpenses}
-        list={expensesList}
-        total={expensesSum}
-        onAdd={handleAdd}
-        onUpdate={handleUpdate}
-        onDelete={handleDelete}
-        isLoadingSave={isLoadingAddIncome}
-        isLoadingUpdate={isLoadingUpdateExpense}
-        isLoadingDelete={isLoadingDeleteExpense}
-        type={CARD_TYPES.EXPENSE_FACT}
-      />
+      <ErrorBoundary>
+        <Card
+          title="Фактические расходы"
+          categories={categoriesExpenses}
+          list={expensesList}
+          total={expensesSum}
+          onAdd={handleAdd}
+          onUpdate={handleUpdate}
+          onDelete={handleDelete}
+          isLoadingSave={isLoadingAddIncome}
+          isLoadingUpdate={isLoadingUpdateExpense}
+          isLoadingDelete={isLoadingDeleteExpense}
+          type={CARD_TYPES.EXPENSE_FACT}
+        />
+      </ErrorBoundary>
 
-      <Card
-        title="Фактические доходы"
-        categories={categoriesIncomes}
-        list={incomesList}
-        total={incomesSum}
-        onAdd={handleAdd}
-        onUpdate={handleUpdate}
-        onDelete={handleDelete}
-        isLoadingSave={isLoadingAddExpense}
-        isLoadingUpdate={isLoadingUpdateIncome}
-        isLoadingDelete={isLoadingDeleteIncome}
-        type={CARD_TYPES.INCOME_FACT}
-      />
+      <ErrorBoundary>
+        <Card
+          title="Фактические доходы"
+          categories={categoriesIncomes}
+          list={incomesList}
+          total={incomesSum}
+          onAdd={handleAdd}
+          onUpdate={handleUpdate}
+          onDelete={handleDelete}
+          isLoadingSave={isLoadingAddExpense}
+          isLoadingUpdate={isLoadingUpdateIncome}
+          isLoadingDelete={isLoadingDeleteIncome}
+          type={CARD_TYPES.INCOME_FACT}
+        />
+      </ErrorBoundary>
     </div>
   );
 };

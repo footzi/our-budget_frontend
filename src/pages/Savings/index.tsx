@@ -7,6 +7,7 @@ import {
   CardUpdateSavingBody,
   UpdateSaveBody,
 } from '@/components/Card';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { useAppSelector } from '@/store';
 import { formatToBackendDate } from '@/utils/formatToBackendDate';
 import React, { useCallback } from 'react';
@@ -95,36 +96,42 @@ const Savings: React.FC<SavingsProps> = ({ date }) => {
 
   return (
     <div className="savings">
-      <Goals />
+      <ErrorBoundary>
+        <Goals />
+      </ErrorBoundary>
 
       <div className="savings__cards">
-        <Card
-          title="План"
-          savingGoals={savingGoals.value ?? []}
-          list={plan}
-          total={planTotal}
-          onAdd={handleAdd}
-          onUpdate={handleUpdate}
-          onDelete={handleDelete}
-          isLoadingSave={isLoadingAdd}
-          isLoadingUpdate={isLoadingUpdate}
-          isLoadingDelete={isLoadingDelete}
-          type={CARD_TYPES.SAVINGS_PLAN}
-        />
+        <ErrorBoundary>
+          <Card
+            title="План"
+            savingGoals={savingGoals.value ?? []}
+            list={plan}
+            total={planTotal}
+            onAdd={handleAdd}
+            onUpdate={handleUpdate}
+            onDelete={handleDelete}
+            isLoadingSave={isLoadingAdd}
+            isLoadingUpdate={isLoadingUpdate}
+            isLoadingDelete={isLoadingDelete}
+            type={CARD_TYPES.SAVINGS_PLAN}
+          />
+        </ErrorBoundary>
 
-        <Card
-          title="Факт"
-          savingGoals={savingGoals.value ?? []}
-          list={fact}
-          total={factTotal}
-          onAdd={handleAdd}
-          onUpdate={handleUpdate}
-          onDelete={handleDelete}
-          isLoadingSave={isLoadingAdd}
-          isLoadingUpdate={isLoadingUpdate}
-          isLoadingDelete={isLoadingDelete}
-          type={CARD_TYPES.SAVINGS_FACT}
-        />
+        <ErrorBoundary>
+          <Card
+            title="Факт"
+            savingGoals={savingGoals.value ?? []}
+            list={fact}
+            total={factTotal}
+            onAdd={handleAdd}
+            onUpdate={handleUpdate}
+            onDelete={handleDelete}
+            isLoadingSave={isLoadingAdd}
+            isLoadingUpdate={isLoadingUpdate}
+            isLoadingDelete={isLoadingDelete}
+            type={CARD_TYPES.SAVINGS_FACT}
+          />
+        </ErrorBoundary>
       </div>
     </div>
   );

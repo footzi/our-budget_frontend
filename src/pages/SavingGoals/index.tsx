@@ -1,4 +1,5 @@
 import { useRefetchSavingGoals } from '@/api';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { Section } from '@/components/Section';
 import { Maybe } from '@/interfaces';
 import PlusOutlined from '@ant-design/icons/PlusOutlined';
@@ -54,36 +55,38 @@ const SavingGoals = () => {
 
   return (
     <div className="saving-goal">
-      <Section className="saving-goal__table" title="Копилки">
-        <Button onClick={handleOpenModal} className="saving-goal__create-button" icon={<PlusOutlined />}>
-          Создать копилку
-        </Button>
+      <ErrorBoundary>
+        <Section className="saving-goal__table" title="Копилки">
+          <Button onClick={handleOpenModal} className="saving-goal__create-button" icon={<PlusOutlined />}>
+            Создать копилку
+          </Button>
 
-        <Table
-          locale={{ emptyText: <Empty description="Копилки отсутствуют" /> }}
-          dataSource={goals}
-          pagination={false}
-          onRow={(record) => {
-            return {
-              onClick: () => handleEdit(record),
-            };
-          }}>
-          <Table.Column title="Название" dataIndex="name" key="name" />
-          <Table.Column title="Описание" dataIndex="description" key="description" />
-          <Table.Column title="Текущее значение" dataIndex="valueText" key="valueText" />
-        </Table>
-      </Section>
+          <Table
+            locale={{ emptyText: <Empty description="Копилки отсутствуют" /> }}
+            dataSource={goals}
+            pagination={false}
+            onRow={(record) => {
+              return {
+                onClick: () => handleEdit(record),
+              };
+            }}>
+            <Table.Column title="Название" dataIndex="name" key="name" />
+            <Table.Column title="Описание" dataIndex="description" key="description" />
+            <Table.Column title="Текущее значение" dataIndex="valueText" key="valueText" />
+          </Table>
+        </Section>
 
-      <SavingGoalModal
-        isShow={isOpenModal}
-        editedGoal={editedGoal}
-        onAdd={handleAddModal}
-        onCancel={handleCloseModal}
-        onUpdate={handleUpdateModal}
-        onDelete={handleDelete}
-        isLoading={isLoadingAddGoal || isLoadingUpdateGoal}
-        isLoadingDelete={isLoadingDelete}
-      />
+        <SavingGoalModal
+          isShow={isOpenModal}
+          editedGoal={editedGoal}
+          onAdd={handleAddModal}
+          onCancel={handleCloseModal}
+          onUpdate={handleUpdateModal}
+          onDelete={handleDelete}
+          isLoading={isLoadingAddGoal || isLoadingUpdateGoal}
+          isLoadingDelete={isLoadingDelete}
+        />
+      </ErrorBoundary>
     </div>
   );
 };

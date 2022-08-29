@@ -1,3 +1,4 @@
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { MainLoader } from '@/components/MainLoader';
 import { PageTitle } from '@/components/PageTitle';
 import { ROUTES } from '@/constants/routes';
@@ -62,7 +63,9 @@ export const Layout = () => {
   return (
     <div className="layout">
       <div className={cxSidebar}>
-        <Sidebar />
+        <ErrorBoundary>
+          <Sidebar />
+        </ErrorBoundary>
       </div>
       <div className="layout__content">
         <PageTitle />

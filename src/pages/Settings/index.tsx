@@ -1,4 +1,5 @@
 import { useRefetchBalance, useRefetchUser } from '@/api';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { Section } from '@/components/Section';
 import { Maybe } from '@/interfaces';
 import { useAppSelector } from '@/store';
@@ -50,7 +51,7 @@ const Settings: React.FC = () => {
   }
 
   return (
-    <>
+    <ErrorBoundary>
       <Section className="profile">
         <div className="profile__row">
           <Typography.Title level={5}>ID:</Typography.Title>
@@ -99,7 +100,7 @@ const Settings: React.FC = () => {
         isLoading={isLoadingUpdateUser || isLoadingUpdateBalance}
         onSubmit={handleModal}
       />
-    </>
+    </ErrorBoundary>
   );
 };
 

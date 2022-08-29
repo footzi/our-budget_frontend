@@ -1,3 +1,4 @@
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { ConfigProvider } from 'antd';
 import 'antd/dist/antd.less';
 import locale from 'antd/es/locale/ru_RU';
@@ -18,12 +19,14 @@ if (container) {
   const root = createRoot(container);
 
   root.render(
-    <Provider store={store}>
-      <BrowserRouter>
-        <ConfigProvider locale={locale}>
-          <App />
-        </ConfigProvider>
-      </BrowserRouter>
-    </Provider>
+    <ErrorBoundary>
+      <Provider store={store}>
+        <BrowserRouter>
+          <ConfigProvider locale={locale}>
+            <App />
+          </ConfigProvider>
+        </BrowserRouter>
+      </Provider>
+    </ErrorBoundary>
   );
 }

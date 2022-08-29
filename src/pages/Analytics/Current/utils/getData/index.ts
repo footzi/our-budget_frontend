@@ -1,4 +1,4 @@
-import { LABELS, MAIN_COLORS } from '../../constants';
+import { LABELS, MAIN_COLORS } from '../../../constants';
 
 export const getData = (value: number[]) => {
   return {

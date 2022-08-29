@@ -1,4 +1,5 @@
 import { useRefetchCategories } from '@/api';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { Section } from '@/components/Section';
 import { CATEGORIES_TYPES } from '@/constants';
 import { Maybe } from '@/interfaces';
@@ -63,62 +64,68 @@ const Categories = () => {
   return (
     <div className="categories">
       <div className="categories__tables">
-        <Section title="Категории расходов">
-          <Button
-            onClick={() => handleOpenModal(CATEGORIES_TYPES.EXPENSE)}
-            icon={<PlusOutlined />}
-            className="categories__create-button">
-            Создать категорию РАСХОДЫ
-          </Button>
+        <ErrorBoundary>
+          <Section title="Категории расходов">
+            <Button
+              onClick={() => handleOpenModal(CATEGORIES_TYPES.EXPENSE)}
+              icon={<PlusOutlined />}
+              className="categories__create-button">
+              Создать категорию РАСХОДЫ
+            </Button>
 
-          <Table
-            locale={{ emptyText: <Empty description="Категории отсутствуют" /> }}
-            dataSource={expense}
-            pagination={false}
-            onRow={(record) => {
-              return {
-                onClick: () => handleEdit(record),
-              };
-            }}>
-            <Table.Column title="Название" dataIndex="name" key="name" />
-            <Table.Column title="Период" dataIndex="period" key="period" />
-          </Table>
-        </Section>
+            <Table
+              locale={{ emptyText: <Empty description="Категории отсутствуют" /> }}
+              dataSource={expense}
+              pagination={false}
+              onRow={(record) => {
+                return {
+                  onClick: () => handleEdit(record),
+                };
+              }}>
+              <Table.Column title="Название" dataIndex="name" key="name" />
+              <Table.Column title="Период" dataIndex="period" key="period" />
+            </Table>
+          </Section>
+        </ErrorBoundary>
 
-        <Section title="Категории доходов">
-          <Button
-            onClick={() => handleOpenModal(CATEGORIES_TYPES.INCOME)}
-            icon={<PlusOutlined />}
-            className="categories__create-button">
-            Создать категорию ДОХОДЫ
-          </Button>
+        <ErrorBoundary>
+          <Section title="Категории доходов">
+            <Button
+              onClick={() => handleOpenModal(CATEGORIES_TYPES.INCOME)}
+              icon={<PlusOutlined />}
+              className="categories__create-button">
+              Создать категорию ДОХОДЫ
+            </Button>
 
-          <Table
-            locale={{ emptyText: <Empty description="Категории отсутствуют" /> }}
-            dataSource={income}
-            pagination={false}
-            onRow={(record) => {
-              return {
-                onClick: () => handleEdit(record),
-              };
-            }}>
-            <Table.Column title="Название" dataIndex="name" key="name" />
-            <Table.Column title="Период" dataIndex="period" key="period" />
-          </Table>
-        </Section>
+            <Table
+              locale={{ emptyText: <Empty description="Категории отсутствуют" /> }}
+              dataSource={income}
+              pagination={false}
+              onRow={(record) => {
+                return {
+                  onClick: () => handleEdit(record),
+                };
+              }}>
+              <Table.Column title="Название" dataIndex="name" key="name" />
+              <Table.Column title="Период" dataIndex="period" key="period" />
+            </Table>
+          </Section>
+        </ErrorBoundary>
       </div>
 
-      <CategoryModal
-        isShow={isOpenModal}
-        type={modalType}
-        editedCategory={editedCategory}
-        onAdd={handleAddModal}
-        onUpdate={handleUpdateModal}
-        onCancel={handleCloseModal}
-        onDelete={handleDelete}
-        isLoading={isLoadingUpdateCategory || isLoadingSaveCategory}
-        isLoadingDelete={isLoadingDelete}
-      />
+      <ErrorBoundary>
+        <CategoryModal
+          isShow={isOpenModal}
+          type={modalType}
+          editedCategory={editedCategory}
+          onAdd={handleAddModal}
+          onUpdate={handleUpdateModal}
+          onCancel={handleCloseModal}
+          onDelete={handleDelete}
+          isLoading={isLoadingUpdateCategory || isLoadingSaveCategory}
+          isLoadingDelete={isLoadingDelete}
+        />
+      </ErrorBoundary>
     </div>
   );
 };
