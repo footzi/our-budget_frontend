@@ -26,7 +26,7 @@ const Settings = React.lazy(() => import(/* webpackPrefetch: true */ '../Setting
 
 const currentDay = dayjs();
 
-const Layout = () => {
+export const Layout = () => {
   const [selectedDate, setSelectedDate] = useState<Dayjs>(currentDay);
 
   const { onBoardingStep } = useAppSelector();
@@ -91,5 +91,3 @@ const Layout = () => {
     </div>
   );
 };
-
-export default Layout;
