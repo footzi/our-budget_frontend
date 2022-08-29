@@ -14,7 +14,7 @@ import { useUpdateUser } from './hooks/useUpdateUser';
 import './index.less';
 import { ProfileEditableItem } from './interfaces';
 
-export const Settings: React.FC = () => {
+const Settings: React.FC = () => {
   const { user, balance } = useAppSelector();
   const [editableItem, setEditableItem] = useState<Maybe<ProfileEditableItem>>(null);
 
@@ -102,3 +102,5 @@ export const Settings: React.FC = () => {
     </>
   );
 };
+
+export default Settings;

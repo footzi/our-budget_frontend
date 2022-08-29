@@ -13,7 +13,7 @@ import { useUpdateSavingGoal } from './hooks/useUpdateSavingGoal';
 import './index.less';
 import { SavingGoalAddBody, SavingGoalRender, SavingGoalUpdateBody } from './interfaces';
 
-export const SavingGoals = () => {
+const SavingGoals = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [editedGoal, setEditedGoal] = useState<Maybe<SavingGoalRender>>(null);
 
@@ -87,3 +87,5 @@ export const SavingGoals = () => {
     </div>
   );
 };
+
+export default SavingGoals;

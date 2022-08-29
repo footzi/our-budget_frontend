@@ -17,7 +17,7 @@ import { CategoryAddBody, CategoryRender, CategoryUpdateBody } from './interface
 /**
  * Блок с категориями
  */
-export const Categories = () => {
+const Categories = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [modalType, setIsModalType] = useState<CATEGORIES_TYPES>(CATEGORIES_TYPES.INCOME);
   const [editedCategory, setEditedCategory] = useState<Maybe<CategoryRender>>(null);
@@ -122,3 +122,5 @@ export const Categories = () => {
     </div>
   );
 };
+
+export default Categories;

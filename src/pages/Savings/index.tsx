@@ -18,7 +18,7 @@ import { useUpdateSaving } from './hooks/useUpdateSaving';
 import './index.less';
 import { SavingsProps } from './interfaces';
 
-export const Savings: React.FC<SavingsProps> = ({ date }) => {
+const Savings: React.FC<SavingsProps> = ({ date }) => {
   const { savingGoals, savings } = useAppSelector();
 
   const refetchSavings = useRefetchSavings();
@@ -129,3 +129,5 @@ export const Savings: React.FC<SavingsProps> = ({ date }) => {
     </div>
   );
 };
+
+export default Savings;

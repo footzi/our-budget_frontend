@@ -12,7 +12,7 @@ import './index.less';
 /**
  * Форма авторизации
  */
-export const LoginForm: React.FC = () => {
+const LoginForm: React.FC = () => {
   const { login, isLoading } = useLogin();
   const navigate = useNavigate();
 
@@ -51,3 +51,5 @@ export const LoginForm: React.FC = () => {
     </div>
   );
 };
+
+export default LoginForm;

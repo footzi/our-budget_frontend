@@ -20,7 +20,7 @@ const passwordValidator = (value1: string, value2: string) => {
 /**
  * Форма регистрации
  */
-export const SignUpForm: React.FC = () => {
+const SignUpForm: React.FC = () => {
   const { signUp, isLoading } = useSignUp();
   const navigate = useNavigate();
 
@@ -89,3 +89,5 @@ export const SignUpForm: React.FC = () => {
     </div>
   );
 };
+
+export default SignUpForm;

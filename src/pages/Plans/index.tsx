@@ -18,7 +18,7 @@ import { useUpdatePlan } from './hooks/useUpdatePlan';
 import './index.less';
 import { PlansProps } from './interfaces';
 
-export const Plans: React.FC<PlansProps> = ({ selectedDate }) => {
+const Plans: React.FC<PlansProps> = ({ selectedDate }) => {
   const { categories, incomes, expenses } = useAppSelector();
 
   const refetchIncomes = useRefetchIncomes();
@@ -127,3 +127,5 @@ export const Plans: React.FC<PlansProps> = ({ selectedDate }) => {
     </div>
   );
 };
+
+export default Plans;

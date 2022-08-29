@@ -1,15 +1,16 @@
 import { ROUTES } from '@/constants/routes';
 import { TopDatePicker } from '@/modules/TopDatePicker';
-import { Analytics } from '@/pages/Analytics';
-import { Facts } from '@/pages/Facts';
-import { Plans } from '@/pages/Plans';
-import { Savings } from '@/pages/Savings';
 import { Spin } from 'antd';
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import './index.less';
 import { MainProps } from './interfaces';
+
+const Analytics = React.lazy(() => import(/* webpackPrefetch: true */ '../Analytics'));
+const Facts = React.lazy(() => import(/* webpackPrefetch: true */ '../Facts'));
+const Plans = React.lazy(() => import(/* webpackPrefetch: true */ '../Plans'));
+const Savings = React.lazy(() => import(/* webpackPrefetch: true */ '../Savings'));
 
 export const Main: React.FC<MainProps> = ({ selectedDate, isLoading, onChangeDate }) => {
   return (

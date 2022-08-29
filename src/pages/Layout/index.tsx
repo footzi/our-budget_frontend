@@ -11,17 +11,18 @@ import { useGetSavings } from '@/hooks/useGetSavings';
 import { OnBoarding } from '@/modules/OnBoarding';
 import { Sidebar } from '@/modules/Sidebar';
 import { UserWidget } from '@/modules/UserWidget';
-import { Categories } from '@/pages/Categories';
 import { Main } from '@/pages/Main';
-import { SavingGoals } from '@/pages/SavingGoals';
-import { Settings } from '@/pages/Settings';
 import { useAppSelector } from '@/store';
 import cx from 'classnames';
 import dayjs, { Dayjs } from 'dayjs';
-import React, { useCallback, useState } from 'react';
+import React, { Suspense, useCallback, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import './index.less';
+
+const Categories = React.lazy(() => import(/* webpackPrefetch: true */ '../Categories'));
+const SavingGoals = React.lazy(() => import(/* webpackPrefetch: true */ '../SavingGoals'));
+const Settings = React.lazy(() => import(/* webpackPrefetch: true */ '../Settings'));
 
 const currentDay = dayjs();
 
@@ -67,15 +68,19 @@ export const Layout = () => {
         <PageTitle />
 
         <main>
-          <Routes>
-            <Route
-              path="/*"
-              element={<Main selectedDate={selectedDate} onChangeDate={handleChangeMonth} isLoading={isLoadingMain} />}
-            />
-            <Route path={ROUTES.CATEGORIES} element={<Categories />} />
-            <Route path={ROUTES.SAVING_GOALS} element={<SavingGoals />} />
-            <Route path={ROUTES.SETTINGS} element={<Settings />} />
-          </Routes>
+          <Suspense>
+            <Routes>
+              <Route
+                path="/*"
+                element={
+                  <Main selectedDate={selectedDate} onChangeDate={handleChangeMonth} isLoading={isLoadingMain} />
+                }
+              />
+              <Route path={ROUTES.CATEGORIES} element={<Categories />} />
+              <Route path={ROUTES.SAVING_GOALS} element={<SavingGoals />} />
+              <Route path={ROUTES.SETTINGS} element={<Settings />} />
+            </Routes>
+          </Suspense>
         </main>
       </div>
       <div className="layout__user-widget">

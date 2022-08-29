@@ -10,14 +10,15 @@ const antModifyVars = require('./src/styles/ant-modify-vars');
 
 module.exports = (env) => {
   const isProduction = env.production;
-  const publicPath = isProduction ? '.' : '/';
+  const publicPath = isProduction ? '/' : '/';
 
   return {
     entry: './src/index.tsx',
     mode: 'development',
     output: {
       path: path.resolve(__dirname, './dist'),
-      filename: '[name].[contenthash].bundle.js',
+      filename: '[name].[contenthash].js',
+      chunkFilename: '[name].[contenthash].js',
       publicPath,
     },
     module: {

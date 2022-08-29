@@ -30,7 +30,7 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip);
 ChartJS.register(RadialLinearScale, ArcElement, Legend, Tooltip);
 
 // @todo Прибраться тут, разбить на компоненты
-export const Analytics: React.FC = () => {
+const Analytics: React.FC = () => {
   const { incomes, expenses } = useAppSelector();
 
   const incomesPlan = incomes.plan.sum;
@@ -94,3 +94,5 @@ export const Analytics: React.FC = () => {
     </div>
   );
 };
+
+export default Analytics;

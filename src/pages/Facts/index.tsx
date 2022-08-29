@@ -18,7 +18,7 @@ import { useUpdateFact } from './hooks/useUpdateFact';
 import './index.less';
 import { FactsProps } from './interfaces';
 
-export const Facts: React.FC<FactsProps> = ({ selectedDate }) => {
+const Facts: React.FC<FactsProps> = ({ selectedDate }) => {
   const { categories, incomes, expenses } = useAppSelector();
 
   const refetchIncomes = useRefetchIncomes();
@@ -133,3 +133,5 @@ export const Facts: React.FC<FactsProps> = ({ selectedDate }) => {
     </div>
   );
 };
+
+export default Facts;
