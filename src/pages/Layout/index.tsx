@@ -9,7 +9,6 @@ import { useGetFirstLoading } from '@/hooks/useGetFirstLoading';
 import { useGetIncomes } from '@/hooks/useGetIncomes';
 import { useGetSavingGoals } from '@/hooks/useGetSavingGoals';
 import { useGetSavings } from '@/hooks/useGetSavings';
-import { OnBoarding } from '@/modules/OnBoarding';
 import { Sidebar } from '@/modules/Sidebar';
 import { UserWidget } from '@/modules/UserWidget';
 import { Main } from '@/pages/Main';
@@ -89,8 +88,6 @@ export const Layout = () => {
       <div className="layout__user-widget">
         <UserWidget />
       </div>
-
-      <OnBoarding />
     </div>
   );
 };
