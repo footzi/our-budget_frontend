@@ -40,7 +40,7 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({ item, onCancel, onSu
 
   return (
     <Modal
-      visible={Boolean(item)}
+      open={Boolean(item)}
       onOk={handleOk}
       onCancel={onCancel}
       okButtonProps={{ loading: isLoading, disabled: !isValidForm }}

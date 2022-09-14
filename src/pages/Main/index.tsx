@@ -24,7 +24,7 @@ export const Main: React.FC<MainProps> = ({ selectedDate, isLoading, onChangeDat
         <Route path="" element={<Analytics />} />
         <Route path={ROUTES.PLANS} element={<Plans selectedDate={selectedDate} />} />
         <Route path={ROUTES.FACTS} element={<Facts selectedDate={selectedDate} />} />
-        <Route path={ROUTES.SAVINGS} element={<Savings date={selectedDate} />} />
+        <Route path={ROUTES.SAVINGS} element={<Savings selectedDate={selectedDate} />} />
       </Routes>
     </div>
   );

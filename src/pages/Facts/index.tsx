@@ -110,6 +110,7 @@ const Facts: React.FC<FactsProps> = ({ selectedDate }) => {
           categories={categoriesExpenses}
           list={expensesList}
           total={expensesSum}
+          selectedDate={selectedDate}
           onAdd={handleAdd}
           onUpdate={handleUpdate}
           onDelete={handleDelete}
@@ -126,6 +127,7 @@ const Facts: React.FC<FactsProps> = ({ selectedDate }) => {
           categories={categoriesIncomes}
           list={incomesList}
           total={incomesSum}
+          selectedDate={selectedDate}
           onAdd={handleAdd}
           onUpdate={handleUpdate}
           onDelete={handleDelete}

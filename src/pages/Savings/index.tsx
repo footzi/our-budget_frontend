@@ -19,7 +19,7 @@ import { useUpdateSaving } from './hooks/useUpdateSaving';
 import './index.less';
 import { SavingsProps } from './interfaces';
 
-const Savings: React.FC<SavingsProps> = ({ date }) => {
+const Savings: React.FC<SavingsProps> = ({ selectedDate }) => {
   const { savingGoals, savings } = useAppSelector();
 
   const refetchSavings = useRefetchSavings();
@@ -44,12 +44,12 @@ const Savings: React.FC<SavingsProps> = ({ date }) => {
         refetchSavingGoals();
         refetchBalance();
       } else {
-        await addPlan({ date: formatToBackendDate(date), goalId, comment, value, actionType });
+        await addPlan({ date: formatToBackendDate(selectedDate), goalId, comment, value, actionType });
       }
 
       refetchSavings();
     },
-    [date, refetchSavingGoals, addFact, addPlan, refetchSavings, refetchBalance]
+    [selectedDate, refetchSavingGoals, addFact, addPlan, refetchSavings, refetchBalance]
   );
 
   const handleUpdate = useCallback(
@@ -61,12 +61,12 @@ const Savings: React.FC<SavingsProps> = ({ date }) => {
         refetchSavingGoals();
         refetchBalance();
       } else {
-        await updatePlan({ date: formatToBackendDate(date), id, value, goalId, comment, actionType });
+        await updatePlan({ date: formatToBackendDate(selectedDate), id, value, goalId, comment, actionType });
       }
 
       refetchSavings();
     },
-    [date, refetchSavingGoals, refetchSavings, updateFact, updatePlan, refetchBalance]
+    [selectedDate, refetchSavingGoals, refetchSavings, updateFact, updatePlan, refetchBalance]
   );
 
   const handleDelete = useCallback(
@@ -123,6 +123,7 @@ const Savings: React.FC<SavingsProps> = ({ date }) => {
             savingGoals={savingGoals.value ?? []}
             list={fact}
             total={factTotal}
+            selectedDate={selectedDate}
             onAdd={handleAdd}
             onUpdate={handleUpdate}
             onDelete={handleDelete}

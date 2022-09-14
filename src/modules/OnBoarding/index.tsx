@@ -21,7 +21,7 @@ export const OnBoarding: React.FC = () => {
   }
 
   return (
-    <Modal visible={isVisible} footer={null} onCancel={handleCloseModal} className="on-boarding" destroyOnClose>
+    <Modal open={isVisible} footer={null} onCancel={handleCloseModal} className="on-boarding" destroyOnClose>
       {
         {
           [ON_BOARDING_STEPS.CATEGORIES]: <CategoriesStep onCloseModal={handleCloseModal} />,

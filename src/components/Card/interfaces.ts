@@ -11,6 +11,7 @@ export interface CardProps {
   savingGoals?: SavingGoal[];
   total: number;
   type: CARD_TYPES;
+  selectedDate?: Dayjs;
   isLoadingSave: boolean;
   isLoadingUpdate: boolean;
   isLoadingDelete: boolean;

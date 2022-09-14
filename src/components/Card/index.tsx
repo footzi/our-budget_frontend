@@ -23,6 +23,7 @@ export const Card: React.FC<CardProps> = ({
   categories,
   savingGoals,
   type,
+  selectedDate,
   onAdd,
   onUpdate,
   onDelete,
@@ -93,12 +94,12 @@ export const Card: React.FC<CardProps> = ({
 
   useEffect(() => {
     form.setFieldsValue({
-      date: dayjs(),
+      date: selectedDate ?? dayjs(),
       actionType: SAVING_ACTION_TYPES_LIST[0].type,
       categoryId: categories && categories.length > 0 ? categories[0].id : null,
       goalId: savingGoals && savingGoals.length > 0 ? savingGoals[0].id : null,
     });
-  }, [form, categories, savingGoals]);
+  }, [form, categories, savingGoals, selectedDate]);
 
   const isShowDate =
     type === CARD_TYPES.INCOME_FACT || type === CARD_TYPES.SAVINGS_FACT || type === CARD_TYPES.EXPENSE_FACT;

@@ -2,7 +2,7 @@ import { SAVING_ACTION_TYPE } from '@/constants';
 import { Dayjs } from 'dayjs';
 
 export interface SavingsProps {
-  date: Dayjs;
+  selectedDate: Dayjs;
 }
 
 export interface AddSavingBody {

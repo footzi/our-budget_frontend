@@ -106,7 +106,7 @@ export const CardModal: React.FC<CardModalProps> = ({
   return (
     <Modal
       title="Редактирование"
-      visible={Boolean(item)}
+      open={Boolean(item)}
       onOk={handleOk}
       onCancel={onCancel}
       className="card-modal"

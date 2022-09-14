@@ -68,7 +68,7 @@ export const SavingGoalModal: React.FC<SavingGoalModalProps> = ({
 
   return (
     <Modal
-      visible={isShow}
+      open={isShow}
       onOk={handleOk}
       okButtonProps={{ loading: isLoading, disabled: !isValidForm }}
       onCancel={onCancel}

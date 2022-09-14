@@ -82,7 +82,7 @@ export const CategoryModal: React.FC<CategoryModalProps> = ({
 
   return (
     <Modal
-      visible={isShow}
+      open={isShow}
       onOk={handleOk}
       okButtonProps={{ loading: isLoading, disabled: !isValidForm }}
       onCancel={onCancel}
