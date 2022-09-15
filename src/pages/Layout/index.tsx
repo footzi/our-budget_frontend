@@ -12,7 +12,7 @@ import { useGetSavings } from '@/hooks/useGetSavings';
 import { Sidebar } from '@/modules/Sidebar';
 import { UserWidget } from '@/modules/UserWidget';
 import { Main } from '@/pages/Main';
-import { useAppSelector } from '@/store';
+import { clearCardEditedDate, useAppDispatch, useAppSelector } from '@/store';
 import cx from 'classnames';
 import dayjs, { Dayjs } from 'dayjs';
 import React, { Suspense, useCallback, useState } from 'react';
@@ -30,6 +30,7 @@ export const Layout = () => {
   const [selectedDate, setSelectedDate] = useState<Dayjs>(currentDay);
 
   const { onBoardingStep } = useAppSelector();
+  const dispatch = useAppDispatch();
 
   const { isLoading: isLoadingGetCategories } = useGetCategories();
   const { isLoading: isLoadingGetBalance } = useGetBalance();
@@ -38,7 +39,13 @@ export const Layout = () => {
   const { isLoading: isLoadingGetIncomes } = useGetIncomes(selectedDate);
   const { isLoading: isLoadingGetSavings } = useGetSavings(selectedDate);
 
-  const handleChangeMonth = useCallback((date: Dayjs) => setSelectedDate(date), []);
+  const handleChangeMonth = useCallback(
+    (date: Dayjs) => {
+      setSelectedDate(date);
+      dispatch(clearCardEditedDate());
+    },
+    [dispatch]
+  );
 
   const isFirstLoading = useGetFirstLoading([
     isLoadingGetCategories,

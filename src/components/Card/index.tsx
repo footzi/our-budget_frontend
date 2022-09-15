@@ -2,6 +2,7 @@ import { NotCategory } from '@/components/Card/NotCategory';
 import { CARD_TYPES } from '@/components/Card/constants';
 import { Section } from '@/components/Section';
 import { FORMAT_UI_SHORT_DATE, SAVING_ACTION_TYPE, SAVING_ACTION_TYPES_LIST } from '@/constants';
+import { setCardEditedDate, useAppDispatch, useAppSelector } from '@/store';
 import { formatPrice } from '@/utils/formatPrice';
 import { formatToHumanDate } from '@/utils/formatToHumanDate';
 import CaretDownOutlined from '@ant-design/icons/CaretDownOutlined';
@@ -10,11 +11,12 @@ import { Button, DatePicker, Empty, Form, Input, InputNumber, List, Radio, Selec
 import { useForm } from 'antd/es/form/Form';
 import cx from 'classnames';
 import dayjs, { Dayjs } from 'dayjs';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { CardModal } from './Modal';
 import './index.less';
 import { CardAddBalancesBody, CardAddSavingBody, CardItem, CardProps } from './interfaces';
+import { getInitialDate } from './utils/getInitialDate';
 
 /**
  * Компонент отрисовки списка расходов / доходов
@@ -37,69 +39,94 @@ export const Card: React.FC<CardProps> = ({
   const [form] = useForm();
   const [editedItem, setEditedItem] = useState<CardItem | null>(null);
 
-  const handleFinish = (formBody: {
-    date: Dayjs;
-    categoryId?: string;
-    value: number;
-    comment: string;
-    goalId?: number;
-    actionType?: SAVING_ACTION_TYPE;
-  }) => {
-    if (isLoadingSave) {
-      return;
-    }
+  const { cardEditedDates } = useAppSelector();
+  const dispatch = useAppDispatch();
 
-    const { date, categoryId, value, comment, goalId, actionType } = formBody;
+  const editedDate = cardEditedDates && cardEditedDates[type];
 
-    // Сохранение доходов / расходов
-    if (categoryId) {
-      const body: CardAddBalancesBody = {
-        date,
-        categoryId,
-        value,
-        comment,
-      };
+  const handleFinish = useCallback(
+    (formBody: {
+      date: Dayjs;
+      categoryId?: string;
+      value: number;
+      comment: string;
+      goalId?: number;
+      actionType?: SAVING_ACTION_TYPE;
+    }) => {
+      if (isLoadingSave) {
+        return;
+      }
 
-      onAdd(type, body);
-    }
+      const { date, categoryId, value, comment, goalId, actionType } = formBody;
 
-    // Сохранение копилки
-    if (goalId && actionType) {
-      const body: CardAddSavingBody = {
-        date,
-        goalId,
-        actionType,
-        value,
-        comment,
-      };
+      // Сохранение доходов / расходов
+      if (categoryId) {
+        const body: CardAddBalancesBody = {
+          date,
+          categoryId,
+          value,
+          comment,
+        };
 
-      onAdd(type, body);
-    }
+        onAdd(type, body);
+      }
 
-    setEditedItem(null);
+      // Сохранение копилки
+      if (goalId && actionType) {
+        const body: CardAddSavingBody = {
+          date,
+          goalId,
+          actionType,
+          value,
+          comment,
+        };
 
-    form.setFieldsValue({
-      comment: '',
-      value: '',
-    });
-  };
+        onAdd(type, body);
+      }
 
-  const handleItemClick = (item: CardItem) => {
-    setEditedItem(item);
-  };
+      setEditedItem(null);
 
-  const handleModalCancel = () => {
-    setEditedItem(null);
-  };
+      form.setFieldsValue({
+        comment: '',
+        value: '',
+      });
+    },
+    [form, isLoadingSave, onAdd, type]
+  );
+
+  const handleItemClick = useCallback((item: CardItem) => setEditedItem(item), [setEditedItem]);
+
+  const handleModalCancel = useCallback(() => setEditedItem(null), [setEditedItem]);
+
+  const handleChangeDate = useCallback(
+    //@ts-ignore
+    //@todo исправить типы Moment
+    (event) => {
+      dispatch(
+        setCardEditedDate({
+          [type]: dayjs(event).toString(),
+        })
+      );
+    },
+    [dispatch, type]
+  );
 
   useEffect(() => {
+    const date = getInitialDate(selectedDate, editedDate);
+
     form.setFieldsValue({
-      date: selectedDate ?? dayjs(),
+      date,
       actionType: SAVING_ACTION_TYPES_LIST[0].type,
       categoryId: categories && categories.length > 0 ? categories[0].id : null,
       goalId: savingGoals && savingGoals.length > 0 ? savingGoals[0].id : null,
     });
-  }, [form, categories, savingGoals, selectedDate]);
+  }, [form, categories, savingGoals, selectedDate, editedDate]);
+
+  useEffect(() => {
+    if (selectedDate && editedDate) {
+      dispatch(setCardEditedDate(null));
+    }
+  }, [selectedDate, editedDate, dispatch]);
 
   const isShowDate =
     type === CARD_TYPES.INCOME_FACT || type === CARD_TYPES.SAVINGS_FACT || type === CARD_TYPES.EXPENSE_FACT;
@@ -152,7 +179,7 @@ export const Card: React.FC<CardProps> = ({
               name="date"
               rules={[{ required: true, message: 'Выберите дату' }]}
               className="card__form-date-picker">
-              <DatePicker picker="date" format={FORMAT_UI_SHORT_DATE} allowClear={false} />
+              <DatePicker picker="date" format={FORMAT_UI_SHORT_DATE} allowClear={false} onChange={handleChangeDate} />
             </Form.Item>
           )}
 

@@ -41,6 +41,15 @@ const slice = createSlice({
     setOnBoardingStep(state, action) {
       state.onBoardingStep = action.payload;
     },
+    setCardEditedDate(state, action) {
+      state.cardEditedDates = {
+        ...state.cardEditedDates,
+        ...action.payload,
+      };
+    },
+    clearCardEditedDate(state) {
+      state.cardEditedDates = null;
+    },
   },
 });
 
@@ -56,6 +65,8 @@ export const {
   setIncomesFact,
   setIncomesPlan,
   setOnBoardingStep,
+  setCardEditedDate,
+  clearCardEditedDate,
 } = slice.actions;
 
 export const store = configureStore({
