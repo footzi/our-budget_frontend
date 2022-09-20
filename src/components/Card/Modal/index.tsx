@@ -20,7 +20,6 @@ export const CardModal: React.FC<CardModalProps> = ({
   categories,
   savingGoals,
   isShowDate,
-  isShowComment,
   isLoadingUpdate,
   isLoadingDelete,
 }) => {
@@ -165,11 +164,9 @@ export const CardModal: React.FC<CardModalProps> = ({
             <InputNumber className="card-modal__price" addonAfter={<span>₽</span>} />
           </Form.Item>
 
-          {isShowComment && (
-            <Form.Item name="comment" label="Комментарий">
-              <Input.TextArea />
-            </Form.Item>
-          )}
+          <Form.Item name="comment" label="Комментарий">
+            <Input.TextArea />
+          </Form.Item>
 
           <Form.Item>
             <Popconfirm

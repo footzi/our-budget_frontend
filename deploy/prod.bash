@@ -1,7 +1,8 @@
 #!/bin/bash
+source ../.env
 
-ssh -p 49155 footzi@ovz1.j676141.m6zkp.vps.myjino.ru "
-  cd /var/www/our-budget_frontend/ &&
+ssh -p $DEPLOY_PORT $DEPLOY_URL "
+  cd $DEPLOY_FOLDER &&
   sudo -S git reset --hard origin/master &&
   sudo -S git pull &&
   sudo -S yarn &&

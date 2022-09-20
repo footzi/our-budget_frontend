@@ -13,7 +13,6 @@ export interface CardModalProps {
   isShowDate: boolean;
   categories?: Category[];
   savingGoals?: SavingGoal[];
-  isShowComment: boolean;
   isLoadingUpdate: boolean;
   isLoadingDelete: boolean;
 }

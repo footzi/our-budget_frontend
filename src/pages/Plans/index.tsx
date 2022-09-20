@@ -43,8 +43,8 @@ const Plans: React.FC<PlansProps> = ({ selectedDate }) => {
   const handleAdd = useCallback(
     async (type: CARD_TYPES, formBody: CardSaveBody) => {
       const date = formatToBackendDate(selectedDate);
-      const { value, categoryId } = formBody as CardAddBalancesBody;
-      const body = { date, value, categoryId };
+      const { value, categoryId, comment } = formBody as CardAddBalancesBody;
+      const body = { date, value, categoryId, comment };
 
       if (type === CARD_TYPES.INCOME_PLAN) {
         await addIncome(body);
@@ -60,8 +60,8 @@ const Plans: React.FC<PlansProps> = ({ selectedDate }) => {
   const handleUpdate = useCallback(
     async (type: CARD_TYPES, formBody: CardUpdateSaveBody) => {
       const date = formatToBackendDate(selectedDate);
-      const { id, value, categoryId } = formBody as CardUpdateBalancesBody;
-      const body = { id, date, value, categoryId };
+      const { id, value, categoryId, comment } = formBody as CardUpdateBalancesBody;
+      const body = { id, date, value, categoryId, comment };
 
       if (type === CARD_TYPES.INCOME_PLAN) {
         await updateIncome(body);

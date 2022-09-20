@@ -11,7 +11,7 @@ import { Button, DatePicker, Empty, Form, Input, InputNumber, List, Radio, Selec
 import { useForm } from 'antd/es/form/Form';
 import cx from 'classnames';
 import dayjs, { Dayjs } from 'dayjs';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import { CardModal } from './Modal';
 import './index.less';
@@ -130,32 +130,11 @@ export const Card: React.FC<CardProps> = ({
 
   const isShowDate =
     type === CARD_TYPES.INCOME_FACT || type === CARD_TYPES.SAVINGS_FACT || type === CARD_TYPES.EXPENSE_FACT;
-  const isShowComment =
-    type === CARD_TYPES.INCOME_FACT || type === CARD_TYPES.SAVINGS_FACT || type === CARD_TYPES.EXPENSE_FACT;
-
-  const SubmitButton = useMemo(
-    () => (
-      <Form.Item dependencies={['value', 'date']} className="card__form-button">
-        {({ getFieldsValue }) => {
-          const values = getFieldsValue();
-          const isValid = values.value && (isShowDate ? values.date : true);
-
-          return (
-            <Button htmlType="submit" loading={isLoadingSave} disabled={!isValid} type="primary">
-              Добавить
-            </Button>
-          );
-        }}
-      </Form.Item>
-    ),
-    [isLoadingSave, isShowDate]
-  );
 
   const isShowNotContent = (categories && !categories.length) || (savingGoals && !savingGoals.length);
 
   const cxCard = cx('card', {
     ['card_savings-layout']: type === CARD_TYPES.SAVINGS_PLAN || type === CARD_TYPES.SAVINGS_FACT,
-    ['card_comment-layout']: isShowComment,
   });
 
   const cxTotalValue = cx('card__sum-value', {
@@ -164,7 +143,7 @@ export const Card: React.FC<CardProps> = ({
 
   if (isShowNotContent) {
     return (
-      <Section title={title} className="card">
+      <Section title={title}>
         <NotCategory type={type} />
       </Section>
     );
@@ -214,7 +193,10 @@ export const Card: React.FC<CardProps> = ({
           )}
 
           {(type === CARD_TYPES.SAVINGS_FACT || type === CARD_TYPES.SAVINGS_PLAN) && (
-            <Form.Item name="actionType" rules={[{ required: true, message: 'Выберите действие' }]}>
+            <Form.Item
+              name="actionType"
+              rules={[{ required: true, message: 'Выберите действие' }]}
+              className="card__form-radio">
               <Radio.Group>
                 <Radio value={SAVING_ACTION_TYPES_LIST[0].type}>{SAVING_ACTION_TYPES_LIST[0].text}</Radio>
                 <Radio value={SAVING_ACTION_TYPES_LIST[1].type}>{SAVING_ACTION_TYPES_LIST[1].text}</Radio>
@@ -226,15 +208,22 @@ export const Card: React.FC<CardProps> = ({
             <InputNumber addonAfter={<span>₽</span>}></InputNumber>
           </Form.Item>
 
-          {!isShowDate && SubmitButton}
+          <Form.Item name="comment" className="card__form-comment">
+            <Input.TextArea placeholder="Комментарий" />
+          </Form.Item>
 
-          {isShowComment && (
-            <Form.Item name="comment" label="Комментарий:" className="card__form-comment">
-              <Input.TextArea />
-            </Form.Item>
-          )}
+          <Form.Item dependencies={['value', 'date']} className="card__form-button">
+            {({ getFieldsValue }) => {
+              const values = getFieldsValue();
+              const isValid = values.value && (isShowDate ? values.date : true);
 
-          {isShowDate && SubmitButton}
+              return (
+                <Button htmlType="submit" loading={isLoadingSave} disabled={!isValid} type="primary">
+                  Добавить
+                </Button>
+              );
+            }}
+          </Form.Item>
         </Form>
 
         <List
@@ -290,7 +279,6 @@ export const Card: React.FC<CardProps> = ({
         onCancel={handleModalCancel}
         onSubmit={onUpdate}
         onDelete={onDelete}
-        isShowComment={isShowComment ?? false}
         isShowDate={isShowDate ?? false}
         isLoadingUpdate={isLoadingUpdate}
         isLoadingDelete={isLoadingDelete}
