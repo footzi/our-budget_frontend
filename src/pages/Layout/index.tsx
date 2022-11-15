@@ -1,6 +1,7 @@
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { MainLoader } from '@/components/MainLoader';
 import { PageTitle } from '@/components/PageTitle';
+import { SkipLink } from '@/components/SkipLink';
 import { ROUTES } from '@/constants/routes';
 import { useGetBalance } from '@/hooks/useGetBalance';
 import { useGetCategories } from '@/hooks/useGetCategories';
@@ -15,7 +16,7 @@ import { Main } from '@/pages/Main';
 import { clearCardEditedDate, useAppDispatch, useAppSelector } from '@/store';
 import cx from 'classnames';
 import dayjs, { Dayjs } from 'dayjs';
-import React, { Suspense, useCallback, useState } from 'react';
+import React, { Suspense, useCallback, useRef, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import './index.less';
@@ -32,6 +33,8 @@ export const Layout = () => {
   const { onBoardingStep } = useAppSelector();
   const dispatch = useAppDispatch();
 
+  const contentRef = useRef<HTMLDivElement>(null);
+
   const { isLoading: isLoadingGetCategories } = useGetCategories();
   const { isLoading: isLoadingGetBalance } = useGetBalance();
   const { isLoading: isLoadingGetSavingGoals } = useGetSavingGoals();
@@ -46,6 +49,12 @@ export const Layout = () => {
     },
     [dispatch]
   );
+
+  const handleClickMenu = useCallback(() => {
+    if (contentRef?.current) {
+      contentRef.current.focus();
+    }
+  }, []);
 
   const isFirstLoading = useGetFirstLoading([
     isLoadingGetCategories,
@@ -68,12 +77,23 @@ export const Layout = () => {
 
   return (
     <div className="layout">
+      <div className="layout__skip-link">
+        <SkipLink />
+      </div>
+
       <div className={cxSidebar}>
         <ErrorBoundary>
-          <Sidebar />
+          <Sidebar onClickMenu={handleClickMenu} />
         </ErrorBoundary>
       </div>
-      <div className="layout__content">
+
+      <div className="layout__user-widget">
+        <ErrorBoundary>
+          <UserWidget />
+        </ErrorBoundary>
+      </div>
+
+      <div className="layout__content" id="content" tabIndex={-1} ref={contentRef}>
         <PageTitle />
 
         <main>
@@ -91,9 +111,6 @@ export const Layout = () => {
             </Routes>
           </Suspense>
         </main>
-      </div>
-      <div className="layout__user-widget">
-        <UserWidget />
       </div>
     </div>
   );

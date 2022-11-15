@@ -16,14 +16,14 @@ export const UserWidget = () => {
   }
 
   return (
-    <div>
-      <Popover
-        placement="bottomRight"
-        content={<Content logout={logout} user={user} isLoading={isLoading} />}
-        trigger="click"
-        className="user-widget">
+    <Popover
+      placement="bottomRight"
+      content={<Content logout={logout} user={user} isLoading={isLoading} />}
+      trigger="click"
+      className="user-widget">
+      <button>
         <Avatar icon={<UserOutlined />} />
-      </Popover>
-    </div>
+      </button>
+    </Popover>
   );
 };

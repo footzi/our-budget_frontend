@@ -5,15 +5,30 @@ import { Link } from 'react-router-dom';
 import './index.less';
 import { MenuItemProps } from './interfaces';
 
-export const MenuItem: React.FC<MenuItemProps> = ({ icon, to, name, isActive, isBorder, isOnBoardingsStep }) => {
+export const MenuItem: React.FC<MenuItemProps> = ({
+  icon,
+  to,
+  name,
+  onClick,
+  isActive,
+  isBorder,
+  isOnBoardingsStep,
+}) => {
   const cxLink = cx('menu-item', {
     ['is-active']: isActive,
     ['is-onboarding']: isOnBoardingsStep,
   });
 
+  const handleClick = () => onClick();
+
   return (
     <li>
-      <Link to={to} className={cxLink}>
+      <Link
+        onClick={handleClick}
+        to={{
+          pathname: to,
+        }}
+        className={cxLink}>
         {icon}
         <span>{name}</span>
       </Link>

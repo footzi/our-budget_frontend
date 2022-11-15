@@ -1,0 +1,15 @@
+@import '@/styles';
+
+.skip-link {
+  position: absolute;
+  z-index: 2;
+  background-color: @white;
+  border-radius: @border-radius-main;
+  padding: 12px;
+  top: -9999px;
+  left: 16px;
+
+  &:focus {
+    top: 12px;
+  }
+}
