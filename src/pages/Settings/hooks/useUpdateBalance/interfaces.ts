@@ -1,4 +1,6 @@
+import { ProfileEditableValue } from '../../interfaces';
+
 export interface UseUpdateBalanceResult {
   isLoading: boolean;
-  update: (value: string) => void;
+  update: (value: ProfileEditableValue) => void;
 }

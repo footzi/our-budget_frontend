@@ -1,6 +1,7 @@
 import { useRefetchBalance, useRefetchUser } from '@/api';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { Section } from '@/components/Section';
+import { CURRENCIES } from '@/constants';
 import { Maybe } from '@/interfaces';
 import { useAppSelector } from '@/store';
 import { formatPrice } from '@/utils/formatPrice';
@@ -13,7 +14,7 @@ import { PROFILE_ITEM_TYPES } from './constants';
 import { useUpdateBalance } from './hooks/useUpdateBalance';
 import { useUpdateUser } from './hooks/useUpdateUser';
 import './index.less';
-import { ProfileEditableItem } from './interfaces';
+import { ProfileEditableItem, ProfileEditableValue } from './interfaces';
 
 const Settings: React.FC = () => {
   const { user, balance } = useAppSelector();
@@ -25,14 +26,14 @@ const Settings: React.FC = () => {
   const { update: updateUser, isLoading: isLoadingUpdateUser } = useUpdateUser();
   const { update: updateBalance, isLoading: isLoadingUpdateBalance } = useUpdateBalance();
 
-  const handleClick = useCallback((type: PROFILE_ITEM_TYPES, value: string) => {
+  const handleClick = useCallback((type: PROFILE_ITEM_TYPES, value: ProfileEditableValue) => {
     setEditableItem({ type, value });
   }, []);
 
   const handleModalCancel = useCallback(() => setEditableItem(null), []);
 
   const handleModal = useCallback(
-    async (value: string, type: PROFILE_ITEM_TYPES) => {
+    async (value: ProfileEditableValue, type: PROFILE_ITEM_TYPES) => {
       if (type === PROFILE_ITEM_TYPES.FIRST_NAME) {
         await updateUser(value, type);
         refetchUser();
@@ -49,6 +50,14 @@ const Settings: React.FC = () => {
   if (!user || !balance) {
     return null;
   }
+
+  const currencies = user.currencies.reduce((acc, item, index) => {
+    const symbol = CURRENCIES[item].symbol;
+    const res = index > 0 ? `, ${symbol}` : `${symbol}`;
+
+    acc = acc + res;
+    return acc;
+  }, '');
 
   return (
     <ErrorBoundary>
@@ -89,6 +98,19 @@ const Settings: React.FC = () => {
               size="small"
               className="profile__row-button"
               onClick={() => handleClick(PROFILE_ITEM_TYPES.BALANCE, balance.value.common.toString())}
+            />
+          </div>
+        </div>
+
+        <div className="profile__row">
+          <Typography.Title level={5}>Валюты:</Typography.Title>
+          <div className="profile__row-value">
+            <Typography.Text>{currencies}</Typography.Text>
+            <Button
+              icon={<EditOutlined />}
+              size="small"
+              className="profile__row-button"
+              onClick={() => handleClick(PROFILE_ITEM_TYPES.CURRENCY, user.currencies)}
             />
           </div>
         </div>

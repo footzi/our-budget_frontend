@@ -4,6 +4,7 @@ export interface User {
   id: number;
   login: string;
   firstName: string;
+  currencies: CURRENCIES_TYPE[];
 }
 
 export interface Category {
@@ -74,3 +75,13 @@ export interface OnBoardingItem {
 }
 
 export type OnBoardingItemsLS = { [key: string]: OnBoardingItem };
+
+export enum CURRENCIES_TYPE {
+  RUB = 'RUB',
+  USD = 'USD',
+}
+
+export interface Currency {
+  name: string;
+  symbol: string;
+}

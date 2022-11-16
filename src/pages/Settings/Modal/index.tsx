@@ -1,5 +1,7 @@
 import { SubmitHiddenButton } from '@/components/SubmitHiddenButton';
-import { Form, Input, InputNumber, Modal } from 'antd';
+import { OPTIONS_CURRENCIES } from '@/constants';
+import { ProfileEditableValue } from '@/pages/Settings/interfaces';
+import { Form, Input, InputNumber, Modal, Select } from 'antd';
 import { useForm } from 'antd/es/form/Form';
 import React, { useCallback, useEffect, useState } from 'react';
 
@@ -11,12 +13,17 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({ item, onCancel, onSu
 
   const [isValidForm, setIsValidForm] = useState(false);
 
-  const formValidator = useCallback((value: string): boolean => Boolean(value), []);
+  const formValidator = useCallback((value: ProfileEditableValue): boolean => {
+    if (Array.isArray(value)) {
+      return Boolean(value.length);
+    }
+    return Boolean(value);
+  }, []);
 
   const handleOk = useCallback(() => form.submit(), [form]);
 
   const handleSubmit = useCallback(
-    async (form: { value: string }) => {
+    async (form: { value: ProfileEditableValue }) => {
       if (item) {
         await onSubmit(form.value, item.type);
       }
@@ -62,7 +69,13 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({ item, onCancel, onSu
             </Form.Item>
           )}
 
-          <Form.Item hidden dependencies={['value', 'date']}>
+          {item.type === PROFILE_ITEM_TYPES.CURRENCY && (
+            <Form.Item name="value" rules={[{ required: true, message: 'Выберите валюту' }]} label="Валюты:">
+              <Select mode="multiple" placeholder="Выберите валюту" options={OPTIONS_CURRENCIES} />
+            </Form.Item>
+          )}
+
+          <Form.Item hidden dependencies={['value', 'date', 'currency']}>
             {({ getFieldsValue }) => {
               const values = getFieldsValue();
 
