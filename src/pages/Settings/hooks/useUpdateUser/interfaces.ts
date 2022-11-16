@@ -1,4 +1,4 @@
-import { CURRENCIES_TYPE } from '@/interfaces';
+import { CURRENCIES_TYPE } from '@/constants';
 
 import { PROFILE_ITEM_TYPES } from '../../constants';
 import { ProfileEditableValue } from '../../interfaces';

@@ -20,7 +20,7 @@ import './index.less';
 import { PlansProps } from './interfaces';
 
 const Plans: React.FC<PlansProps> = ({ selectedDate }) => {
-  const { categories, incomes, expenses } = useAppSelector();
+  const { categories, incomes, expenses, user } = useAppSelector();
 
   const refetchIncomes = useRefetchIncomes();
   const refetchExpenses = useRefetchExpenses();
@@ -40,11 +40,13 @@ const Plans: React.FC<PlansProps> = ({ selectedDate }) => {
   const expensesSum = expenses.plan.sum;
   const incomesSum = incomes.plan.sum;
 
+  const currencies = user?.currencies ?? [];
+
   const handleAdd = useCallback(
     async (type: CARD_TYPES, formBody: CardSaveBody) => {
       const date = formatToBackendDate(selectedDate);
-      const { value, categoryId, comment } = formBody as CardAddBalancesBody;
-      const body = { date, value, categoryId, comment };
+      const { value, categoryId, comment, currency } = formBody as CardAddBalancesBody;
+      const body = { date, value, categoryId, comment, currency };
 
       if (type === CARD_TYPES.INCOME_PLAN) {
         await addIncome(body);
@@ -102,6 +104,7 @@ const Plans: React.FC<PlansProps> = ({ selectedDate }) => {
         <Card
           title="Планируемые расходы"
           categories={categoriesExpenses}
+          currencies={currencies}
           list={expensesList}
           total={expensesSum}
           onAdd={handleAdd}
@@ -118,6 +121,7 @@ const Plans: React.FC<PlansProps> = ({ selectedDate }) => {
         <Card
           title="Планируемые доходы"
           categories={categoriesIncomes}
+          currencies={currencies}
           list={incomesList}
           total={incomesSum}
           onAdd={handleAdd}

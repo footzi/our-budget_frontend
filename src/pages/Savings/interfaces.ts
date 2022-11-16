@@ -1,4 +1,4 @@
-import { SAVING_ACTION_TYPE } from '@/constants';
+import { CURRENCIES_TYPE, SAVING_ACTION_TYPE } from '@/constants';
 import { Dayjs } from 'dayjs';
 
 export interface SavingsProps {
@@ -11,8 +11,9 @@ export interface AddSavingBody {
   actionType: SAVING_ACTION_TYPE;
   value: number;
   comment?: string;
+  currency: CURRENCIES_TYPE;
 }
 
-export interface UpdateSavingBody extends AddSavingBody {
+export interface UpdateSavingBody extends Omit<AddSavingBody, 'currency'> {
   id: number;
 }

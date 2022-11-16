@@ -1,4 +1,4 @@
-import { SAVING_ACTION_TYPE } from '@/constants';
+import { CURRENCIES_TYPE, SAVING_ACTION_TYPE } from '@/constants';
 import { Category, Expense, Income, Saving, SavingGoal } from '@/interfaces';
 import { Dayjs } from 'dayjs';
 
@@ -7,6 +7,7 @@ import { CARD_TYPES } from './constants';
 export interface CardProps {
   title: string;
   list: CardItem[];
+  currencies: CURRENCIES_TYPE[];
   categories?: Category[];
   savingGoals?: SavingGoal[];
   total: number;
@@ -32,6 +33,7 @@ export interface CardAddBalancesBody {
   categoryId: string;
   value: number;
   comment?: string;
+  currency: CURRENCIES_TYPE;
 }
 
 export interface CardAddSavingBody {
@@ -40,13 +42,14 @@ export interface CardAddSavingBody {
   actionType: SAVING_ACTION_TYPE;
   value: number;
   comment?: string;
+  currency: CURRENCIES_TYPE;
 }
 
-export interface CardUpdateBalancesBody extends CardAddBalancesBody {
+export interface CardUpdateBalancesBody extends Omit<CardAddBalancesBody, 'currency'> {
   id: number;
 }
 
-export interface CardUpdateSavingBody extends CardAddSavingBody {
+export interface CardUpdateSavingBody extends Omit<CardAddSavingBody, 'currency'> {
   id: number;
 }
 

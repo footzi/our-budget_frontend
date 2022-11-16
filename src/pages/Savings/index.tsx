@@ -20,7 +20,7 @@ import './index.less';
 import { SavingsProps } from './interfaces';
 
 const Savings: React.FC<SavingsProps> = ({ selectedDate }) => {
-  const { savingGoals, savings } = useAppSelector();
+  const { savingGoals, savings, user } = useAppSelector();
 
   const refetchSavings = useRefetchSavings();
   const refetchSavingGoals = useRefetchSavingGoals();
@@ -37,14 +37,14 @@ const Savings: React.FC<SavingsProps> = ({ selectedDate }) => {
 
   const handleAdd = useCallback(
     async (type: CARD_TYPES, body: CardSaveBody) => {
-      const { value, goalId, comment, actionType } = body as CardAddSavingBody;
+      const { value, goalId, comment, actionType, currency } = body as CardAddSavingBody;
 
       if (type === CARD_TYPES.SAVINGS_FACT && body.date) {
-        await addFact({ date: formatToBackendDate(body.date), goalId, comment, value, actionType });
+        await addFact({ date: formatToBackendDate(body.date), goalId, comment, value, actionType, currency });
         refetchSavingGoals();
         refetchBalance();
       } else {
-        await addPlan({ date: formatToBackendDate(selectedDate), goalId, comment, value, actionType });
+        await addPlan({ date: formatToBackendDate(selectedDate), goalId, comment, value, actionType, currency });
       }
 
       refetchSavings();
@@ -90,6 +90,8 @@ const Savings: React.FC<SavingsProps> = ({ selectedDate }) => {
   const fact = savings?.fact?.list ?? [];
   const factTotal = savings?.fact?.sum ?? 0;
 
+  const currencies = user?.currencies ?? [];
+
   const isLoadingAdd = isLoadingAddFact || isLoadingAddPlan;
   const isLoadingUpdate = isLoadingUpdateFact || isLoadingUpdatePlan;
   const isLoadingDelete = isLoadingDeleteFact || isLoadingDeletePlan;
@@ -105,6 +107,7 @@ const Savings: React.FC<SavingsProps> = ({ selectedDate }) => {
           <Card
             title="План"
             savingGoals={savingGoals.value ?? []}
+            currencies={currencies}
             list={plan}
             total={planTotal}
             onAdd={handleAdd}
@@ -121,6 +124,7 @@ const Savings: React.FC<SavingsProps> = ({ selectedDate }) => {
           <Card
             title="Факт"
             savingGoals={savingGoals.value ?? []}
+            currencies={currencies}
             list={fact}
             total={factTotal}
             selectedDate={selectedDate}

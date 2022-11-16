@@ -20,7 +20,7 @@ import './index.less';
 import { FactsProps } from './interfaces';
 
 const Facts: React.FC<FactsProps> = ({ selectedDate }) => {
-  const { categories, incomes, expenses } = useAppSelector();
+  const { categories, incomes, expenses, user } = useAppSelector();
 
   const refetchIncomes = useRefetchIncomes();
   const refetchExpenses = useRefetchExpenses();
@@ -39,12 +39,13 @@ const Facts: React.FC<FactsProps> = ({ selectedDate }) => {
   const incomesList = incomes.fact.list;
   const expensesSum = expenses.fact.sum;
   const incomesSum = incomes.fact.sum;
+  const currencies = user?.currencies ?? [];
 
   const handleAdd = useCallback(
     async (type: CARD_TYPES, formBody: CardSaveBody) => {
       const date = formBody.date ? formatToBackendDate(formBody.date) : formatToBackendDate(selectedDate);
-      const { value, categoryId, comment } = formBody as CardAddBalancesBody;
-      const body = { date, value, categoryId, comment };
+      const { value, categoryId, comment, currency } = formBody as CardAddBalancesBody;
+      const body = { date, value, categoryId, comment, currency };
 
       if (type === CARD_TYPES.INCOME_FACT) {
         await addIncome(body);
@@ -108,6 +109,7 @@ const Facts: React.FC<FactsProps> = ({ selectedDate }) => {
         <Card
           title="Фактические расходы"
           categories={categoriesExpenses}
+          currencies={currencies}
           list={expensesList}
           total={expensesSum}
           selectedDate={selectedDate}
@@ -124,6 +126,7 @@ const Facts: React.FC<FactsProps> = ({ selectedDate }) => {
       <ErrorBoundary>
         <Card
           title="Фактические доходы"
+          currencies={currencies}
           categories={categoriesIncomes}
           list={incomesList}
           total={incomesSum}

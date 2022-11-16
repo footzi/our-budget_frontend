@@ -1,4 +1,4 @@
-import { CATEGORIES_TYPES, ON_BOARDING_STATUSES, SAVING_ACTION_TYPE } from '@/constants';
+import { CATEGORIES_TYPES, CURRENCIES_TYPE, ON_BOARDING_STATUSES, SAVING_ACTION_TYPE } from '@/constants';
 
 export interface User {
   id: number;
@@ -76,12 +76,12 @@ export interface OnBoardingItem {
 
 export type OnBoardingItemsLS = { [key: string]: OnBoardingItem };
 
-export enum CURRENCIES_TYPE {
-  RUB = 'RUB',
-  USD = 'USD',
+export interface Currency {
+  name: CURRENCIES_TYPE;
+  symbol: string;
 }
 
-export interface Currency {
-  name: string;
-  symbol: string;
+export interface CurrencyOption {
+  label: string;
+  value: CURRENCIES_TYPE;
 }

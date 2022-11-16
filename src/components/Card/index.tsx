@@ -2,6 +2,7 @@ import { NotCategory } from '@/components/Card/NotCategory';
 import { CARD_TYPES } from '@/components/Card/constants';
 import { Section } from '@/components/Section';
 import { FORMAT_UI_SHORT_DATE, SAVING_ACTION_TYPE, SAVING_ACTION_TYPES_LIST } from '@/constants';
+import { CURRENCIES_TYPE } from '@/constants';
 import { setCardEditedDate, useAppDispatch, useAppSelector } from '@/store';
 import { formatPrice } from '@/utils/formatPrice';
 import { formatToHumanDate } from '@/utils/formatToHumanDate';
@@ -11,18 +12,20 @@ import { Button, DatePicker, Empty, Form, Input, InputNumber, List, Radio, Selec
 import { useForm } from 'antd/es/form/Form';
 import cx from 'classnames';
 import dayjs, { Dayjs } from 'dayjs';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { CardModal } from './Modal';
 import './index.less';
 import { CardAddBalancesBody, CardAddSavingBody, CardItem, CardProps } from './interfaces';
 import { getInitialDate } from './utils/getInitialDate';
+import { getOptionsCurrencies } from './utils/getOptionsCurrencies';
 
 /**
  * Компонент отрисовки списка расходов / доходов
  */
 export const Card: React.FC<CardProps> = ({
   categories,
+  currencies,
   savingGoals,
   type,
   selectedDate,
@@ -52,12 +55,13 @@ export const Card: React.FC<CardProps> = ({
       comment: string;
       goalId?: number;
       actionType?: SAVING_ACTION_TYPE;
+      currency: CURRENCIES_TYPE;
     }) => {
       if (isLoadingSave) {
         return;
       }
 
-      const { date, categoryId, value, comment, goalId, actionType } = formBody;
+      const { date, categoryId, value, comment, goalId, actionType, currency } = formBody;
 
       // Сохранение доходов / расходов
       if (categoryId) {
@@ -66,6 +70,7 @@ export const Card: React.FC<CardProps> = ({
           categoryId,
           value,
           comment,
+          currency,
         };
 
         onAdd(type, body);
@@ -79,6 +84,7 @@ export const Card: React.FC<CardProps> = ({
           actionType,
           value,
           comment,
+          currency,
         };
 
         onAdd(type, body);
@@ -111,16 +117,19 @@ export const Card: React.FC<CardProps> = ({
     [dispatch, type]
   );
 
+  const currenciesOptions = useMemo(() => getOptionsCurrencies(currencies), [currencies]);
+
   useEffect(() => {
     const date = getInitialDate(selectedDate, editedDate);
 
     form.setFieldsValue({
       date,
+      currency: currencies && currencies[0],
       actionType: SAVING_ACTION_TYPES_LIST[0].type,
       categoryId: categories && categories.length > 0 ? categories[0].id : null,
       goalId: savingGoals && savingGoals.length > 0 ? savingGoals[0].id : null,
     });
-  }, [form, categories, savingGoals, selectedDate, editedDate]);
+  }, [form, categories, savingGoals, selectedDate, editedDate, currencies]);
 
   useEffect(() => {
     if (selectedDate && editedDate) {
@@ -204,9 +213,15 @@ export const Card: React.FC<CardProps> = ({
             </Form.Item>
           )}
 
-          <Form.Item name="value" rules={[{ required: true, message: 'Введите сумму' }]} className="card__form-price">
-            <InputNumber addonAfter={<span>₽</span>}></InputNumber>
-          </Form.Item>
+          <div className="card__form-price-container">
+            <Form.Item name="value" rules={[{ required: true, message: 'Введите сумму' }]} className="card__form-price">
+              <InputNumber />
+            </Form.Item>
+
+            <Form.Item name="currency" className="card__form-currency">
+              <Select options={currenciesOptions} />
+            </Form.Item>
+          </div>
 
           <Form.Item name="comment" className="card__form-comment">
             <Input.TextArea placeholder="Комментарий" />

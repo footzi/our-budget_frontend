@@ -1,4 +1,4 @@
-import { CURRENCIES_TYPE, Currency } from '@/interfaces';
+import { Currency, CurrencyOption } from '@/interfaces';
 
 export enum LocalStorageItems {
   USER = 'USER',
@@ -48,18 +48,23 @@ export enum ON_BOARDING_STATUSES {
 }
 
 // Currencies
+export enum CURRENCIES_TYPE {
+  RUB = 'RUB',
+  USD = 'USD',
+}
+
 export const CURRENCIES: Record<keyof typeof CURRENCIES_TYPE, Currency> = {
   [CURRENCIES_TYPE.RUB]: {
-    name: 'RUB',
+    name: CURRENCIES_TYPE.RUB,
     symbol: '₽',
   },
   [CURRENCIES_TYPE.USD]: {
-    name: 'USD',
+    name: CURRENCIES_TYPE.USD,
     symbol: '$',
   },
 };
 
-export const OPTIONS_CURRENCIES = [
+export const OPTIONS_CURRENCIES: CurrencyOption[] = [
   {
     label: CURRENCIES.RUB.symbol,
     value: CURRENCIES.RUB.name,
