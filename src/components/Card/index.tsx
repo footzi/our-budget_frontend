@@ -146,10 +146,6 @@ export const Card: React.FC<CardProps> = ({
     ['card_savings-layout']: type === CARD_TYPES.SAVINGS_PLAN || type === CARD_TYPES.SAVINGS_FACT,
   });
 
-  const cxTotalValue = cx('card__sum-value', {
-    ['card__sum-value_positive']: total > 0,
-  });
-
   if (isShowNotContent) {
     return (
       <Section title={title}>
@@ -266,7 +262,9 @@ export const Card: React.FC<CardProps> = ({
                   </div>
                 )}
 
-                <Typography.Text className="card__list-item-value">{formatPrice(item.value)}</Typography.Text>
+                <Typography.Text className="card__list-item-value">
+                  {formatPrice(item.value, item.currency)}
+                </Typography.Text>
               </div>
 
               {item.comment && (
@@ -278,14 +276,28 @@ export const Card: React.FC<CardProps> = ({
           )}
         />
 
-        {total !== 0 && (
-          <div className="card__sum">
-            <Typography.Title level={4}>Итого</Typography.Title>
-            <Typography.Title level={4} className={cxTotalValue}>
-              {formatPrice(total)}
-            </Typography.Title>
+        <div className="card__sum">
+          <Typography.Title level={4}>Итого</Typography.Title>
+          <div className="card__sum-values">
+            {Object.keys(total).map((key, index) => {
+              const currency = key as CURRENCIES_TYPE;
+              const value = total[currency];
+
+              const cxTotalValue = cx('card__sum-value', {
+                ['card__sum-value_positive']: value && value > 0,
+              });
+
+              return (
+                <>
+                  {index > 0 ? <span className="card__sum-separator">|</span> : ''}
+                  <Typography.Title level={4} className={cxTotalValue}>
+                    {formatPrice(value, currency)}
+                  </Typography.Title>
+                </>
+              );
+            })}
           </div>
-        )}
+        </div>
       </Section>
 
       <CardModal

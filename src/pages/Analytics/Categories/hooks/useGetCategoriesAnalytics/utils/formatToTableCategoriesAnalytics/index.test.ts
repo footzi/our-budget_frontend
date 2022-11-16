@@ -1,4 +1,4 @@
-import { CATEGORIES_TYPES } from '@/constants';
+import { CATEGORIES_TYPES, CURRENCIES_TYPE } from '@/constants';
 
 import { formatToTableCategoriesAnalytics } from './index';
 
@@ -32,6 +32,7 @@ describe('Analytics.Categories.useGetCategoriesAnalytics.formatToTableCategories
           endDate: '',
         },
         value: 20000,
+        currency: CURRENCIES_TYPE.RUB,
         comment: '',
         date: '',
       },
@@ -45,6 +46,7 @@ describe('Analytics.Categories.useGetCategoriesAnalytics.formatToTableCategories
           endDate: '',
         },
         value: 10000,
+        currency: CURRENCIES_TYPE.RUB,
         comment: '',
         date: '',
       },
@@ -58,6 +60,7 @@ describe('Analytics.Categories.useGetCategoriesAnalytics.formatToTableCategories
           endDate: '',
         },
         value: 2000,
+        currency: CURRENCIES_TYPE.RUB,
         comment: '',
         date: '',
       },
@@ -74,6 +77,7 @@ describe('Analytics.Categories.useGetCategoriesAnalytics.formatToTableCategories
           endDate: '',
         },
         value: 8000,
+        currency: CURRENCIES_TYPE.RUB,
         comment: '',
         date: '',
       },
@@ -87,6 +91,7 @@ describe('Analytics.Categories.useGetCategoriesAnalytics.formatToTableCategories
           endDate: '',
         },
         value: 5000,
+        currency: CURRENCIES_TYPE.RUB,
         comment: '',
         date: '',
       },
@@ -100,6 +105,7 @@ describe('Analytics.Categories.useGetCategoriesAnalytics.formatToTableCategories
           endDate: '',
         },
         value: 10000,
+        currency: CURRENCIES_TYPE.RUB,
         comment: '',
         date: '',
       },
@@ -113,6 +119,7 @@ describe('Analytics.Categories.useGetCategoriesAnalytics.formatToTableCategories
           endDate: '',
         },
         value: 20000,
+        currency: CURRENCIES_TYPE.RUB,
         comment: '',
         date: '',
       },

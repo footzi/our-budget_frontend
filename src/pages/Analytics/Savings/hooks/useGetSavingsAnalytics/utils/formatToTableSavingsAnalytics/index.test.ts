@@ -1,4 +1,4 @@
-import { SAVING_ACTION_TYPE } from '@/constants';
+import { CURRENCIES_TYPE, SAVING_ACTION_TYPE } from '@/constants';
 
 import { formatToTableSavingsAnalytics } from './index';
 
@@ -21,6 +21,7 @@ describe('Analytics.Savings.useGetSavingsAnalytics.formatToTableSavingsAnalytics
         id: 1,
         actionType: SAVING_ACTION_TYPE.INCOME,
         value: 150,
+        currency: CURRENCIES_TYPE.RUB,
         comment: '',
         date: '',
         goal: {
@@ -33,6 +34,7 @@ describe('Analytics.Savings.useGetSavingsAnalytics.formatToTableSavingsAnalytics
         id: 2,
         actionType: SAVING_ACTION_TYPE.INCOME,
         value: 100,
+        currency: CURRENCIES_TYPE.RUB,
         comment: '',
         date: '',
         goal: {
@@ -45,6 +47,7 @@ describe('Analytics.Savings.useGetSavingsAnalytics.formatToTableSavingsAnalytics
         id: 3,
         actionType: SAVING_ACTION_TYPE.EXPENSE,
         value: 250,
+        currency: CURRENCIES_TYPE.RUB,
         comment: '',
         date: '',
         goal: {
@@ -57,6 +60,7 @@ describe('Analytics.Savings.useGetSavingsAnalytics.formatToTableSavingsAnalytics
         id: 4,
         actionType: SAVING_ACTION_TYPE.EXPENSE,
         value: 200,
+        currency: CURRENCIES_TYPE.RUB,
         comment: '',
         date: '',
         goal: {
@@ -69,6 +73,7 @@ describe('Analytics.Savings.useGetSavingsAnalytics.formatToTableSavingsAnalytics
         id: 5,
         actionType: SAVING_ACTION_TYPE.INCOME,
         value: 500,
+        currency: CURRENCIES_TYPE.RUB,
         comment: '',
         date: '',
         goal: {
@@ -81,6 +86,7 @@ describe('Analytics.Savings.useGetSavingsAnalytics.formatToTableSavingsAnalytics
         id: 6,
         actionType: SAVING_ACTION_TYPE.EXPENSE,
         value: 350,
+        currency: CURRENCIES_TYPE.RUB,
         comment: '',
         date: '',
         goal: {

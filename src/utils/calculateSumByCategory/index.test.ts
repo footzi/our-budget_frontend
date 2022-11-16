@@ -1,4 +1,4 @@
-import { CATEGORIES_TYPES } from '@/constants';
+import { CATEGORIES_TYPES, CURRENCIES_TYPE } from '@/constants';
 
 import { calculateSumByCategory } from './index';
 
@@ -22,6 +22,7 @@ describe('calculateSumByCategory', () => {
           startDate: '',
           endDate: '',
         },
+        currency: CURRENCIES_TYPE.RUB,
         value: 1000,
         comment: '',
         date: '',
@@ -35,6 +36,7 @@ describe('calculateSumByCategory', () => {
           startDate: '',
           endDate: '',
         },
+        currency: CURRENCIES_TYPE.RUB,
         value: 1000,
         comment: '',
         date: '',
@@ -48,6 +50,7 @@ describe('calculateSumByCategory', () => {
           startDate: '',
           endDate: '',
         },
+        currency: CURRENCIES_TYPE.RUB,
         value: 8000,
         comment: '',
         date: '',

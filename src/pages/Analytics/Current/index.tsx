@@ -15,7 +15,10 @@ export const CurrentAnalytics = () => {
   const expensesPlan = expenses.plan.sum;
   const expensesFact = expenses.fact.sum;
 
+  // @todo сделать позже
+  // @ts-ignore
   const expensesData = getData([expensesPlan, expensesFact]);
+  // @ts-ignore
   const incomesData = getData([incomesPlan, incomesFact]);
 
   return (

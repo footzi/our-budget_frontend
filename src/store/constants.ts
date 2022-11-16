@@ -21,31 +21,31 @@ export const initialState: State = {
   expenses: {
     fact: {
       list: [],
-      sum: 0,
+      sum: {},
     },
     plan: {
       list: [],
-      sum: 0,
+      sum: {},
     },
   },
   incomes: {
     fact: {
       list: [],
-      sum: 0,
+      sum: {},
     },
     plan: {
       list: [],
-      sum: 0,
+      sum: {},
     },
   },
   savings: {
     fact: {
       list: [],
-      sum: 0,
+      sum: {},
     },
     plan: {
       list: [],
-      sum: 0,
+      sum: {},
     },
   },
 };

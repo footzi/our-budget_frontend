@@ -21,6 +21,7 @@ export interface Expense {
   value: number;
   comment: string;
   date: string;
+  currency: CURRENCIES_TYPE;
 }
 
 export interface Income {
@@ -29,6 +30,7 @@ export interface Income {
   value: number;
   comment: string;
   date: string;
+  currency: CURRENCIES_TYPE;
 }
 
 export type Item = Income | Expense;
@@ -42,6 +44,8 @@ export interface SavingGoal {
   name: string;
   description?: string;
   value?: Maybe<number>;
+  // @todo сделать после основного
+  // currency: CURRENCIES_TYPE;
 }
 
 export interface Saving {
@@ -51,6 +55,7 @@ export interface Saving {
   value: number;
   comment: string;
   date: string;
+  currency: CURRENCIES_TYPE;
 }
 
 export type Maybe<T> = T | (null | undefined);
@@ -85,3 +90,7 @@ export interface CurrencyOption {
   label: string;
   value: CURRENCIES_TYPE;
 }
+
+export type SumByCurrency = {
+  [key in CURRENCIES_TYPE]?: number;
+};

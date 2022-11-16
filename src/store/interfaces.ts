@@ -1,6 +1,6 @@
 import { CARD_TYPES } from '@/components/Card';
 import { ON_BOARDING_STEPS } from '@/constants';
-import { Category, Expense, Income, Maybe, Saving, SavingGoal, User } from '@/interfaces';
+import { Category, Expense, Income, Maybe, Saving, SavingGoal, SumByCurrency, User } from '@/interfaces';
 
 import { store } from './index';
 
@@ -24,31 +24,31 @@ export interface State {
   expenses: {
     fact: {
       list: Expense[];
-      sum: number;
+      sum: SumByCurrency;
     };
     plan: {
       list: Expense[];
-      sum: number;
+      sum: SumByCurrency;
     };
   };
   incomes: {
     fact: {
       list: Income[];
-      sum: number;
+      sum: SumByCurrency;
     };
     plan: {
       list: Income[];
-      sum: number;
+      sum: SumByCurrency;
     };
   };
   savings: {
     plan: {
       list: Saving[];
-      sum: number;
+      sum: SumByCurrency;
     };
     fact: {
       list: Saving[];
-      sum: number;
+      sum: SumByCurrency;
     };
   };
   cardEditedDates: Maybe<{

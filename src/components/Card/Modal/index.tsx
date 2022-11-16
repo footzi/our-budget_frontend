@@ -1,6 +1,7 @@
 import { CARD_TYPES, CardUpdateBalancesBody, CardUpdateSavingBody } from '@/components/Card';
 import { SubmitHiddenButton } from '@/components/SubmitHiddenButton';
 import { FORMAT_UI_DATE, SAVING_ACTION_TYPE, SAVING_ACTION_TYPES_LIST } from '@/constants';
+import { getCurrencyInfo } from '@/utils/getCurrencyInfo';
 import { Button, DatePicker, Form, Input, InputNumber, Modal, Popconfirm, Select } from 'antd';
 import { useForm } from 'antd/es/form/Form';
 import dayjs, { Dayjs } from 'dayjs';
@@ -102,6 +103,8 @@ export const CardModal: React.FC<CardModalProps> = ({
     }
   }, [item, form, formValidator]);
 
+  const currencySymbol = getCurrencyInfo(item?.currency).symbol;
+
   return (
     <Modal
       title="Редактирование"
@@ -161,7 +164,7 @@ export const CardModal: React.FC<CardModalProps> = ({
           )}
 
           <Form.Item name="value" label="Сумма" rules={[{ required: true, message: 'Введите сумму' }]}>
-            <InputNumber className="card-modal__price" addonAfter={<span>₽</span>} />
+            <InputNumber className="card-modal__price" addonAfter={<span>{currencySymbol}</span>} />
           </Form.Item>
 
           <Form.Item name="comment" label="Комментарий">

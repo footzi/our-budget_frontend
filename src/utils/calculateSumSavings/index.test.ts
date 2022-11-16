@@ -1,4 +1,4 @@
-import { SAVING_ACTION_TYPE } from '@/constants';
+import { CURRENCIES_TYPE, SAVING_ACTION_TYPE } from '@/constants';
 
 import { calculateSumSavings } from './index';
 
@@ -8,6 +8,7 @@ describe('calculateSumItems', () => {
       {
         id: 1,
         actionType: SAVING_ACTION_TYPE.INCOME,
+        currency: CURRENCIES_TYPE.RUB,
         value: 500,
         comment: '',
         date: '',
@@ -20,6 +21,7 @@ describe('calculateSumItems', () => {
       {
         id: 2,
         actionType: SAVING_ACTION_TYPE.INCOME,
+        currency: CURRENCIES_TYPE.RUB,
         value: 1500,
         comment: '',
         date: '',

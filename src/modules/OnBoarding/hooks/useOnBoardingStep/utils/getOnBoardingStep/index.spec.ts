@@ -1,4 +1,4 @@
-import { CATEGORIES_TYPES, ON_BOARDING_STATUSES, ON_BOARDING_STEPS } from '@/constants';
+import { CATEGORIES_TYPES, CURRENCIES_TYPE, ON_BOARDING_STATUSES, ON_BOARDING_STEPS } from '@/constants';
 import { Category, Item } from '@/interfaces';
 
 import { getOnBoardingStep } from './index';
@@ -46,6 +46,7 @@ describe('getOnBoardingStep', () => {
         date: '',
         comment: '',
         value: 100,
+        currency: CURRENCIES_TYPE.RUB,
         category: {
           id: 1,
           name: 'Категория расходов',
@@ -77,6 +78,7 @@ describe('getOnBoardingStep', () => {
         date: '',
         comment: '',
         value: 100,
+        currency: CURRENCIES_TYPE.RUB,
         category: {
           id: 1,
           name: 'Категория расходов',
@@ -108,6 +110,7 @@ describe('getOnBoardingStep', () => {
         date: '',
         comment: '',
         value: 100,
+        currency: CURRENCIES_TYPE.RUB,
         category: {
           id: 1,
           name: 'Категория расходов',
@@ -123,6 +126,7 @@ describe('getOnBoardingStep', () => {
         date: '',
         comment: '',
         value: 100,
+        currency: CURRENCIES_TYPE.RUB,
         category: {
           id: 1,
           name: 'Категория расходов',
