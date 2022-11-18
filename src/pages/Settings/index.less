@@ -3,7 +3,6 @@
   width: 400px;
 
   &__row {
-    align-items: center;
     margin-bottom: 12px;
     display: grid;
     grid-template-columns: 120px 1fr;
@@ -12,6 +11,10 @@
   &__row-value {
     display: flex;
     align-items: center;
+
+    &:not(:last-child) {
+      margin-bottom: 4px;
+    }
   }
 
   &__row-button {

@@ -1,4 +1,5 @@
 import { ApiConfig, useMutation } from '@/api';
+import { CURRENCIES_TYPE } from '@/constants';
 import { useCallback } from 'react';
 
 import { ProfileEditableValue } from '../../interfaces';
@@ -8,10 +9,10 @@ export const useUpdateBalance = (): UseUpdateBalanceResult => {
   const { isLoading, executePut } = useMutation({ config: ApiConfig.updateBalance });
 
   const update = useCallback(
-    async (value: ProfileEditableValue) => {
+    async (value: ProfileEditableValue, currency: CURRENCIES_TYPE) => {
       await executePut({
         data: {
-          common: value,
+          [currency]: value,
         },
       });
     },

@@ -8,9 +8,7 @@ export interface State {
   user: Maybe<User>;
   onBoardingStep: Maybe<ON_BOARDING_STEPS>;
   balance: {
-    value: {
-      common: number;
-    };
+    value: SumByCurrency;
     isLoading: boolean;
   };
   categories: {

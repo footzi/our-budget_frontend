@@ -1,7 +1,7 @@
 import { useRefetchBalance, useRefetchUser } from '@/api';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { Section } from '@/components/Section';
-import { CURRENCIES } from '@/constants';
+import { CURRENCIES, CURRENCIES_TYPE } from '@/constants';
 import { Maybe } from '@/interfaces';
 import { useAppSelector } from '@/store';
 import { formatPrice } from '@/utils/formatPrice';
@@ -19,6 +19,7 @@ import { ProfileEditableItem, ProfileEditableValue } from './interfaces';
 const Settings: React.FC = () => {
   const { user, balance } = useAppSelector();
   const [editableItem, setEditableItem] = useState<Maybe<ProfileEditableItem>>(null);
+  const [editableBalanceCurrency, setEditableBalanceCurrency] = useState<Maybe<CURRENCIES_TYPE>>(null);
 
   const refetchUser = useRefetchUser();
   const refetchBalance = useRefetchBalance();
@@ -26,9 +27,16 @@ const Settings: React.FC = () => {
   const { update: updateUser, isLoading: isLoadingUpdateUser } = useUpdateUser();
   const { update: updateBalance, isLoading: isLoadingUpdateBalance } = useUpdateBalance();
 
-  const handleClick = useCallback((type: PROFILE_ITEM_TYPES, value: ProfileEditableValue) => {
-    setEditableItem({ type, value });
-  }, []);
+  const handleClick = useCallback(
+    (type: PROFILE_ITEM_TYPES, value: ProfileEditableValue, currency?: CURRENCIES_TYPE) => {
+      setEditableItem({ type, value });
+
+      if (currency) {
+        setEditableBalanceCurrency(currency);
+      }
+    },
+    []
+  );
 
   const handleModalCancel = useCallback(() => setEditableItem(null), []);
 
@@ -39,12 +47,12 @@ const Settings: React.FC = () => {
         refetchUser();
       }
 
-      if (type === PROFILE_ITEM_TYPES.BALANCE) {
-        await updateBalance(value);
+      if (type === PROFILE_ITEM_TYPES.BALANCE && editableBalanceCurrency) {
+        await updateBalance(value, editableBalanceCurrency);
         refetchBalance();
       }
     },
-    [updateUser, refetchUser, updateBalance, refetchBalance]
+    [updateUser, refetchUser, updateBalance, refetchBalance, editableBalanceCurrency]
   );
 
   if (!user || !balance) {
@@ -58,6 +66,8 @@ const Settings: React.FC = () => {
     acc = acc + res;
     return acc;
   }, '');
+
+  const balances = balance?.value ?? {};
 
   return (
     <ErrorBoundary>
@@ -91,15 +101,35 @@ const Settings: React.FC = () => {
 
         <div className="profile__row">
           <Typography.Title level={5}>Баланс:</Typography.Title>
-          <div className="profile__row-value">
-            <Typography.Text>{formatPrice(balance.value.common)}</Typography.Text>
-            <Button
-              icon={<EditOutlined />}
-              size="small"
-              className="profile__row-button"
-              onClick={() => handleClick(PROFILE_ITEM_TYPES.BALANCE, balance.value.common.toString())}
-            />
+
+          <div>
+            {Object.keys(balances).map((item) => {
+              const currency = item as CURRENCIES_TYPE;
+              const value = balances[currency] ?? 0;
+
+              return (
+                <div className="profile__row-value" key={currency}>
+                  <Typography.Text>{formatPrice(value, currency)}</Typography.Text>
+                  <Button
+                    icon={<EditOutlined />}
+                    size="small"
+                    className="profile__row-button"
+                    onClick={() => handleClick(PROFILE_ITEM_TYPES.BALANCE, value.toString(), currency)}
+                  />
+                </div>
+              );
+            })}
           </div>
+
+          {/*<div className="profile__row-value">*/}
+          {/*  <Typography.Text>{formatPrice(balance.value.common)}</Typography.Text>*/}
+          {/*  <Button*/}
+          {/*    icon={<EditOutlined />}*/}
+          {/*    size="small"*/}
+          {/*    className="profile__row-button"*/}
+          {/*    onClick={() => handleClick(PROFILE_ITEM_TYPES.BALANCE, balance.value.common.toString())}*/}
+          {/*  />*/}
+          {/*</div>*/}
         </div>
 
         <div className="profile__row">

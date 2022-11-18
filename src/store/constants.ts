@@ -5,9 +5,7 @@ export const initialState: State = {
   onBoardingStep: null,
   cardEditedDates: null,
   balance: {
-    value: {
-      common: 0,
-    },
+    value: {},
     isLoading: true,
   },
   categories: {

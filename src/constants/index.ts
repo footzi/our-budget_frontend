@@ -51,6 +51,7 @@ export enum ON_BOARDING_STATUSES {
 export enum CURRENCIES_TYPE {
   RUB = 'RUB',
   USD = 'USD',
+  EUR = 'EUR',
 }
 
 export const CURRENCIES: Record<keyof typeof CURRENCIES_TYPE, Currency> = {
@@ -62,6 +63,10 @@ export const CURRENCIES: Record<keyof typeof CURRENCIES_TYPE, Currency> = {
     name: CURRENCIES_TYPE.USD,
     symbol: '$',
   },
+  [CURRENCIES_TYPE.EUR]: {
+    name: CURRENCIES_TYPE.EUR,
+    symbol: '€',
+  },
 };
 
 export const OPTIONS_CURRENCIES: CurrencyOption[] = [
@@ -72,5 +77,9 @@ export const OPTIONS_CURRENCIES: CurrencyOption[] = [
   {
     label: CURRENCIES.USD.symbol,
     value: CURRENCIES.USD.name,
+  },
+  {
+    label: CURRENCIES.EUR.symbol,
+    value: CURRENCIES.EUR.name,
   },
 ];
