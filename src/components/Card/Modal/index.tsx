@@ -1,6 +1,6 @@
 import { CARD_TYPES, CardUpdateBalancesBody, CardUpdateSavingBody } from '@/components/Card';
 import { SubmitHiddenButton } from '@/components/SubmitHiddenButton';
-import { FORMAT_UI_DATE, SAVING_ACTION_TYPE, SAVING_ACTION_TYPES_LIST } from '@/constants';
+import { CURRENCIES_TYPE, FORMAT_UI_DATE, SAVING_ACTION_TYPE, SAVING_ACTION_TYPES_LIST } from '@/constants';
 import { getCurrencyInfo } from '@/utils/getCurrencyInfo';
 import { Button, DatePicker, Form, Input, InputNumber, Modal, Popconfirm, Select } from 'antd';
 import { useForm } from 'antd/es/form/Form';
@@ -35,6 +35,7 @@ export const CardModal: React.FC<CardModalProps> = ({
     categoryId?: string;
     value: number;
     comment: string;
+    currency: CURRENCIES_TYPE;
     goalId?: number;
     actionType?: SAVING_ACTION_TYPE;
   }) => {
@@ -45,11 +46,13 @@ export const CardModal: React.FC<CardModalProps> = ({
       if (categoryId) {
         const body: CardUpdateBalancesBody = {
           id: item.id,
+          currency: item.currency,
           date,
           categoryId,
           value,
           comment,
         };
+
         await onSubmit(type, body);
       }
 
@@ -58,6 +61,7 @@ export const CardModal: React.FC<CardModalProps> = ({
       if (goalId) {
         const body: CardUpdateSavingBody = {
           id: item.id,
+          currency: item.currency,
           date,
           goalId,
           actionType: actionType || SAVING_ACTION_TYPE.INCOME,

@@ -9,9 +9,10 @@ export const formatSavingToTable = (goals: SavingGoal[]): SavingGoalRender[] => 
       id: goal.id,
       name: goal.name,
       description: goal.description ?? goal.description,
-      value: goal.value,
-      valueText: formatPrice(goal.value),
+      value: goal.value ?? 0,
+      valueText: formatPrice(goal.value, goal.currency),
       key: goal.id,
+      currency: goal.currency,
     };
   });
 };

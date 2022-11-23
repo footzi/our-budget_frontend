@@ -14,7 +14,9 @@ export const formatPrice = (price: Maybe<number>, currency?: CURRENCIES_TYPE): s
     return `0 ${symbol}`;
   }
 
-  const result = new Intl.NumberFormat('ru-RU').format(price) + ` ${symbol}`;
+  const format = currency === CURRENCIES_TYPE.RUB ? 'ru-RU' : 'en-EN';
+
+  const result = new Intl.NumberFormat(format).format(price) + ` ${symbol}`;
 
   // Добавляет пробел для отрицательных чиселы
   if (result[0] === '-') {

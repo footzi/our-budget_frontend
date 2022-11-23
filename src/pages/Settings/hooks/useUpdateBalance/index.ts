@@ -12,7 +12,8 @@ export const useUpdateBalance = (): UseUpdateBalanceResult => {
     async (value: ProfileEditableValue, currency: CURRENCIES_TYPE) => {
       await executePut({
         data: {
-          [currency]: value,
+          currency,
+          value,
         },
       });
     },

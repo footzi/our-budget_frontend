@@ -6,19 +6,19 @@ import { CURRENCIES_TYPE } from '@/constants';
 import { setCardEditedDate, useAppDispatch, useAppSelector } from '@/store';
 import { formatPrice } from '@/utils/formatPrice';
 import { formatToHumanDate } from '@/utils/formatToHumanDate';
+import { getOptionsCurrencies } from '@/utils/getOptionsCurrencies';
 import CaretDownOutlined from '@ant-design/icons/CaretDownOutlined';
 import CaretUpOutlined from '@ant-design/icons/CaretUpOutlined';
 import { Button, DatePicker, Empty, Form, Input, InputNumber, List, Radio, Select, Typography } from 'antd';
 import { useForm } from 'antd/es/form/Form';
 import cx from 'classnames';
 import dayjs, { Dayjs } from 'dayjs';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import { CardModal } from './Modal';
 import './index.less';
 import { CardAddBalancesBody, CardAddSavingBody, CardItem, CardProps } from './interfaces';
 import { getInitialDate } from './utils/getInitialDate';
-import { getOptionsCurrencies } from './utils/getOptionsCurrencies';
 
 /**
  * Компонент отрисовки списка расходов / доходов
@@ -117,14 +117,31 @@ export const Card: React.FC<CardProps> = ({
     [dispatch, type]
   );
 
-  const currenciesOptions = useMemo(() => getOptionsCurrencies(currencies), [currencies]);
+  // @todo тут нужен рефакторинг
+  const getCurrencyOptionsAfterGoalUpdate = useCallback(
+    (goalId?: number) => {
+      const currentCurrency = form.getFieldValue('currency');
+      const goal = savingGoals?.find((item) => item.id === goalId);
+
+      const options = getOptionsCurrencies(currencies, goal?.currency);
+      const newCurrency = options[0]?.value;
+
+      if (goalId && newCurrency && newCurrency !== currentCurrency) {
+        form.setFieldValue('currency', newCurrency);
+      }
+
+      return options;
+    },
+    [form, currencies, savingGoals]
+  );
 
   useEffect(() => {
     const date = getInitialDate(selectedDate, editedDate);
+    const currenciesOptions = getOptionsCurrencies(currencies);
 
     form.setFieldsValue({
       date,
-      currency: currencies && currencies[0],
+      currency: currenciesOptions && currenciesOptions[0].value,
       actionType: SAVING_ACTION_TYPES_LIST[0].type,
       categoryId: categories && categories.length > 0 ? categories[0].id : null,
       goalId: savingGoals && savingGoals.length > 0 ? savingGoals[0].id : null,
@@ -214,8 +231,17 @@ export const Card: React.FC<CardProps> = ({
               <InputNumber />
             </Form.Item>
 
-            <Form.Item name="currency" className="card__form-currency">
-              <Select options={currenciesOptions} />
+            <Form.Item className="card__form-currency" dependencies={['goalId']}>
+              {({ getFieldsValue }) => {
+                const values = getFieldsValue();
+                const options = getCurrencyOptionsAfterGoalUpdate(values.goalId);
+
+                return (
+                  <Form.Item name="currency">
+                    <Select options={options} />
+                  </Form.Item>
+                );
+              }}
             </Form.Item>
           </div>
 
@@ -276,28 +302,30 @@ export const Card: React.FC<CardProps> = ({
           )}
         />
 
-        <div className="card__sum">
-          <Typography.Title level={4}>Итого</Typography.Title>
-          <div className="card__sum-values">
-            {Object.keys(total).map((key, index) => {
-              const currency = key as CURRENCIES_TYPE;
-              const value = total[currency];
+        {list.length > 0 && (
+          <div className="card__sum">
+            <Typography.Title level={4}>Итого</Typography.Title>
+            <div className="card__sum-values">
+              {Object.keys(total).map((key, index) => {
+                const currency = key as CURRENCIES_TYPE;
+                const value = total[currency];
 
-              const cxTotalValue = cx('card__sum-value', {
-                ['card__sum-value_positive']: value && value > 0,
-              });
+                const cxTotalValue = cx('card__sum-value', {
+                  ['card__sum-value_positive']: value && value > 0,
+                });
 
-              return (
-                <>
-                  {index > 0 ? <span className="card__sum-separator">|</span> : ''}
-                  <Typography.Title level={4} className={cxTotalValue}>
-                    {formatPrice(value, currency)}
-                  </Typography.Title>
-                </>
-              );
-            })}
+                return (
+                  <React.Fragment key={currency}>
+                    {index > 0 ? <span className="card__sum-separator">|</span> : ''}
+                    <Typography.Title level={4} className={cxTotalValue}>
+                      {formatPrice(value, currency)}
+                    </Typography.Title>
+                  </React.Fragment>
+                );
+              })}
+            </div>
           </div>
-        </div>
+        )}
       </Section>
 
       <CardModal

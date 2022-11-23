@@ -9,10 +9,12 @@ describe('Analytics.Savings.useGetSavingsAnalytics.formatToTableSavingsAnalytics
         id: 1,
         name: 'Копилка 1',
         value: 0,
+        currency: CURRENCIES_TYPE.RUB,
       },
       {
         id: 2,
         name: 'Копилка 2',
+        currency: CURRENCIES_TYPE.RUB,
       },
     ];
 
@@ -28,6 +30,7 @@ describe('Analytics.Savings.useGetSavingsAnalytics.formatToTableSavingsAnalytics
           id: 1,
           name: 'Копилка 1',
           value: 0,
+          currency: CURRENCIES_TYPE.RUB,
         },
       },
       {
@@ -41,6 +44,7 @@ describe('Analytics.Savings.useGetSavingsAnalytics.formatToTableSavingsAnalytics
           id: 1,
           name: 'Копилка 1',
           value: 0,
+          currency: CURRENCIES_TYPE.RUB,
         },
       },
       {
@@ -54,6 +58,7 @@ describe('Analytics.Savings.useGetSavingsAnalytics.formatToTableSavingsAnalytics
           id: 1,
           name: 'Копилка 1',
           value: 0,
+          currency: CURRENCIES_TYPE.RUB,
         },
       },
       {
@@ -67,6 +72,7 @@ describe('Analytics.Savings.useGetSavingsAnalytics.formatToTableSavingsAnalytics
           id: 1,
           name: 'Копилка 1',
           value: 0,
+          currency: CURRENCIES_TYPE.RUB,
         },
       },
       {
@@ -80,6 +86,7 @@ describe('Analytics.Savings.useGetSavingsAnalytics.formatToTableSavingsAnalytics
           id: 2,
           name: 'Копилка 2',
           value: 0,
+          currency: CURRENCIES_TYPE.RUB,
         },
       },
       {
@@ -93,6 +100,7 @@ describe('Analytics.Savings.useGetSavingsAnalytics.formatToTableSavingsAnalytics
           id: 2,
           name: 'Копилка 2',
           value: 0,
+          currency: CURRENCIES_TYPE.RUB,
         },
       },
     ];

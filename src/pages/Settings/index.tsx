@@ -45,6 +45,13 @@ const Settings: React.FC = () => {
       if (type === PROFILE_ITEM_TYPES.FIRST_NAME) {
         await updateUser(value, type);
         refetchUser();
+        refetchBalance();
+      }
+
+      if (type === PROFILE_ITEM_TYPES.CURRENCY) {
+        await updateUser(value, type);
+        refetchUser();
+        refetchBalance();
       }
 
       if (type === PROFILE_ITEM_TYPES.BALANCE && editableBalanceCurrency) {
@@ -120,16 +127,6 @@ const Settings: React.FC = () => {
               );
             })}
           </div>
-
-          {/*<div className="profile__row-value">*/}
-          {/*  <Typography.Text>{formatPrice(balance.value.common)}</Typography.Text>*/}
-          {/*  <Button*/}
-          {/*    icon={<EditOutlined />}*/}
-          {/*    size="small"*/}
-          {/*    className="profile__row-button"*/}
-          {/*    onClick={() => handleClick(PROFILE_ITEM_TYPES.BALANCE, balance.value.common.toString())}*/}
-          {/*  />*/}
-          {/*</div>*/}
         </div>
 
         <div className="profile__row">

@@ -45,11 +45,11 @@ export interface CardAddSavingBody {
   currency: CURRENCIES_TYPE;
 }
 
-export interface CardUpdateBalancesBody extends Omit<CardAddBalancesBody, 'currency'> {
+export interface CardUpdateBalancesBody extends CardAddBalancesBody {
   id: number;
 }
 
-export interface CardUpdateSavingBody extends Omit<CardAddSavingBody, 'currency'> {
+export interface CardUpdateSavingBody extends CardAddSavingBody {
   id: number;
 }
 

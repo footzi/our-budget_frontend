@@ -44,8 +44,7 @@ export interface SavingGoal {
   name: string;
   description?: string;
   value?: Maybe<number>;
-  // @todo сделать после основного
-  // currency: CURRENCIES_TYPE;
+  currency: CURRENCIES_TYPE;
 }
 
 export interface Saving {

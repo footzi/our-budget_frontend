@@ -10,7 +10,7 @@ import {
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { useAppSelector } from '@/store';
 import { formatToBackendDate } from '@/utils/formatToBackendDate';
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 
 import { Goals } from './Goals';
 import { useAddSaving } from './hooks/useAddSaving';
@@ -54,14 +54,14 @@ const Savings: React.FC<SavingsProps> = ({ selectedDate }) => {
 
   const handleUpdate = useCallback(
     async (type: CARD_TYPES, body: UpdateSaveBody) => {
-      const { id, value, goalId, comment, actionType } = body as CardUpdateSavingBody;
+      const { id, value, goalId, comment, actionType, currency } = body as CardUpdateSavingBody;
 
       if (type === CARD_TYPES.SAVINGS_FACT && body.date) {
-        await updateFact({ date: formatToBackendDate(body.date), id, value, goalId, comment, actionType });
+        await updateFact({ date: formatToBackendDate(body.date), id, value, goalId, comment, actionType, currency });
         refetchSavingGoals();
         refetchBalance();
       } else {
-        await updatePlan({ date: formatToBackendDate(selectedDate), id, value, goalId, comment, actionType });
+        await updatePlan({ date: formatToBackendDate(selectedDate), id, value, goalId, comment, actionType, currency });
       }
 
       refetchSavings();
@@ -91,6 +91,9 @@ const Savings: React.FC<SavingsProps> = ({ selectedDate }) => {
   const factTotal = savings?.fact?.sum ?? 0;
 
   const currencies = user?.currencies ?? [];
+  // избавляемся от обновления формы при обновлении значений копилок
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const goals = useMemo(() => savingGoals?.value ?? [], []);
 
   const isLoadingAdd = isLoadingAddFact || isLoadingAddPlan;
   const isLoadingUpdate = isLoadingUpdateFact || isLoadingUpdatePlan;
@@ -106,7 +109,7 @@ const Savings: React.FC<SavingsProps> = ({ selectedDate }) => {
         <ErrorBoundary>
           <Card
             title="План"
-            savingGoals={savingGoals.value ?? []}
+            savingGoals={goals}
             currencies={currencies}
             list={plan}
             total={planTotal}
@@ -123,7 +126,7 @@ const Savings: React.FC<SavingsProps> = ({ selectedDate }) => {
         <ErrorBoundary>
           <Card
             title="Факт"
-            savingGoals={savingGoals.value ?? []}
+            savingGoals={goals}
             currencies={currencies}
             list={fact}
             total={factTotal}

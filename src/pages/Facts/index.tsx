@@ -63,8 +63,8 @@ const Facts: React.FC<FactsProps> = ({ selectedDate }) => {
   const handleUpdate = useCallback(
     async (type: CARD_TYPES, formBody: CardUpdateSaveBody) => {
       const date = formBody.date ? formatToBackendDate(formBody.date) : formatToBackendDate(selectedDate);
-      const { id, value, categoryId, comment } = formBody as CardUpdateBalancesBody;
-      const body = { id, date, value, categoryId, comment };
+      const { id, value, categoryId, comment, currency } = formBody as CardUpdateBalancesBody;
+      const body = { id, date, value, categoryId, comment, currency };
 
       if (type === CARD_TYPES.INCOME_FACT) {
         await updateIncome(body);

@@ -2,6 +2,8 @@ import { useRefetchSavingGoals } from '@/api';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { Section } from '@/components/Section';
 import { Maybe } from '@/interfaces';
+import { useAppSelector } from '@/store';
+import { getCurrencyInfo } from '@/utils/getCurrencyInfo';
 import PlusOutlined from '@ant-design/icons/PlusOutlined';
 import { Button, Empty, Table } from 'antd';
 import React, { useState } from 'react';
@@ -15,6 +17,7 @@ import './index.less';
 import { SavingGoalAddBody, SavingGoalRender, SavingGoalUpdateBody } from './interfaces';
 
 const SavingGoals = () => {
+  const { user } = useAppSelector();
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [editedGoal, setEditedGoal] = useState<Maybe<SavingGoalRender>>(null);
 
@@ -73,11 +76,18 @@ const SavingGoals = () => {
             <Table.Column title="Название" dataIndex="name" key="name" />
             <Table.Column title="Описание" dataIndex="description" key="description" />
             <Table.Column title="Текущее значение" dataIndex="valueText" key="valueText" />
+            <Table.Column
+              title="Валюта"
+              dataIndex="currency"
+              key="currency"
+              render={(currency) => getCurrencyInfo(currency).symbol}
+            />
           </Table>
         </Section>
 
         <SavingGoalModal
           isShow={isOpenModal}
+          currencies={user?.currencies ?? []}
           editedGoal={editedGoal}
           onAdd={handleAddModal}
           onCancel={handleCloseModal}

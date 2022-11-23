@@ -1,9 +1,10 @@
-import { SavingGoal } from '@/interfaces';
+import { CURRENCIES_TYPE } from '@/constants';
 
 export interface SavingGoalAddBody {
   name: string;
   description?: string;
   value?: number;
+  currency: CURRENCIES_TYPE;
 }
 
 export interface SavingGoalUpdateBody {
@@ -11,9 +12,15 @@ export interface SavingGoalUpdateBody {
   name: string;
   description?: string;
   value?: number;
+  currency: CURRENCIES_TYPE;
 }
 
-export interface SavingGoalRender extends SavingGoal {
+export interface SavingGoalRender {
+  id: number;
+  name: string;
+  description?: string;
+  value: number;
+  currency: CURRENCIES_TYPE;
   key: number;
   valueText: string;
 }

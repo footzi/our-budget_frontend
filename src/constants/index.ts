@@ -83,3 +83,5 @@ export const OPTIONS_CURRENCIES: CurrencyOption[] = [
     value: CURRENCIES.EUR.name,
   },
 ];
+
+export const DEFAULT_CURRENCY = CURRENCIES_TYPE.RUB;

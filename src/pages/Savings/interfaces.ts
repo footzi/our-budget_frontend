@@ -14,6 +14,6 @@ export interface AddSavingBody {
   currency: CURRENCIES_TYPE;
 }
 
-export interface UpdateSavingBody extends Omit<AddSavingBody, 'currency'> {
+export interface UpdateSavingBody extends AddSavingBody {
   id: number;
 }

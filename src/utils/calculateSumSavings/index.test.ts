@@ -16,6 +16,7 @@ describe('calculateSumItems', () => {
           id: 1,
           name: 'Копика 1',
           value: 1,
+          currency: CURRENCIES_TYPE.RUB,
         },
       },
       {
@@ -29,6 +30,7 @@ describe('calculateSumItems', () => {
           id: 1,
           name: 'Копика 1',
           value: 1,
+          currency: CURRENCIES_TYPE.RUB,
         },
       },
     ];
