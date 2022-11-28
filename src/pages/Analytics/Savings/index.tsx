@@ -1,7 +1,7 @@
+import { CurrenciesList } from '@/components/CurrenciesList';
 import { Section } from '@/components/Section';
-import { formatPrice } from '@/utils/formatPrice';
+import { CurrenciesValues } from '@/interfaces';
 import { Empty, Table } from 'antd';
-import cx from 'classnames';
 import React, { useCallback } from 'react';
 
 import { useGetSavingsAnalytics } from './hooks/useGetSavingsAnalytics';
@@ -11,16 +11,16 @@ import { AnalyticsSavingRender } from './interfaces';
 export const SavingsAnalytics: React.FC = () => {
   const { savings, total } = useGetSavingsAnalytics();
 
-  const cxTotal = cx('analytics-savings__total-value analytics-savings__total-value-all', {
-    'analytics-savings__total-value-all_positive': total.diff.isPositive,
-  });
+  const sorter = useCallback((a: CurrenciesValues, b: CurrenciesValues) => {
+    const prev = Object.values(a)[0] ?? 0;
+    const next = Object.values(b)[0] ?? 0;
 
-  const sorterIncome = useCallback((a: AnalyticsSavingRender, b: AnalyticsSavingRender) => a.income - b.income, []);
-  const sorterExpense = useCallback((a: AnalyticsSavingRender, b: AnalyticsSavingRender) => a.expense - b.expense, []);
-  const sorterDiff = useCallback(
-    (a: AnalyticsSavingRender, b: AnalyticsSavingRender) => a.diff.value - b.diff.value,
-    []
-  );
+    return prev - next;
+  }, []);
+
+  const sorterIncome = (a: AnalyticsSavingRender, b: AnalyticsSavingRender) => sorter(a.income, b.income);
+  const sorterExpense = (a: AnalyticsSavingRender, b: AnalyticsSavingRender) => sorter(a.expense, b.expense);
+  const sorterDiff = (a: AnalyticsSavingRender, b: AnalyticsSavingRender) => sorter(a.diff, b.diff);
 
   return (
     <Section title="Аналитика копилок" className="analytics-savings">
@@ -35,7 +35,7 @@ export const SavingsAnalytics: React.FC = () => {
           key="income"
           className="analytics-savings__cell"
           sorter={sorterIncome}
-          render={(value) => formatPrice(value)}
+          render={(values: CurrenciesValues) => <CurrenciesList values={values} />}
         />
         <Table.Column
           title="Вынули"
@@ -43,7 +43,7 @@ export const SavingsAnalytics: React.FC = () => {
           key="expense"
           className="analytics-savings__cell"
           sorter={sorterExpense}
-          render={(value) => formatPrice(value)}
+          render={(values: CurrenciesValues) => <CurrenciesList values={values} />}
         />
         <Table.Column
           title="Итого"
@@ -51,19 +51,20 @@ export const SavingsAnalytics: React.FC = () => {
           key="diff"
           className="analytics-savings__cell"
           sorter={sorterDiff}
-          render={(diff) => {
-            const cxDiff = cx('analytics-savings__diff', {
-              'analytics-savings__diff_positive': diff.isPositive,
-            });
-            return <span className={cxDiff}>{formatPrice(diff.value)}</span>;
-          }}
+          render={(values: CurrenciesValues) => <CurrenciesList values={values} isDiff />}
         />
       </Table>
       <div className="analytics-savings__total">
         <span className="analytics-savings__total-name">Итого:</span>
-        <span className="analytics-savings__total-value">{formatPrice(total.income)}</span>
-        <span className="analytics-savings__total-value">{formatPrice(total.expense)}</span>
-        <span className={cxTotal}>{formatPrice(total.diff.value)}</span>
+        <span className="analytics-savings__total-value">
+          <CurrenciesList values={total.income} />
+        </span>
+        <span className="analytics-savings__total-value">
+          <CurrenciesList values={total.expense} />
+        </span>
+        <span className="analytics-savings__total-value">
+          <CurrenciesList values={total.diff} isDiff />
+        </span>
       </div>
     </Section>
   );

@@ -90,6 +90,6 @@ export interface CurrencyOption {
   value: CURRENCIES_TYPE;
 }
 
-export type SumByCurrency = {
+export type CurrenciesValues = {
   [key in CURRENCIES_TYPE]?: number;
 };

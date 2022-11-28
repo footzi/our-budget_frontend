@@ -6,13 +6,14 @@ import { formatToTableSavingsAnalytics } from './utils/formatToTableSavingsAnaly
 import { getTotalByCategoriesAnalytics } from './utils/getTotalByCategoriesAnalytics';
 
 export const useGetSavingsAnalytics = (): UseGetSavingsAnalyticsResult => {
-  const { savingGoals, savings } = useAppSelector();
+  const { savingGoals, savings, user } = useAppSelector();
+  const currencies = useMemo(() => user?.currencies ?? [], [user]);
 
   const renderSavings = useMemo(
-    () => formatToTableSavingsAnalytics(savingGoals.value, savings.fact.list),
-    [savingGoals.value, savings.fact.list]
+    () => formatToTableSavingsAnalytics(savingGoals.value, savings.fact.list, currencies),
+    [savingGoals.value, savings.fact.list, currencies]
   );
-  const total = useMemo(() => getTotalByCategoriesAnalytics(renderSavings), [renderSavings]);
+  const total = useMemo(() => getTotalByCategoriesAnalytics(savings.fact.list, currencies), [savings, currencies]);
 
   return {
     savings: renderSavings,

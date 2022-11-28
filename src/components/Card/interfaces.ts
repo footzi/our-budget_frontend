@@ -1,5 +1,5 @@
 import { CURRENCIES_TYPE, SAVING_ACTION_TYPE } from '@/constants';
-import { Category, Expense, Income, Saving, SavingGoal, SumByCurrency } from '@/interfaces';
+import { Category, CurrenciesValues, Expense, Income, Saving, SavingGoal } from '@/interfaces';
 import { Dayjs } from 'dayjs';
 
 import { CARD_TYPES } from './constants';
@@ -10,7 +10,7 @@ export interface CardProps {
   currencies: CURRENCIES_TYPE[];
   categories?: Category[];
   savingGoals?: SavingGoal[];
-  total: SumByCurrency;
+  total: CurrenciesValues;
   type: CARD_TYPES;
   selectedDate?: Dayjs;
   isLoadingSave: boolean;

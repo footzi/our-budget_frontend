@@ -33,8 +33,41 @@ describe('calculateSumItems', () => {
           currency: CURRENCIES_TYPE.RUB,
         },
       },
+      {
+        id: 3,
+        actionType: SAVING_ACTION_TYPE.INCOME,
+        currency: CURRENCIES_TYPE.USD,
+        value: 20,
+        comment: '',
+        date: '',
+        goal: {
+          id: 2,
+          name: 'Копика 5',
+          value: 1,
+          currency: CURRENCIES_TYPE.USD,
+        },
+      },
+      {
+        id: 4,
+        actionType: SAVING_ACTION_TYPE.INCOME,
+        currency: CURRENCIES_TYPE.USD,
+        value: 15,
+        comment: '',
+        date: '',
+        goal: {
+          id: 2,
+          name: 'Копика 5',
+          value: 1,
+          currency: CURRENCIES_TYPE.USD,
+        },
+      },
     ];
 
-    expect(calculateSumSavings(items)).toBe(2000);
+    const expected = {
+      [CURRENCIES_TYPE.RUB]: 2000,
+      [CURRENCIES_TYPE.USD]: 35,
+    };
+
+    expect(calculateSumSavings(items)).toEqual(expected);
   });
 });

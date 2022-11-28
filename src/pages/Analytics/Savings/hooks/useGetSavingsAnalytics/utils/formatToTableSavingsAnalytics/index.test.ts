@@ -18,6 +18,8 @@ describe('Analytics.Savings.useGetSavingsAnalytics.formatToTableSavingsAnalytics
       },
     ];
 
+    const currencies = [CURRENCIES_TYPE.USD, CURRENCIES_TYPE.RUB];
+
     const savings = [
       {
         id: 1,
@@ -109,25 +111,21 @@ describe('Analytics.Savings.useGetSavingsAnalytics.formatToTableSavingsAnalytics
       {
         key: 1,
         name: 'Копилка 1',
-        income: 250,
-        expense: 450,
-        diff: {
-          value: -200,
-          isPositive: false,
-        },
+        currency: CURRENCIES_TYPE.RUB,
+        income: { [CURRENCIES_TYPE.RUB]: 250 },
+        expense: { [CURRENCIES_TYPE.RUB]: 450 },
+        diff: { [CURRENCIES_TYPE.RUB]: -200 },
       },
       {
         key: 2,
         name: 'Копилка 2',
-        income: 500,
-        expense: 350,
-        diff: {
-          value: 150,
-          isPositive: true,
-        },
+        currency: CURRENCIES_TYPE.RUB,
+        income: { [CURRENCIES_TYPE.RUB]: 500 },
+        expense: { [CURRENCIES_TYPE.RUB]: 350 },
+        diff: { [CURRENCIES_TYPE.RUB]: 150 },
       },
     ];
 
-    expect(formatToTableSavingsAnalytics(goals, savings)).toEqual(expectedResult);
+    expect(formatToTableSavingsAnalytics(goals, savings, currencies)).toEqual(expectedResult);
   });
 });

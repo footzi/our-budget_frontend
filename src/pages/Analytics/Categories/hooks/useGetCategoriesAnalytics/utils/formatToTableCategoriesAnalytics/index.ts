@@ -1,5 +1,8 @@
+import { CURRENCIES_TYPE } from '@/constants';
 import { Category, Item } from '@/interfaces';
 import { calculateSumByCategory } from '@/utils/calculateSumByCategory';
+import { getDiffSumItems } from '@/utils/getDiffSumItems';
+import { sortByCurrencies } from '@/utils/sortByCurrencies';
 
 import { AnalyticsCategoryRender } from '../../../../interfaces';
 
@@ -9,24 +12,19 @@ import { AnalyticsCategoryRender } from '../../../../interfaces';
 export const formatToTableCategoriesAnalytics = (
   categories: Category[],
   plans: Item[],
-  facts: Item[]
+  facts: Item[],
+  currencies: CURRENCIES_TYPE[]
 ): AnalyticsCategoryRender[] => {
   return categories.map((category) => {
     const plan = calculateSumByCategory(category, plans);
     const fact = calculateSumByCategory(category, facts);
 
-    const isPositive = fact <= plan;
-    const diff = plan - fact;
-
     return {
       key: category.id,
       name: category.name,
-      plan,
-      fact,
-      diff: {
-        value: diff,
-        isPositive,
-      },
+      plan: sortByCurrencies(plan, currencies),
+      fact: sortByCurrencies(fact, currencies),
+      diff: getDiffSumItems(plan, fact, currencies),
     };
   });
 };

@@ -21,6 +21,8 @@ describe('Analytics.Categories.useGetCategoriesAnalytics.formatToTableCategories
       },
     ];
 
+    const currencies = [CURRENCIES_TYPE.USD, CURRENCIES_TYPE.RUB];
+
     const itemsPlan = [
       {
         id: 1,
@@ -61,6 +63,20 @@ describe('Analytics.Categories.useGetCategoriesAnalytics.formatToTableCategories
         },
         value: 2000,
         currency: CURRENCIES_TYPE.RUB,
+        comment: '',
+        date: '',
+      },
+      {
+        id: 2,
+        category: {
+          id: 2,
+          name: 'На зубы',
+          type: CATEGORIES_TYPES.EXPENSE,
+          startDate: '',
+          endDate: '',
+        },
+        value: 10,
+        currency: CURRENCIES_TYPE.USD,
         comment: '',
         date: '',
       },
@@ -123,31 +139,68 @@ describe('Analytics.Categories.useGetCategoriesAnalytics.formatToTableCategories
         comment: '',
         date: '',
       },
+      {
+        id: 2,
+        category: {
+          id: 2,
+          name: 'На зубы',
+          type: CATEGORIES_TYPES.EXPENSE,
+          startDate: '',
+          endDate: '',
+        },
+        value: 30,
+        currency: CURRENCIES_TYPE.USD,
+        comment: '',
+        date: '',
+      },
+      {
+        id: 2,
+        category: {
+          id: 2,
+          name: 'На зубы',
+          type: CATEGORIES_TYPES.EXPENSE,
+          startDate: '',
+          endDate: '',
+        },
+        value: 70,
+        currency: CURRENCIES_TYPE.USD,
+        comment: '',
+        date: '',
+      },
     ];
 
     const expectedResult = [
       {
         key: 1,
         name: 'Кредит',
-        plan: 20000,
-        fact: 13000,
+        plan: {
+          [CURRENCIES_TYPE.RUB]: 20000,
+        },
+        fact: {
+          [CURRENCIES_TYPE.RUB]: 13000,
+        },
         diff: {
-          value: 7000,
-          isPositive: true,
+          [CURRENCIES_TYPE.RUB]: 7000,
         },
       },
       {
         key: 2,
         name: 'На зубы',
-        plan: 12000,
-        fact: 30000,
+        plan: {
+          [CURRENCIES_TYPE.RUB]: 12000,
+          [CURRENCIES_TYPE.USD]: 10,
+        },
+        fact: {
+          [CURRENCIES_TYPE.RUB]: 30000,
+          [CURRENCIES_TYPE.USD]: 100,
+        },
         diff: {
-          value: -18000,
-          isPositive: false,
+          [CURRENCIES_TYPE.RUB]: -18000,
+          [CURRENCIES_TYPE.USD]: -90,
         },
       },
     ];
 
-    expect(formatToTableCategoriesAnalytics(category, itemsPlan, itemsFact)).toEqual(expectedResult);
+    expect(formatToTableCategoriesAnalytics(category, itemsPlan, itemsFact, currencies)).toEqual(expectedResult);
   });
 });

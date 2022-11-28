@@ -1,75 +1,104 @@
+import { CURRENCIES_TYPE, SAVING_ACTION_TYPE } from '@/constants';
+
 import { getTotalByCategoriesAnalytics } from './index';
 
 describe('Analytics.Categories.useGetCategoriesAnalytics.getTotalByCategoriesAnalytics', () => {
-  it('Возвращает негативные корректные данные', () => {
+  it('Возвращает корректные данные', () => {
     const savings = [
       {
-        key: 1,
-        name: 'Копилка 1',
-        income: 250,
-        expense: 450,
-        diff: {
-          value: -200,
-          isPositive: false,
+        id: 1,
+        actionType: SAVING_ACTION_TYPE.INCOME,
+        value: 150,
+        currency: CURRENCIES_TYPE.RUB,
+        comment: '',
+        date: '',
+        goal: {
+          id: 1,
+          name: 'Копилка 1',
+          value: 0,
+          currency: CURRENCIES_TYPE.RUB,
         },
       },
       {
-        key: 2,
-        name: 'Копилка 2',
-        income: 500,
-        expense: 350,
-        diff: {
-          value: 150,
-          isPositive: true,
+        id: 2,
+        actionType: SAVING_ACTION_TYPE.INCOME,
+        value: 100,
+        currency: CURRENCIES_TYPE.RUB,
+        comment: '',
+        date: '',
+        goal: {
+          id: 1,
+          name: 'Копилка 1',
+          value: 0,
+          currency: CURRENCIES_TYPE.RUB,
+        },
+      },
+      {
+        id: 2,
+        actionType: SAVING_ACTION_TYPE.INCOME,
+        value: 100,
+        currency: CURRENCIES_TYPE.USD,
+        comment: '',
+        date: '',
+        goal: {
+          id: 1,
+          name: 'Копилка 2',
+          value: 0,
+          currency: CURRENCIES_TYPE.USD,
+        },
+      },
+      {
+        id: 3,
+        actionType: SAVING_ACTION_TYPE.EXPENSE,
+        value: 1000,
+        currency: CURRENCIES_TYPE.RUB,
+        comment: '',
+        date: '',
+        goal: {
+          id: 1,
+          name: 'Копилка 1',
+          value: 0,
+          currency: CURRENCIES_TYPE.RUB,
+        },
+      },
+      {
+        id: 4,
+        actionType: SAVING_ACTION_TYPE.EXPENSE,
+        value: 15,
+        currency: CURRENCIES_TYPE.USD,
+        comment: '',
+        date: '',
+        goal: {
+          id: 1,
+          name: 'Копилка 2',
+          value: 0,
+          currency: CURRENCIES_TYPE.USD,
+        },
+      },
+      {
+        id: 5,
+        actionType: SAVING_ACTION_TYPE.EXPENSE,
+        value: 50,
+        currency: CURRENCIES_TYPE.USD,
+        comment: '',
+        date: '',
+        goal: {
+          id: 2,
+          name: 'Копилка 2',
+          value: 0,
+          currency: CURRENCIES_TYPE.USD,
         },
       },
     ];
 
-    const expectedResult = {
-      income: 750,
-      expense: 800,
-      diff: {
-        value: -50,
-        isPositive: false,
-      },
-    };
-
-    expect(getTotalByCategoriesAnalytics(savings)).toEqual(expectedResult);
-  });
-
-  it('Возвращает позитивные корректные данные', () => {
-    const savings = [
-      {
-        key: 1,
-        name: 'Копилка 1',
-        income: 1000,
-        expense: 100,
-        diff: {
-          value: -200,
-          isPositive: false,
-        },
-      },
-      {
-        key: 2,
-        name: 'Копилка 2',
-        income: 2000,
-        expense: 50,
-        diff: {
-          value: 150,
-          isPositive: true,
-        },
-      },
-    ];
+    const currencies = [CURRENCIES_TYPE.USD, CURRENCIES_TYPE.RUB];
 
     const expectedResult = {
-      income: 3000,
-      expense: 150,
-      diff: {
-        value: 2850,
-        isPositive: true,
-      },
+      income: { [CURRENCIES_TYPE.RUB]: 250, [CURRENCIES_TYPE.USD]: 100 },
+      expense: { [CURRENCIES_TYPE.RUB]: 1000, [CURRENCIES_TYPE.USD]: 65 },
+      diff: { [CURRENCIES_TYPE.RUB]: -750, [CURRENCIES_TYPE.USD]: 35 },
     };
 
-    expect(getTotalByCategoriesAnalytics(savings)).toEqual(expectedResult);
+    expect(getTotalByCategoriesAnalytics(savings, currencies)).toEqual(expectedResult);
   });
 });

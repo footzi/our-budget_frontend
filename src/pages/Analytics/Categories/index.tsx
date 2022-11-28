@@ -1,7 +1,7 @@
+import { CurrenciesList } from '@/components/CurrenciesList';
 import { Section } from '@/components/Section';
-import { formatPrice } from '@/utils/formatPrice';
+import { CurrenciesValues } from '@/interfaces';
 import { Empty, Table } from 'antd';
-import cx from 'classnames';
 import React, { useCallback } from 'react';
 
 import { useGetCategoriesAnalytics } from './hooks/useGetCategoriesAnalytics';
@@ -11,12 +11,16 @@ import { AnalyticsCategoryRender } from './interfaces';
 export const CategoriesAnalytics = () => {
   const items = useGetCategoriesAnalytics();
 
-  const sorterPlan = useCallback((a: AnalyticsCategoryRender, b: AnalyticsCategoryRender) => a.plan - b.plan, []);
-  const sorterFact = useCallback((a: AnalyticsCategoryRender, b: AnalyticsCategoryRender) => a.fact - b.fact, []);
-  const sorterDiff = useCallback(
-    (a: AnalyticsCategoryRender, b: AnalyticsCategoryRender) => a.diff.value - b.diff.value,
-    []
-  );
+  const sorter = useCallback((a: CurrenciesValues, b: CurrenciesValues) => {
+    const prev = Object.values(a)[0] ?? 0;
+    const next = Object.values(b)[0] ?? 0;
+
+    return prev - next;
+  }, []);
+
+  const sorterPlan = (a: AnalyticsCategoryRender, b: AnalyticsCategoryRender) => sorter(a.plan, b.plan);
+  const sorterFact = (a: AnalyticsCategoryRender, b: AnalyticsCategoryRender) => sorter(a.fact, b.fact);
+  const sorterDiff = (a: AnalyticsCategoryRender, b: AnalyticsCategoryRender) => sorter(a.diff, b.diff);
 
   return (
     <Section title="Аналитика расходов по категориям" className="analytics-categories">
@@ -30,26 +34,20 @@ export const CategoriesAnalytics = () => {
           dataIndex="plan"
           key="plan"
           sorter={sorterPlan}
-          render={(value) => formatPrice(value)}
+          render={(values: CurrenciesValues) => <CurrenciesList values={values} />}
         />
         <Table.Column
           title="Факт"
           dataIndex="fact"
           key="fact"
           sorter={sorterFact}
-          render={(value) => formatPrice(value)}
+          render={(values: CurrenciesValues) => <CurrenciesList values={values} />}
         />
         <Table.Column
           title="Разница"
           dataIndex="diff"
-          key="diff"
           sorter={sorterDiff}
-          render={(diff) => {
-            const cxDiff = cx('analytics-categories__diff', {
-              'analytics-categories__diff_positive': diff.isPositive,
-            });
-            return <span className={cxDiff}>{formatPrice(diff.value)}</span>;
-          }}
+          render={(values) => <CurrenciesList values={values} isDiff />}
         />
       </Table>
     </Section>

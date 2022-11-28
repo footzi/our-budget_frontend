@@ -55,8 +55,55 @@ describe('calculateSumByCategory', () => {
         comment: '',
         date: '',
       },
+      {
+        id: 3,
+        category: {
+          id: 1,
+          name: 'Кредит',
+          type: CATEGORIES_TYPES.EXPENSE,
+          startDate: '',
+          endDate: '',
+        },
+        currency: CURRENCIES_TYPE.USD,
+        value: 100,
+        comment: '',
+        date: '',
+      },
+      {
+        id: 3,
+        category: {
+          id: 1,
+          name: 'Кредит',
+          type: CATEGORIES_TYPES.EXPENSE,
+          startDate: '',
+          endDate: '',
+        },
+        currency: CURRENCIES_TYPE.USD,
+        value: 200,
+        comment: '',
+        date: '',
+      },
+      {
+        id: 3,
+        category: {
+          id: 5,
+          name: 'Продукты',
+          type: CATEGORIES_TYPES.EXPENSE,
+          startDate: '',
+          endDate: '',
+        },
+        currency: CURRENCIES_TYPE.USD,
+        value: 10,
+        comment: '',
+        date: '',
+      },
     ];
 
-    expect(calculateSumByCategory(category, items)).toBe(9000);
+    const expected = {
+      [CURRENCIES_TYPE.RUB]: 9000,
+      [CURRENCIES_TYPE.USD]: 300,
+    };
+
+    expect(calculateSumByCategory(category, items)).toEqual(expected);
   });
 });

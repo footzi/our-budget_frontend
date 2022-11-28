@@ -1,4 +1,4 @@
-import { CATEGORIES_TYPES } from '@/constants';
+import { CATEGORIES_TYPES, DEFAULT_CURRENCY } from '@/constants';
 import { SumByCategory } from '@/interfaces';
 import { useAppSelector } from '@/store';
 import { calculateSumItems } from '@/utils/calculateSumItems';
@@ -23,7 +23,7 @@ export const useGetSumByCategories = (categoryType: CATEGORIES_TYPES) => {
 
         acc.push({
           category: category,
-          sum,
+          sum: sum[DEFAULT_CURRENCY] ?? 0,
         });
 
         return acc;

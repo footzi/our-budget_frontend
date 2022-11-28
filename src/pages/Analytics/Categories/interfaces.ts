@@ -1,10 +1,9 @@
+import { CurrenciesValues } from '@/interfaces';
+
 export interface AnalyticsCategoryRender {
   key: number;
   name: string;
-  plan: number;
-  fact: number;
-  diff: {
-    value: number;
-    isPositive: boolean;
-  };
+  plan: CurrenciesValues;
+  fact: CurrenciesValues;
+  diff: CurrenciesValues;
 }
