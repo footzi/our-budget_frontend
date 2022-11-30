@@ -1,10 +1,10 @@
-import { CATEGORIES_TYPES, DEFAULT_CURRENCY } from '@/constants';
+import { CATEGORIES_TYPES, CURRENCIES_TYPE } from '@/constants';
 import { SumByCategory } from '@/interfaces';
 import { useAppSelector } from '@/store';
 import { calculateSumItems } from '@/utils/calculateSumItems';
 import { useMemo } from 'react';
 
-export const useGetSumByCategories = (categoryType: CATEGORIES_TYPES) => {
+export const useGetSumByCategories = (categoryType: CATEGORIES_TYPES, currency: CURRENCIES_TYPE) => {
   const { incomes, expenses, categories } = useAppSelector();
 
   const values = categoryType === CATEGORIES_TYPES.INCOME ? incomes : expenses;
@@ -14,7 +14,6 @@ export const useGetSumByCategories = (categoryType: CATEGORIES_TYPES) => {
     [categories.value, categoryType]
   );
 
-  /** todo Очень похоже на calculateSumByCategory **/
   return useMemo(
     () =>
       filteredCategories.reduce((acc: SumByCategory[], category) => {
@@ -23,11 +22,11 @@ export const useGetSumByCategories = (categoryType: CATEGORIES_TYPES) => {
 
         acc.push({
           category: category,
-          sum: sum[DEFAULT_CURRENCY] ?? 0,
+          sum: sum[currency] ?? 0,
         });
 
         return acc;
       }, []),
-    [filteredCategories, values.fact.list]
+    [filteredCategories, values.fact.list, currency]
   );
 };

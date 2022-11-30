@@ -93,7 +93,7 @@ export const CardModal: React.FC<CardModalProps> = ({
   useEffect(() => {
     if (item) {
       form.setFieldsValue({
-        date: dayjs(item.date),
+        date: dayjs.utc(item.date),
         categoryId: 'category' in item ? item.category.id : null,
         goalId: 'goal' in item ? item.goal.id : null,
         actionType: 'actionType' in item ? item.actionType : null,

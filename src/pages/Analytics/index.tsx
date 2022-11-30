@@ -13,10 +13,9 @@ import {
 import React from 'react';
 
 import { CategoriesAnalytics } from './Categories';
-import { CurrentAnalytics } from './Current';
-import { FactsAnalytics } from './Facts';
 import { SavingsAnalytics } from './Savings';
 import './index.less';
+import { CurrentAndFactContainer } from './СurrentAndFactContainer';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip);
 ChartJS.register(RadialLinearScale, ArcElement, Legend, Tooltip);
@@ -24,24 +23,13 @@ ChartJS.register(RadialLinearScale, ArcElement, Legend, Tooltip);
 const Analytics: React.FC = () => {
   return (
     <div className="analytics">
-      <div className="analytics__row">
-        <ErrorBoundary>
-          <CurrentAnalytics />
-        </ErrorBoundary>
-      </div>
-
-      <div className="analytics__row">
-        <ErrorBoundary>
-          <FactsAnalytics />
-        </ErrorBoundary>
-      </div>
+      <CurrentAndFactContainer />
 
       <div className="analytics__row_full">
         <ErrorBoundary>
           <CategoriesAnalytics />
         </ErrorBoundary>
       </div>
-
       <div className="analytics__row_full">
         <ErrorBoundary>
           <SavingsAnalytics />

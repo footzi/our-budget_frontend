@@ -1,12 +1,13 @@
 import { Section } from '@/components/Section';
+import { CurrentAnalyticsProps } from '@/pages/Analytics/Current/interfaces';
+import { getOptions } from '@/pages/Analytics/Current/utils/getOptions';
 import { useAppSelector } from '@/store';
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
 
-import { CURRENT_ANALYTICS_OPTIONS } from './constants';
 import { getData } from './utils/getData';
 
-export const CurrentAnalytics = () => {
+export const CurrentAnalytics: React.FC<CurrentAnalyticsProps> = ({ currency }) => {
   const { incomes, expenses } = useAppSelector();
 
   const incomesPlan = incomes.plan.sum;
@@ -15,19 +16,18 @@ export const CurrentAnalytics = () => {
   const expensesPlan = expenses.plan.sum;
   const expensesFact = expenses.fact.sum;
 
-  // @todo сделать позже
-  // @ts-ignore
-  const expensesData = getData([expensesPlan, expensesFact]);
-  // @ts-ignore
-  const incomesData = getData([incomesPlan, incomesFact]);
+  const expensesData = getData([expensesPlan, expensesFact], currency);
+  const incomesData = getData([incomesPlan, incomesFact], currency);
+
+  const options = getOptions(currency);
 
   return (
     <>
       <Section title="Расходы">
-        <Bar data={expensesData} options={CURRENT_ANALYTICS_OPTIONS} />
+        <Bar data={expensesData} options={options} />
       </Section>
       <Section title="Доходы">
-        <Bar data={incomesData} options={CURRENT_ANALYTICS_OPTIONS} />
+        <Bar data={incomesData} options={options} />
       </Section>
     </>
   );
