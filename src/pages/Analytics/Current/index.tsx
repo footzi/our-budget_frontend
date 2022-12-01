@@ -1,4 +1,6 @@
+import { NotContent } from '@/components/NotContent';
 import { Section } from '@/components/Section';
+import { ROUTES } from '@/constants/routes';
 import { CurrentAnalyticsProps } from '@/pages/Analytics/Current/interfaces';
 import { getOptions } from '@/pages/Analytics/Current/utils/getOptions';
 import { useAppSelector } from '@/store';
@@ -19,15 +21,26 @@ export const CurrentAnalytics: React.FC<CurrentAnalyticsProps> = ({ currency }) 
   const expensesData = getData([expensesPlan, expensesFact], currency);
   const incomesData = getData([incomesPlan, incomesFact], currency);
 
+  const isShowIncomes = Boolean(incomesPlan[currency] || incomesFact[currency]);
+  const isShowExpenses = Boolean(expensesPlan[currency] || expensesFact[currency]);
+
   const options = getOptions(currency);
 
   return (
     <>
       <Section title="Расходы">
-        <Bar data={expensesData} options={options} />
+        {isShowExpenses ? (
+          <Bar data={expensesData} options={options} />
+        ) : (
+          <NotContent text="Нет данных для отображения" to={ROUTES.FACTS} />
+        )}
       </Section>
       <Section title="Доходы">
-        <Bar data={incomesData} options={options} />
+        {isShowIncomes ? (
+          <Bar data={incomesData} options={options} />
+        ) : (
+          <NotContent text="Нет данных для отображения" to={ROUTES.FACTS} />
+        )}
       </Section>
     </>
   );
