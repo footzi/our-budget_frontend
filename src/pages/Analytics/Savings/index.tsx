@@ -1,6 +1,7 @@
 import { CurrenciesList } from '@/components/CurrenciesList';
 import { Section } from '@/components/Section';
 import { CurrenciesValues } from '@/interfaces';
+import { getIsEmptyObject } from '@/utils/getIsEmptyObject';
 import { Empty, Table } from 'antd';
 import React, { useCallback } from 'react';
 
@@ -22,10 +23,12 @@ export const SavingsAnalytics: React.FC = () => {
   const sorterExpense = (a: AnalyticsSavingRender, b: AnalyticsSavingRender) => sorter(a.expense, b.expense);
   const sorterDiff = (a: AnalyticsSavingRender, b: AnalyticsSavingRender) => sorter(a.diff, b.diff);
 
+  const isShowDiff = !getIsEmptyObject(total.diff);
+
   return (
     <Section title="Аналитика копилок" className="analytics-savings">
       <Table
-        locale={{ emptyText: <Empty description="Копилки отсутствуют" /> }}
+        locale={{ emptyText: <Empty description="Нет данных для отображения" /> }}
         dataSource={savings}
         pagination={false}>
         <Table.Column title="Копилка" dataIndex="name" key="name" className="analytics-savings__name" />
@@ -54,18 +57,21 @@ export const SavingsAnalytics: React.FC = () => {
           render={(values: CurrenciesValues) => <CurrenciesList values={values} isDiff />}
         />
       </Table>
-      <div className="analytics-savings__total">
-        <span className="analytics-savings__total-name">Итого:</span>
-        <span className="analytics-savings__total-value">
-          <CurrenciesList values={total.income} />
-        </span>
-        <span className="analytics-savings__total-value">
-          <CurrenciesList values={total.expense} />
-        </span>
-        <span className="analytics-savings__total-value">
-          <CurrenciesList values={total.diff} isDiff />
-        </span>
-      </div>
+
+      {isShowDiff && (
+        <div className="analytics-savings__total">
+          <span className="analytics-savings__total-name">Итого:</span>
+          <span className="analytics-savings__total-value">
+            <CurrenciesList values={total.income} />
+          </span>
+          <span className="analytics-savings__total-value">
+            <CurrenciesList values={total.expense} />
+          </span>
+          <span className="analytics-savings__total-value">
+            <CurrenciesList values={total.diff} isDiff />
+          </span>
+        </div>
+      )}
     </Section>
   );
 };

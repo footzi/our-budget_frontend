@@ -25,7 +25,7 @@ export const CategoriesAnalytics = () => {
   return (
     <Section title="Аналитика расходов по категориям" className="analytics-categories">
       <Table
-        locale={{ emptyText: <Empty description="Категории отсутствуют" /> }}
+        locale={{ emptyText: <Empty description="Нет данных для отображения" /> }}
         dataSource={items}
         pagination={false}>
         <Table.Column title="Категория" dataIndex="name" key="name" className="analytics-categories__name" />

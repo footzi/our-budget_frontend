@@ -12,16 +12,20 @@ export const formatToTableSavingsAnalytics = (
   savings: Saving[],
   currencies: CURRENCIES_TYPE[]
 ): AnalyticsSavingRender[] => {
-  return savingsGoals.map((goal) => {
+  return savingsGoals.reduce((acc: AnalyticsSavingRender[], goal: SavingGoal) => {
     const currency = goal.currency;
     const currentSavings = savings.filter((saving) => saving.goal.id === goal.id);
     const incomeSavings = currentSavings.filter((saving) => saving.actionType === SAVING_ACTION_TYPE.INCOME);
     const expenseSavings = currentSavings.filter((saving) => saving.actionType === SAVING_ACTION_TYPE.EXPENSE);
 
+    if (!incomeSavings.length && !expenseSavings.length) {
+      return acc;
+    }
+
     const income = calculateSumSavings(incomeSavings);
     const expense = calculateSumSavings(expenseSavings);
 
-    return {
+    const item = {
       key: goal.id,
       name: goal.name,
       income,
@@ -29,5 +33,9 @@ export const formatToTableSavingsAnalytics = (
       currency,
       diff: getDiffSumItems(income, expense, currencies),
     };
-  });
+
+    acc.push(item);
+
+    return acc;
+  }, []);
 };
