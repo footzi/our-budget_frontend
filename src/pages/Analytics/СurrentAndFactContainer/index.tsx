@@ -28,8 +28,8 @@ const Content: React.FC<ContentProps> = ({ currency }) => {
 export const CurrentAndFactContainer = () => {
   const { user } = useAppSelector();
 
-  const currencies = useMemo(() => user?.currencies ?? [], [user]);
-  const initialCurrency = currencies[0] && DEFAULT_CURRENCY;
+  const currencies = useMemo(() => user?.currencies ?? [], [user?.currencies]);
+  const initialCurrency = currencies[0] ?? DEFAULT_CURRENCY;
 
   const [currency, setCurrency] = useState<CURRENCIES_TYPE>(initialCurrency);
 
