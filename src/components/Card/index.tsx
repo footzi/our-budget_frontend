@@ -141,7 +141,7 @@ export const Card: React.FC<CardProps> = ({
 
     form.setFieldsValue({
       date,
-      currency: currenciesOptions && currenciesOptions[0].value,
+      currency: currenciesOptions?.length && currenciesOptions[0].value,
       actionType: SAVING_ACTION_TYPES_LIST[0].type,
       categoryId: categories && categories.length > 0 ? categories[0].id : null,
       goalId: savingGoals && savingGoals.length > 0 ? savingGoals[0].id : null,
