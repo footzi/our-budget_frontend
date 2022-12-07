@@ -23,7 +23,7 @@ import { getInitialDate } from './utils/getInitialDate';
 /**
  * Компонент отрисовки списка расходов / доходов
  */
-export const Card: React.FC<CardProps> = ({
+const DefaultCard: React.FC<CardProps> = ({
   categories,
   currencies,
   savingGoals,
@@ -146,13 +146,9 @@ export const Card: React.FC<CardProps> = ({
       categoryId: categories && categories.length > 0 ? categories[0].id : null,
       goalId: savingGoals && savingGoals.length > 0 ? savingGoals[0].id : null,
     });
-  }, [form, categories, savingGoals, selectedDate, editedDate, currencies]);
-
-  useEffect(() => {
-    if (selectedDate && editedDate) {
-      dispatch(setCardEditedDate(null));
-    }
-  }, [selectedDate, editedDate, dispatch]);
+    // Игнорим editedDate для избавления от перерисовки
+    // eslint-disable-next-line
+  }, [form, categories, savingGoals, currencies, selectedDate]);
 
   const isShowDate =
     type === CARD_TYPES.INCOME_FACT || type === CARD_TYPES.SAVINGS_FACT || type === CARD_TYPES.EXPENSE_FACT;
@@ -344,5 +340,6 @@ export const Card: React.FC<CardProps> = ({
   );
 };
 
+export const Card = React.memo(DefaultCard);
 export * from './interfaces';
 export * from './constants';
