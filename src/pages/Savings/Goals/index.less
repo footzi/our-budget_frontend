@@ -2,12 +2,14 @@
 
 .saving-goals {
   display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
   margin-bottom: 48px;
   animation: slide-in 0.3s ease-in-out 0.2s both;
 
   &__item {
     min-width: 155px;
-    margin-right: 16px;
+    max-width: 170px;
     background: linear-gradient(221.09deg, rgba(60, 177, 251, 0.7) -17.31%, rgba(130, 30, 165, 0.7) 117.97%);
 
     .ant-typography {

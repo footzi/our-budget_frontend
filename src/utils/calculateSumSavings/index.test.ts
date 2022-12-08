@@ -17,6 +17,7 @@ describe('calculateSumItems', () => {
           name: 'Копика 1',
           value: 1,
           currency: CURRENCIES_TYPE.RUB,
+          order: 0,
         },
       },
       {
@@ -31,6 +32,7 @@ describe('calculateSumItems', () => {
           name: 'Копика 1',
           value: 1,
           currency: CURRENCIES_TYPE.RUB,
+          order: 0,
         },
       },
       {
@@ -45,6 +47,7 @@ describe('calculateSumItems', () => {
           name: 'Копика 5',
           value: 1,
           currency: CURRENCIES_TYPE.USD,
+          order: 0,
         },
       },
       {
@@ -59,6 +62,7 @@ describe('calculateSumItems', () => {
           name: 'Копика 5',
           value: 1,
           currency: CURRENCIES_TYPE.USD,
+          order: 0,
         },
       },
     ];

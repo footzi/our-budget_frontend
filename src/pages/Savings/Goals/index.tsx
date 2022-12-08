@@ -10,14 +10,15 @@ export const Goals: React.FC = () => {
   const { savingGoals } = useAppSelector();
 
   const goals = savingGoals.value ?? [];
+  const sortedGoals = [...goals].sort((a, b) => (a.order >= b.order ? 1 : -1));
 
-  if (!goals.length) {
+  if (!sortedGoals.length) {
     return null;
   }
 
   return (
     <div className="saving-goals">
-      {goals.map(({ name, value, currency }) => (
+      {sortedGoals.map(({ name, value, currency }) => (
         <Section className="saving-goals__item" key={name}>
           <div>
             <Typography.Text>{name}</Typography.Text>
