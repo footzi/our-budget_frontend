@@ -1,4 +1,4 @@
-import { CARD_TYPES, CardUpdateBalancesBody, CardUpdateSavingBody } from '@/components/Card';
+import { CARD_FORM_FIELDS, CARD_TYPES, CardUpdateBalancesBody, CardUpdateSavingBody } from '@/components/Card';
 import { SubmitHiddenButton } from '@/components/SubmitHiddenButton';
 import { CURRENCIES_TYPE, FORMAT_UI_DATE, SAVING_ACTION_TYPE, SAVING_ACTION_TYPES_LIST } from '@/constants';
 import { getCurrencyInfo } from '@/utils/getCurrencyInfo';
@@ -7,6 +7,7 @@ import { useForm } from 'antd/es/form/Form';
 import dayjs, { Dayjs } from 'dayjs';
 import React, { useCallback, useEffect, useState } from 'react';
 
+import { getCurrencyByGoalId } from '../utils/getCurrencyByGoalId';
 import { CardModalProps } from './interfaces';
 
 /**
@@ -107,8 +108,6 @@ export const CardModal: React.FC<CardModalProps> = ({
     }
   }, [item, form, formValidator]);
 
-  const currencySymbol = getCurrencyInfo(item?.currency).symbol;
-
   return (
     <Modal
       title="Редактирование"
@@ -123,13 +122,16 @@ export const CardModal: React.FC<CardModalProps> = ({
       {item && (
         <Form layout="vertical" onFinish={handleSubmit} form={form} preserve={false}>
           {isShowDate && (
-            <Form.Item name="date" label="Дата" rules={[{ required: true, message: 'Выберите дату' }]}>
+            <Form.Item name={CARD_FORM_FIELDS.DATE} label="Дата" rules={[{ required: true, message: 'Выберите дату' }]}>
               <DatePicker picker="date" format={FORMAT_UI_DATE} allowClear={false} />
             </Form.Item>
           )}
 
           {categories && (
-            <Form.Item name="categoryId" label="Категория" rules={[{ required: true, message: 'Выберите категорию' }]}>
+            <Form.Item
+              name={CARD_FORM_FIELDS.CATEGORY_ID}
+              label="Категория"
+              rules={[{ required: true, message: 'Выберите категорию' }]}>
               <Select>
                 {categories.map((category) => (
                   <Select.Option value={category.id} key={category.id}>
@@ -140,8 +142,11 @@ export const CardModal: React.FC<CardModalProps> = ({
             </Form.Item>
           )}
 
-          {savingGoals && (
-            <Form.Item name="goalId" label="Копилка" rules={[{ required: true, message: 'Выберите копилку' }]}>
+          {savingGoals && type === CARD_TYPES.SAVINGS_PLAN && (
+            <Form.Item
+              name={CARD_FORM_FIELDS.GOAL_ID}
+              label="Копилка"
+              rules={[{ required: true, message: 'Выберите копилку' }]}>
               <Select>
                 {savingGoals.map((goal) => (
                   <Select.Option value={goal.id} key={goal.id}>
@@ -154,7 +159,7 @@ export const CardModal: React.FC<CardModalProps> = ({
 
           {type === CARD_TYPES.SAVINGS_PLAN && (
             <Form.Item
-              name="actionType"
+              name={CARD_FORM_FIELDS.ACTION_TYPE}
               rules={[{ required: true, message: 'Выберите действие' }]}
               label="Что сделать?">
               <Select>
@@ -167,11 +172,25 @@ export const CardModal: React.FC<CardModalProps> = ({
             </Form.Item>
           )}
 
-          <Form.Item name="value" label="Сумма" rules={[{ required: true, message: 'Введите сумму' }]}>
-            <InputNumber className="card-modal__price" addonAfter={<span>{currencySymbol}</span>} />
+          <Form.Item dependencies={[CARD_FORM_FIELDS.GOAL_ID]} noStyle>
+            {({ getFieldsValue }) => {
+              const values = getFieldsValue();
+              const goalId = values?.goalId;
+              const currency = goalId ? getCurrencyByGoalId(values?.goalId, savingGoals) : item.currency;
+              const symbol = currency ? getCurrencyInfo(currency).symbol : null;
+
+              return (
+                <Form.Item
+                  name={CARD_FORM_FIELDS.VALUE}
+                  rules={[{ required: true, message: 'Введите сумму' }]}
+                  label="Сумма">
+                  <InputNumber addonAfter={symbol} className="card-modal__price" />
+                </Form.Item>
+              );
+            }}
           </Form.Item>
 
-          <Form.Item name="comment" label="Комментарий">
+          <Form.Item name={CARD_FORM_FIELDS.COMMENT} label="Комментарий">
             <Input.TextArea />
           </Form.Item>
 
@@ -187,7 +206,7 @@ export const CardModal: React.FC<CardModalProps> = ({
             </Popconfirm>
           </Form.Item>
 
-          <Form.Item hidden dependencies={['value', 'date']}>
+          <Form.Item hidden dependencies={[CARD_FORM_FIELDS.VALUE, CARD_FORM_FIELDS.DATE]}>
             {({ getFieldsValue }) => {
               const values = getFieldsValue();
 
