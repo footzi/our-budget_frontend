@@ -9,6 +9,7 @@
     "lint": "tsc && eslint --ext .js,.jsx,.ts,.tsx src/",
     "lint:fix": "eslint --fix --ext .js,.jsx,.ts,.tsx src/",
     "test": "jest",
+    "deploy:prod": "bash ./deploy/prod.bash",
     "upgrade:dep": "npm-upgrade",
     "bundle-analyze": "webpack --mode=production --profile --json > stats.json && webpack-bundle-analyzer stats.json"
   },
