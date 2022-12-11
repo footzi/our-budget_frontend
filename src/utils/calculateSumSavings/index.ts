@@ -7,9 +7,9 @@ export const calculateSumSavings = (savings: Saving[]): CurrenciesValues => {
   return savings.reduce((acc: CurrenciesValues, item: Saving) => {
     const { currency, value } = item;
 
-    // @todo исправить
-    // @ts-ignore
-    acc[currency] = acc[currency] ? acc[currency] + value : value;
+    const cur = acc[currency];
+
+    acc[currency] = cur ? cur + value : value;
 
     return acc;
   }, {});

@@ -7,9 +7,9 @@ export const calculateSumItems = (items: Item[]): CurrenciesValues => {
   return items.reduce((acc: CurrenciesValues, item: Item) => {
     const { currency, value } = item;
 
-    // @todo исправить
-    // @ts-ignore
-    acc[currency] = acc[currency] ? acc[currency] + value : value;
+    const cur = acc[currency];
+
+    acc[currency] = cur ? cur + value : value;
 
     return acc;
   }, {});

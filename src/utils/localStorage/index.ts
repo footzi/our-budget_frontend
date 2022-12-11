@@ -1,7 +1,7 @@
-import { LocalStorageItems } from '@/constants';
+import { LOCAL_STORAGE_ITEMS } from '@/constants';
 
 export class LocalStorage {
-  static set<T>(key: LocalStorageItems, value: T): void {
+  static set<T>(key: LOCAL_STORAGE_ITEMS, value: T): void {
     try {
       window.localStorage.setItem(key, JSON.stringify(value));
     } catch {
@@ -9,7 +9,7 @@ export class LocalStorage {
     }
   }
 
-  static get<T>(key: LocalStorageItems): T {
+  static get<T>(key: LOCAL_STORAGE_ITEMS): T {
     try {
       const value = window.localStorage.getItem(key);
 
@@ -19,7 +19,7 @@ export class LocalStorage {
     }
   }
 
-  static remove(key: LocalStorageItems): void {
+  static remove(key: LOCAL_STORAGE_ITEMS): void {
     try {
       window.localStorage.removeItem(key);
     } catch {

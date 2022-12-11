@@ -20,7 +20,7 @@ import './index.less';
 import { SavingsProps } from './interfaces';
 
 const Savings: React.FC<SavingsProps> = ({ selectedDate }) => {
-  const { savingGoals, savings, user } = useAppSelector();
+  const { savingGoals, savings } = useAppSelector();
 
   const refetchSavings = useRefetchSavings();
   const refetchSavingGoals = useRefetchSavingGoals();
@@ -90,7 +90,6 @@ const Savings: React.FC<SavingsProps> = ({ selectedDate }) => {
   const fact = savings?.fact?.list ?? [];
   const factTotal = savings?.fact?.sum ?? 0;
 
-  const currencies = user?.currencies ?? [];
   // избавляемся от обновления формы при обновлении значений копилок
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const goals = useMemo(() => savingGoals?.value ?? [], []);
@@ -110,7 +109,6 @@ const Savings: React.FC<SavingsProps> = ({ selectedDate }) => {
           <Card
             title="План"
             savingGoals={goals}
-            currencies={currencies}
             list={plan}
             total={planTotal}
             onAdd={handleAdd}
@@ -127,7 +125,6 @@ const Savings: React.FC<SavingsProps> = ({ selectedDate }) => {
           <Card
             title="Факт"
             savingGoals={goals}
-            currencies={currencies}
             list={fact}
             total={factTotal}
             selectedDate={selectedDate}

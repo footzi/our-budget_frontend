@@ -1,8 +1,15 @@
 import { Currency, CurrencyOption } from '@/interfaces';
 
-export enum LocalStorageItems {
+export enum LOCAL_STORAGE_ITEMS {
   USER = 'USER',
   ON_BOARDING_STATUSES = 'ON_BOARDING_STATUSES',
+  CARD_VALUES = 'CARD_VALUES',
+}
+
+export enum SESSION_STORAGE_ITEMS {
+  USER = 'USER',
+  ON_BOARDING_STATUSES = 'ON_BOARDING_STATUSES',
+  CARD_VALUES = 'CARD_VALUES',
 }
 
 export enum CATEGORIES_TYPES {

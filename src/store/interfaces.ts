@@ -1,4 +1,3 @@
-import { CARD_TYPES } from '@/components/Card';
 import { ON_BOARDING_STEPS } from '@/constants';
 import { Category, CurrenciesValues, Expense, Income, Maybe, Saving, SavingGoal, User } from '@/interfaces';
 
@@ -49,9 +48,6 @@ export interface State {
       sum: CurrenciesValues;
     };
   };
-  cardEditedDates: Maybe<{
-    [key in CARD_TYPES]: string;
-  }>;
 }
 
 export type RootState = ReturnType<typeof store.getState>;

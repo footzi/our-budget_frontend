@@ -1,6 +1,6 @@
 import { ApiConfig, useMutation } from '@/api';
 import { UseMutationSuccessResult } from '@/api/interfaces';
-import { LocalStorageItems } from '@/constants';
+import { LOCAL_STORAGE_ITEMS } from '@/constants';
 import { ROUTES } from '@/constants/routes';
 import { setUser, useAppDispatch } from '@/store';
 import { LocalStorage } from '@/utils/localStorage';
@@ -19,7 +19,7 @@ export const useLogout = (): UseLogoutResult => {
     const response = await executePut();
 
     if (response?.data?.success) {
-      LocalStorage.remove(LocalStorageItems.USER);
+      LocalStorage.remove(LOCAL_STORAGE_ITEMS.USER);
       dispatch(setUser(null));
       navigate(ROUTES.LOGIN);
     }

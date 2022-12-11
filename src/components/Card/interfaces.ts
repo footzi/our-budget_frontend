@@ -1,13 +1,13 @@
 import { CURRENCIES_TYPE, SAVING_ACTION_TYPE } from '@/constants';
-import { Category, CurrenciesValues, Expense, Income, Saving, SavingGoal } from '@/interfaces';
+import { Category, CurrenciesValues, Expense, Income, Maybe, Saving, SavingGoal } from '@/interfaces';
 import { Dayjs } from 'dayjs';
 
-import { CARD_TYPES } from './constants';
+import { CARD_FORM_FIELDS, CARD_TYPES } from './constants';
 
 export interface CardProps {
   title: string;
   list: CardItem[];
-  currencies: CURRENCIES_TYPE[];
+  currencies?: CURRENCIES_TYPE[];
   categories?: Category[];
   savingGoals?: SavingGoal[];
   total: CurrenciesValues;
@@ -54,3 +54,9 @@ export interface CardUpdateSavingBody extends CardAddSavingBody {
 }
 
 export type CardItem = Expense | Income | Saving;
+
+export type CardFormFieldType = keyof typeof CARD_FORM_FIELDS;
+export type CardFormFieldValue = typeof CARD_FORM_FIELDS[CardFormFieldType];
+export type CardFormField = Record<CardFormFieldValue, unknown>;
+
+export type CardFormSavedValues = Maybe<Record<CARD_TYPES, CardFormField>>;

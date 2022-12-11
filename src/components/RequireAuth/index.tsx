@@ -1,4 +1,4 @@
-import { LocalStorageItems } from '@/constants';
+import { LOCAL_STORAGE_ITEMS } from '@/constants';
 import { ROUTES } from '@/constants/routes';
 import { LocalStorage } from '@/utils/localStorage';
 import React, { PropsWithChildren } from 'react';
@@ -6,7 +6,7 @@ import { Navigate, useLocation } from 'react-router-dom';
 
 // @ts-ignore
 export const RequireAuth: React.FC<PropsWithChildren> = ({ children }) => {
-  const user = LocalStorage.get(LocalStorageItems.USER);
+  const user = LocalStorage.get(LOCAL_STORAGE_ITEMS.USER);
   const location = useLocation();
 
   if (!user) {

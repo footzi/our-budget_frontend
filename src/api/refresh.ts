@@ -1,4 +1,4 @@
-import { LocalStorageItems } from '@/constants';
+import { LOCAL_STORAGE_ITEMS } from '@/constants';
 import { UserLocalStorage } from '@/interfaces';
 import { LocalStorage } from '@/utils/localStorage';
 import axios, { AxiosError } from 'axios';
@@ -6,7 +6,7 @@ import axios, { AxiosError } from 'axios';
 const BACKEND_HOST = process.env.BACKEND_HOST ?? '/';
 
 export const refreshAuthLogic = async (failedRequest: AxiosError): Promise<void | string | undefined> => {
-  const savedUser = LocalStorage.get<UserLocalStorage>(LocalStorageItems.USER);
+  const savedUser = LocalStorage.get<UserLocalStorage>(LOCAL_STORAGE_ITEMS.USER);
 
   if (!savedUser) {
     return Promise.reject();
@@ -26,18 +26,18 @@ export const refreshAuthLogic = async (failedRequest: AxiosError): Promise<void 
 
     if (accessToken && refreshToken) {
       const updatedUser = { ...savedUser, tokens: { accessToken, refreshToken } };
-      LocalStorage.set<UserLocalStorage>(LocalStorageItems.USER, updatedUser);
+      LocalStorage.set<UserLocalStorage>(LOCAL_STORAGE_ITEMS.USER, updatedUser);
 
       if (failedRequest?.response?.config?.headers) {
         failedRequest.response.config.headers['Authorization'] = 'Bearer ' + accessToken;
       }
       return Promise.resolve();
     } else {
-      LocalStorage.remove(LocalStorageItems.USER);
+      LocalStorage.remove(LOCAL_STORAGE_ITEMS.USER);
       return Promise.reject();
     }
   } catch (e) {
-    LocalStorage.remove(LocalStorageItems.USER);
+    LocalStorage.remove(LOCAL_STORAGE_ITEMS.USER);
     return Promise.reject();
   }
 };

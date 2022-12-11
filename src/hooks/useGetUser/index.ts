@@ -1,5 +1,5 @@
 import { ApiConfig, useQuery } from '@/api';
-import { LocalStorageItems } from '@/constants';
+import { LOCAL_STORAGE_ITEMS } from '@/constants';
 import { ROUTES } from '@/constants/routes';
 import { Maybe, User, UserLocalStorage } from '@/interfaces';
 import { removeUser, setUser, useAppDispatch } from '@/store';
@@ -13,7 +13,7 @@ import { UseGetUserResult } from './interfaces';
  * Hook for get user data
  */
 export const useGetUser = (): UseGetUserResult => {
-  const savedUser = LocalStorage.get<UserLocalStorage>(LocalStorageItems.USER);
+  const savedUser = LocalStorage.get<UserLocalStorage>(LOCAL_STORAGE_ITEMS.USER);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();

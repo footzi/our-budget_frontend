@@ -4,11 +4,8 @@ import { CurrencyOption } from '@/interfaces';
 /**
  * Возвращает опции для селекта выбора валюты
  */
-export const getOptionsCurrencies = (
-  currencies: CURRENCIES_TYPE[] = [],
-  goalCurrency?: CURRENCIES_TYPE
-): CurrencyOption[] => {
-  const currenciesOptions = currencies.reduce((acc: CurrencyOption[], currency: CURRENCIES_TYPE) => {
+export const getOptionsCurrencies = (currencies: CURRENCIES_TYPE[] = []): CurrencyOption[] => {
+  return currencies.reduce((acc: CurrencyOption[], currency: CURRENCIES_TYPE) => {
     const option = OPTIONS_CURRENCIES.find((option) => option.value === currency);
 
     if (option) {
@@ -17,5 +14,4 @@ export const getOptionsCurrencies = (
 
     return acc;
   }, []);
-  return goalCurrency ? currenciesOptions.filter((item) => item.value === goalCurrency) : currenciesOptions;
 };

@@ -3,7 +3,6 @@ import { State } from './interfaces';
 export const initialState: State = {
   user: null,
   onBoardingStep: null,
-  cardEditedDates: null,
   balance: {
     value: {},
     isLoading: true,

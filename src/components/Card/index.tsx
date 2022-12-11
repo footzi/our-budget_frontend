@@ -1,24 +1,31 @@
-import { NotCategory } from '@/components/Card/NotCategory';
-import { CARD_TYPES } from '@/components/Card/constants';
+import { getInitialValues } from '@/components/Card/utils/getInitialValues';
 import { Section } from '@/components/Section';
-import { FORMAT_UI_SHORT_DATE, SAVING_ACTION_TYPE, SAVING_ACTION_TYPES_LIST } from '@/constants';
-import { CURRENCIES_TYPE } from '@/constants';
-import { setCardEditedDate, useAppDispatch, useAppSelector } from '@/store';
+import {
+  CURRENCIES_TYPE,
+  DEFAULT_CURRENCY,
+  FORMAT_UI_SHORT_DATE,
+  SAVING_ACTION_TYPE,
+  SAVING_ACTION_TYPES_LIST,
+} from '@/constants';
 import { formatPrice } from '@/utils/formatPrice';
 import { formatToHumanDate } from '@/utils/formatToHumanDate';
+import { getCurrencyInfo } from '@/utils/getCurrencyInfo';
 import { getOptionsCurrencies } from '@/utils/getOptionsCurrencies';
 import CaretDownOutlined from '@ant-design/icons/CaretDownOutlined';
 import CaretUpOutlined from '@ant-design/icons/CaretUpOutlined';
 import { Button, DatePicker, Empty, Form, Input, InputNumber, List, Radio, Select, Typography } from 'antd';
 import { useForm } from 'antd/es/form/Form';
 import cx from 'classnames';
-import dayjs, { Dayjs } from 'dayjs';
+import { Dayjs } from 'dayjs';
 import React, { useCallback, useEffect, useState } from 'react';
 
 import { CardModal } from './Modal';
+import { NotCategory } from './NotCategory';
+import { CARD_FORM_FIELDS, CARD_TYPES } from './constants';
 import './index.less';
-import { CardAddBalancesBody, CardAddSavingBody, CardItem, CardProps } from './interfaces';
-import { getInitialDate } from './utils/getInitialDate';
+import { CardAddBalancesBody, CardAddSavingBody, CardFormField, CardItem, CardProps } from './interfaces';
+import { getCurrencyByGoalId } from './utils/getCurrencyByGoalId';
+import { saveSelectedValues } from './utils/saveSelectedValues';
 
 /**
  * Компонент отрисовки списка расходов / доходов
@@ -42,10 +49,7 @@ const DefaultCard: React.FC<CardProps> = ({
   const [form] = useForm();
   const [editedItem, setEditedItem] = useState<CardItem | null>(null);
 
-  const { cardEditedDates } = useAppSelector();
-  const dispatch = useAppDispatch();
-
-  const editedDate = cardEditedDates && cardEditedDates[type];
+  const currenciesOptions = getOptionsCurrencies(currencies);
 
   const handleFinish = useCallback(
     (formBody: {
@@ -84,7 +88,7 @@ const DefaultCard: React.FC<CardProps> = ({
           actionType,
           value,
           comment,
-          currency,
+          currency: getCurrencyByGoalId(goalId, savingGoals) ?? DEFAULT_CURRENCY,
         };
 
         onAdd(type, body);
@@ -97,58 +101,32 @@ const DefaultCard: React.FC<CardProps> = ({
         value: '',
       });
     },
-    [form, isLoadingSave, onAdd, type]
+    [form, isLoadingSave, onAdd, type, savingGoals]
   );
 
   const handleItemClick = useCallback((item: CardItem) => setEditedItem(item), [setEditedItem]);
 
   const handleModalCancel = useCallback(() => setEditedItem(null), [setEditedItem]);
 
-  const handleChangeDate = useCallback(
-    //@ts-ignore
-    //@todo исправить типы Moment
-    (event) => {
-      dispatch(
-        setCardEditedDate({
-          [type]: dayjs(event).toString(),
-        })
-      );
-    },
-    [dispatch, type]
-  );
-
-  // @todo тут нужен рефакторинг
-  const getCurrencyOptionsAfterGoalUpdate = useCallback(
-    (goalId?: number) => {
-      const currentCurrency = form.getFieldValue('currency');
-      const goal = savingGoals?.find((item) => item.id === goalId);
-
-      const options = getOptionsCurrencies(currencies, goal?.currency);
-      const newCurrency = options[0]?.value;
-
-      if (goalId && newCurrency && newCurrency !== currentCurrency) {
-        form.setFieldValue('currency', newCurrency);
-      }
-
-      return options;
-    },
-    [form, currencies, savingGoals]
-  );
+  const handleChangeForm = useCallback((body: CardFormField) => saveSelectedValues(type, body), [type]);
 
   useEffect(() => {
-    const date = getInitialDate(selectedDate, editedDate);
-    const currenciesOptions = getOptionsCurrencies(currencies);
+    const { date, currency, categoryId, goalId } = getInitialValues({
+      cardType: type,
+      currenciesOptions,
+      selectedDate,
+      categories,
+      savingGoals,
+    });
 
     form.setFieldsValue({
       date,
-      currency: currenciesOptions?.length && currenciesOptions[0].value,
+      currency,
       actionType: SAVING_ACTION_TYPES_LIST[0].type,
-      categoryId: categories && categories.length > 0 ? categories[0].id : null,
-      goalId: savingGoals && savingGoals.length > 0 ? savingGoals[0].id : null,
+      categoryId,
+      goalId,
     });
-    // Игнорим editedDate для избавления от перерисовки
-    // eslint-disable-next-line
-  }, [form, categories, savingGoals, currencies, selectedDate]);
+  }, [form, categories, savingGoals, currenciesOptions, selectedDate, type]);
 
   const isShowDate =
     type === CARD_TYPES.INCOME_FACT || type === CARD_TYPES.SAVINGS_FACT || type === CARD_TYPES.EXPENSE_FACT;
@@ -170,19 +148,24 @@ const DefaultCard: React.FC<CardProps> = ({
   return (
     <>
       <Section title={title} className={cxCard}>
-        <Form className="card__form" onFinish={handleFinish} form={form} layout="vertical">
+        <Form
+          className="card__form"
+          onFinish={handleFinish}
+          form={form}
+          layout="vertical"
+          onValuesChange={handleChangeForm}>
           {isShowDate && (
             <Form.Item
-              name="date"
+              name={CARD_FORM_FIELDS.DATE}
               rules={[{ required: true, message: 'Выберите дату' }]}
               className="card__form-date-picker">
-              <DatePicker picker="date" format={FORMAT_UI_SHORT_DATE} allowClear={false} onChange={handleChangeDate} />
+              <DatePicker picker="date" format={FORMAT_UI_SHORT_DATE} allowClear={false} />
             </Form.Item>
           )}
 
           {categories && categories?.length > 0 && (
             <Form.Item
-              name="categoryId"
+              name={CARD_FORM_FIELDS.CATEGORY_ID}
               rules={[{ required: true, message: 'Выберите категорию' }]}
               className="card__form-select">
               <Select>
@@ -197,7 +180,7 @@ const DefaultCard: React.FC<CardProps> = ({
 
           {savingGoals && savingGoals?.length > 0 && (
             <Form.Item
-              name="goalId"
+              name={CARD_FORM_FIELDS.GOAL_ID}
               rules={[{ required: true, message: 'Выберите копилку' }]}
               className="card__form-select">
               <Select>
@@ -212,7 +195,7 @@ const DefaultCard: React.FC<CardProps> = ({
 
           {(type === CARD_TYPES.SAVINGS_FACT || type === CARD_TYPES.SAVINGS_PLAN) && (
             <Form.Item
-              name="actionType"
+              name={CARD_FORM_FIELDS.ACTION_TYPE}
               rules={[{ required: true, message: 'Выберите действие' }]}
               className="card__form-radio">
               <Radio.Group>
@@ -223,29 +206,32 @@ const DefaultCard: React.FC<CardProps> = ({
           )}
 
           <div className="card__form-price-container">
-            <Form.Item name="value" rules={[{ required: true, message: 'Введите сумму' }]} className="card__form-price">
-              <InputNumber />
-            </Form.Item>
-
-            <Form.Item className="card__form-currency" dependencies={['goalId']}>
+            <Form.Item className="card__form-price" dependencies={[CARD_FORM_FIELDS.GOAL_ID]}>
               {({ getFieldsValue }) => {
                 const values = getFieldsValue();
-                const options = getCurrencyOptionsAfterGoalUpdate(values.goalId);
+                const currency = getCurrencyByGoalId(values?.goalId, savingGoals);
+                const symbol = currency ? getCurrencyInfo(currency).symbol : null;
 
                 return (
-                  <Form.Item name="currency">
-                    <Select options={options} />
+                  <Form.Item name={CARD_FORM_FIELDS.VALUE} rules={[{ required: true, message: 'Введите сумму' }]}>
+                    <InputNumber addonAfter={symbol} />
                   </Form.Item>
                 );
               }}
             </Form.Item>
+
+            {currenciesOptions.length > 0 && (
+              <Form.Item name={CARD_FORM_FIELDS.CURRENCY} className="card__form-currency">
+                <Select options={currenciesOptions} />
+              </Form.Item>
+            )}
           </div>
 
-          <Form.Item name="comment" className="card__form-comment">
+          <Form.Item name={CARD_FORM_FIELDS.COMMENT} className="card__form-comment">
             <Input.TextArea placeholder="Комментарий" />
           </Form.Item>
 
-          <Form.Item dependencies={['value', 'date']} className="card__form-button">
+          <Form.Item dependencies={[CARD_FORM_FIELDS.VALUE, CARD_FORM_FIELDS.DATE]} className="card__form-button">
             {({ getFieldsValue }) => {
               const values = getFieldsValue();
               const isValid = values.value && (isShowDate ? values.date : true);

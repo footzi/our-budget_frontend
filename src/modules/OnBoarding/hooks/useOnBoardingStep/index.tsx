@@ -1,4 +1,4 @@
-import { LocalStorageItems, ON_BOARDING_STATUSES } from '@/constants';
+import { LOCAL_STORAGE_ITEMS, ON_BOARDING_STATUSES } from '@/constants';
 import { OnBoardingItemsLS } from '@/interfaces';
 import { setOnBoardingStep, useAppDispatch, useAppSelector } from '@/store';
 import { LocalStorage } from '@/utils/localStorage';
@@ -15,7 +15,7 @@ export const useOnBoardingStep = (): UseOnBoardingStepResult => {
   const step = useMemo(() => {
     const plans = [...incomes.plan.list, ...expenses.plan.list];
     const facts = [...incomes.fact.list, ...expenses.fact.list];
-    const state = LocalStorage.get<OnBoardingItemsLS>(LocalStorageItems.ON_BOARDING_STATUSES) ?? {};
+    const state = LocalStorage.get<OnBoardingItemsLS>(LOCAL_STORAGE_ITEMS.ON_BOARDING_STATUSES) ?? {};
 
     return getOnBoardingStep(categories.value, plans, facts, state);
   }, [categories.value, incomes, expenses]);
@@ -24,7 +24,7 @@ export const useOnBoardingStep = (): UseOnBoardingStepResult => {
     setIsVisible(false);
 
     if (step) {
-      const statuses = LocalStorage.get<OnBoardingItemsLS>(LocalStorageItems.ON_BOARDING_STATUSES) ?? {};
+      const statuses = LocalStorage.get<OnBoardingItemsLS>(LOCAL_STORAGE_ITEMS.ON_BOARDING_STATUSES) ?? {};
 
       const newState = {
         ...statuses,
@@ -33,7 +33,7 @@ export const useOnBoardingStep = (): UseOnBoardingStepResult => {
         },
       };
 
-      LocalStorage.set(LocalStorageItems.ON_BOARDING_STATUSES, newState);
+      LocalStorage.set(LOCAL_STORAGE_ITEMS.ON_BOARDING_STATUSES, newState);
     }
   }, [step]);
 

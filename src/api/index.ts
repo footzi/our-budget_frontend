@@ -1,5 +1,5 @@
 import { refetches } from '@/api/refetches';
-import { LocalStorageItems } from '@/constants';
+import { LOCAL_STORAGE_ITEMS } from '@/constants';
 import { UserLocalStorage } from '@/interfaces';
 import { LocalStorage } from '@/utils/localStorage';
 import { notification } from 'antd';
@@ -28,7 +28,7 @@ export const useQuery = <T>({
   options,
   isSkip,
 }: UseQueryProps): UseQueryResult<T> => {
-  const savedUser = !config.isPublic ? LocalStorage.get<UserLocalStorage>(LocalStorageItems.USER) : null;
+  const savedUser = !config.isPublic ? LocalStorage.get<UserLocalStorage>(LOCAL_STORAGE_ITEMS.USER) : null;
   const accessToken = savedUser ? savedUser.tokens.accessToken : null;
 
   const url = USE_LOCAL_JSON ? config.json : config.url;
@@ -77,7 +77,7 @@ export const useQuery = <T>({
 };
 
 export const useMutation = <T>({ config, onSuccess, onError }: UseMutationProps): UseMutationResult<T> => {
-  const savedUser = !config.isPublic ? LocalStorage.get<UserLocalStorage>(LocalStorageItems.USER) : null;
+  const savedUser = !config.isPublic ? LocalStorage.get<UserLocalStorage>(LOCAL_STORAGE_ITEMS.USER) : null;
   const accessToken = savedUser ? savedUser.tokens.accessToken : null;
 
   const url = USE_LOCAL_JSON ? config.json : config.url;
