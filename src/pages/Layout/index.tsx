@@ -10,6 +10,7 @@ import { useGetFirstLoading } from '@/hooks/useGetFirstLoading';
 import { useGetIncomes } from '@/hooks/useGetIncomes';
 import { useGetSavingGoals } from '@/hooks/useGetSavingGoals';
 import { useGetSavings } from '@/hooks/useGetSavings';
+import { MobileHeader } from '@/modules/MobileHeader';
 import { Sidebar } from '@/modules/Sidebar';
 import { UserWidget } from '@/modules/UserWidget';
 import { Main } from '@/pages/Main';
@@ -74,6 +75,10 @@ export const Layout = () => {
     <div className="layout">
       <div className="layout__skip-link">
         <SkipLink />
+      </div>
+
+      <div className="layout__mobile-header">
+        <MobileHeader />
       </div>
 
       <div className={cxSidebar}>

@@ -1,0 +1,136 @@
+@import '@/styles';
+
+.mobile-header {
+  width: 100%;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  padding: 0 22px;
+  background-color: @white;
+  box-shadow: @box-shadow-main;
+  border-radius: 0 0 8px 8px;
+  display: flex;
+  justify-content: space-between;
+
+  &__logo {
+    img {
+      width: 130px;
+      display: block;
+    }
+  }
+
+  &__menu-button {
+    width: 26px;
+    height: 16px;
+    position: relative;
+    transform: rotate(0deg);
+    transition: .5s ease-in-out;
+    cursor: pointer;
+    background-color: transparent;
+    box-shadow: none;
+    z-index: 3;
+    border: none;
+    padding: 0;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      margin: -12px -12px;
+      width: calc(100% + 24px);
+      height: calc(100% + 24px);
+    }
+
+    span {
+      display: block;
+      position: absolute;
+      height: 3px;
+      width: 100%;
+      background: @purple;
+      border-radius: 9px;
+      opacity: 1;
+      left: 0;
+      transform: rotate(0deg);
+      transition: .25s ease-in-out;
+    }
+
+    span:nth-child(1) {
+      top: 0px;
+    }
+    
+    span:nth-child(2), span:nth-child(3) {
+      top: 7px;
+    }
+    
+    span:nth-child(4) {
+      top: 14px;
+    }
+
+    &.enter-done {
+      span {
+        background-color: rgba(255, 255, 255, 0.8);
+      }
+
+      span:nth-child(1) {
+        top: 14px;
+        width: 0%;
+        left: 50%;
+      }
+      
+      span:nth-child(2) {
+        transform: rotate(45deg);
+      }
+      
+     span:nth-child(3) {
+        transform: rotate(-45deg);
+      }
+      
+      span:nth-child(4) {
+        top: 14px;
+        width: 0%;
+        left: 50%;
+      }
+    }
+  }
+
+  &__menu {
+    width: 100%;
+    height: 100vh;
+    transform: translateX(100%);
+    transition: 0.3s transform;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 2;
+
+    &.enter-done {
+      transform: translateX(0);
+    }
+
+    .sm({
+      width: 360px;
+    })
+  }
+
+  &__menu-overlay {
+    transition: 0.3s opacity;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: @ash;
+    opacity: 0;
+    z-index: 1;
+    display: none;
+
+    &.enter-done {
+      opacity: 0.2;
+    }
+
+    .sm({
+      display: block;
+    })
+  }
+}

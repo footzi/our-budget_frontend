@@ -1,21 +1,44 @@
+@import '@/styles';
+
 .layout {
     display: flex;
+
+    &__mobile-header {
+        width: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 2;
+
+        .xl({
+            display: none;
+        })
+    }
 
     &__sidebar {
         width: 280px;
         height: 100vh;
         position: fixed;
+        display: none;
 
         &.is-onboarding {
             position: absolute;
         }
+
+        .xl({
+            display: block;
+        })  
     }
 
     &__content {
-        margin-left: 280px;
-        padding: 20px 32px;
         width: 100%;
+        padding: 12px;
         min-height: 100vh;
+
+        .xl({
+            padding: 20px 32px;
+            margin-left: 280px;
+        })
     }
 
     &__user-widget {

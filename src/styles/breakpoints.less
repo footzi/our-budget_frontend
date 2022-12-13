@@ -1,0 +1,55 @@
+// Media queries breakpoints
+// 👆 Extra small screen / phone
+@screen-xs: 480px;
+
+// 👇 Small screen / tablet
+@screen-sm: 576px;
+
+// Medium screen / desktop
+@screen-md: 768px;
+
+// Large screen / wide desktop
+@screen-lg: 992px;
+
+// Extra large screen / full hd
+@screen-xl: 1200px;
+
+// Extra extra large screen / large desktop
+@screen-xxl: 1600px;
+
+
+.xs(@a) {
+  @media (max-width: @screen-xs) {
+    @a()
+  }
+}
+
+.sm(@a) {
+  @media (min-width: @screen-sm) {
+    @a()
+  }
+}
+
+.md(@a) {
+  @media (min-width: @screen-md) {
+    @a()
+  }
+}
+
+.lg(@a) {
+  @media (min-width: @screen-lg) {
+    @a()
+  }
+}
+
+.xl(@a) {
+  @media (min-width: @screen-xl) {
+    @a()
+  }
+}
+
+.xxl(@a) {
+  @media (min-width: @screen-xxl) {
+    @a()
+  }
+}

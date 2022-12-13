@@ -14,7 +14,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ onClickMenu }) => {
 
   return (
     <aside className="sidebar">
-      <nav>
+      <nav className="sidebar__nav">
         <ul className="sidebar__menu">
           {MENU.map((item) => (
             <MenuItem

@@ -2,15 +2,20 @@
 
 .top-date-picker {
   animation: slide-in 0.3s ease-in-out both;
+  width: 100%;
 
   .ant-picker {
     border-color: transparent;
     padding: 0 8px;
-    width: 180px;
+    width: 100%;
 
     &.ant-picker-focused {
       box-shadow: none;
     }
+
+    .sm({
+      width: 180px;
+    })
   }
 
   .ant-picker-input > input {
@@ -42,4 +47,8 @@
   &.enter-active {
     animation: slide-in 0.3s ease-in-out both;
   }
+
+  .sm({
+    width: auto;
+  })
 }

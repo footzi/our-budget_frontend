@@ -1,6 +1,8 @@
 @import '@/styles';
 
 .card {
+  min-width: 300px;
+
   &__form {
     margin-bottom: 12px !important;
     display: flex;
@@ -51,7 +53,7 @@
     padding: 12px !important;
 
     .ant-typography {
-      flex-shrink: 0;
+      flex-shrink: 1;
     }
 
     &.ant-list-item {
@@ -111,11 +113,16 @@
 
     &-values {
       display: flex;
+      flex-wrap: wrap;
     }
 
     &-separator {
-      padding: 0 16px;
+      padding: 0 8px;
       color: @background;
+
+      .lg({
+        padding: 0 16px;
+      })
     }
 
     &-value {
@@ -132,7 +139,12 @@
 
     .ant-typography {
       margin: 0 !important;
-      font-size: 18px;
+      font-size: 14px;
+      flex-shrink: 0;
+
+      .lg({
+        font-size: 18px;
+      })
     }
   }
 

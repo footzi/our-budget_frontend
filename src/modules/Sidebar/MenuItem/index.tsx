@@ -19,7 +19,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({
     ['is-onboarding']: isOnBoardingsStep,
   });
 
-  const handleClick = () => onClick();
+  const handleClick = () => onClick && onClick();
 
   return (
     <li>

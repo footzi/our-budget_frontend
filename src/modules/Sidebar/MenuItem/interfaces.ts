@@ -4,7 +4,7 @@ export interface MenuItemProps {
   icon: React.ReactElement;
   to: string;
   name: string;
-  onClick: () => void;
+  onClick?: () => void;
   isActive: boolean;
   isBorder?: boolean;
   isOnBoardingsStep: boolean;
