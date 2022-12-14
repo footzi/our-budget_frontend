@@ -30,6 +30,12 @@
   }
 }
 
+.sm-max(@a) {
+  @media (max-width: @screen-sm) {
+    @a()
+  }
+}
+
 .md(@a) {
   @media (min-width: @screen-md) {
     @a()

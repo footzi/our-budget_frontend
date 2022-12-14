@@ -1,11 +1,27 @@
 @import '@/styles';
 
 .analytics-categories {
+  &.section {
+    .sm-max({
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    })
+  }
+
   &__name {
     width: 50%;
   }
 
   .ant-table-cell {
     vertical-align: top;
+    white-space: nowrap;
+  }
+
+  .ant-table {
+    padding-left: 12px;
+    margin-left: -16px;
+    width: calc(100% + 32px);
+    max-width: inherit;
+    overflow-x: auto;
   }
 }

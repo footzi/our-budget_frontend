@@ -20,12 +20,10 @@
   }
 
   .sm({
-    border-bottom-left-radius: @border-radius-main;
-    border-top-left-radius: @border-radius-main;
+    border-radius: @border-radius-main 0 0 @border-radius-main;
   });
 
   .xl({
-    border-bottom-right-radius: @border-radius-main;
-    border-top-right-radius: @border-radius-main;
+    border-radius: 0 @border-radius-main @border-radius-main 0;
   })
 }
