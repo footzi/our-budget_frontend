@@ -59,6 +59,7 @@
     &.ant-list-item {
       align-items: flex-start;
       flex-direction: column;
+      white-space: nowrap;
     }
 
     &:hover {
@@ -71,6 +72,7 @@
     }
 
     &-value {
+      padding-left: 12px;
       margin-left: auto;
       width: 100px;
       flex-shrink: 0;
@@ -78,7 +80,11 @@
     }
 
     &-date {
-      margin-right: 20px;
+      margin-right: 12px;
+
+      .xl({
+        margin-right: 20px;
+      })
     }
 
     &-comment.ant-typography {

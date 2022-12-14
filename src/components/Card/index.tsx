@@ -214,7 +214,7 @@ const DefaultCard: React.FC<CardProps> = ({
 
                 return (
                   <Form.Item name={CARD_FORM_FIELDS.VALUE} rules={[{ required: true, message: 'Введите сумму' }]}>
-                    <InputNumber addonAfter={symbol} />
+                    <InputNumber addonAfter={symbol} placeholder="Сумма" />
                   </Form.Item>
                 );
               }}
