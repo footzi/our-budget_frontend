@@ -28,7 +28,7 @@ export const MobileHeader = () => {
 
       <CSSTransition in={isMenuOpen} timeout={{ exit: 300 }} unmountOnExit>
         <div className="mobile-header__menu">
-          <Sidebar />
+          <Sidebar onClickMenu={handleClickButton} />
         </div>
       </CSSTransition>
 
