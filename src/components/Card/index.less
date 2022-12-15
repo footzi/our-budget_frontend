@@ -50,7 +50,11 @@
   &__list-item {
     transition: 0.3s background-color;
     cursor: pointer;
-    padding: 12px !important;
+    padding: 12px 6px;
+
+    .xl({
+      padding: 12px;
+    });
 
     .ant-typography {
       flex-shrink: 1;
@@ -59,7 +63,6 @@
     &.ant-list-item {
       align-items: flex-start;
       flex-direction: column;
-      white-space: nowrap;
     }
 
     &:hover {
@@ -72,15 +75,17 @@
     }
 
     &-value {
-      padding-left: 12px;
+      padding-left: 6px;
       margin-left: auto;
-      width: 100px;
       flex-shrink: 0;
       text-align: right;
+      white-space: nowrap;
+      display: flex;
     }
 
     &-date {
       margin-right: 12px;
+      white-space: nowrap;
 
       .xl({
         margin-right: 20px;
@@ -92,8 +97,7 @@
     }
 
     &-action-type {
-      margin-left: 24px;
-      width: 100%;
+      margin-left: 6px;
       text-align: right;
 
       svg {

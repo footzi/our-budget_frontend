@@ -261,17 +261,17 @@ const DefaultCard: React.FC<CardProps> = ({
 
                 {'goal' in item && <Typography.Text>{item.goal.name}</Typography.Text>}
 
-                {'actionType' in item && (
-                  <div
-                    className={cx('card__list-item-action-type', {
-                      'card__list-item-action-type_income': item.actionType === SAVING_ACTION_TYPE.INCOME,
-                    })}>
-                    {item.actionType === SAVING_ACTION_TYPE.INCOME ? <CaretDownOutlined /> : <CaretUpOutlined />}
-                  </div>
-                )}
-
                 <Typography.Text className="card__list-item-value">
                   {formatPrice(item.value, item.currency)}
+
+                  {'actionType' in item && (
+                    <div
+                      className={cx('card__list-item-action-type', {
+                        'card__list-item-action-type_income': item.actionType === SAVING_ACTION_TYPE.INCOME,
+                      })}>
+                      {item.actionType === SAVING_ACTION_TYPE.INCOME ? <CaretDownOutlined /> : <CaretUpOutlined />}
+                    </div>
+                  )}
                 </Typography.Text>
               </div>
 

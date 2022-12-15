@@ -32,18 +32,25 @@
 
     &__content {
         width: 100%;
+        margin-top: 56px;
         padding: 12px;
         min-height: 100vh;
 
         .xl({
+            margin-top: 0;
             padding: 20px 32px;
             margin-left: 280px;
         })
     }
 
     &__user-widget {
+        display: none;
         position: absolute;
         top: 20px;
         right: 20px;
+
+        .xl({
+            display: block;
+        })
     }
 }
