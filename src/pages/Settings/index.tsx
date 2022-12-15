@@ -2,10 +2,12 @@ import { useRefetchBalance, useRefetchUser } from '@/api';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { Section } from '@/components/Section';
 import { CURRENCIES, CURRENCIES_TYPE } from '@/constants';
+import { useLogout } from '@/hooks/useLogout';
 import { Maybe } from '@/interfaces';
 import { useAppSelector } from '@/store';
 import { formatPrice } from '@/utils/formatPrice';
 import EditOutlined from '@ant-design/icons/EditOutlined';
+import LogoutOutlined from '@ant-design/icons/LogoutOutlined';
 import { Button, Typography } from 'antd';
 import React, { useCallback, useState } from 'react';
 
@@ -26,6 +28,7 @@ const Settings: React.FC = () => {
 
   const { update: updateUser, isLoading: isLoadingUpdateUser } = useUpdateUser();
   const { update: updateBalance, isLoading: isLoadingUpdateBalance } = useUpdateBalance();
+  const { logout, isLoading: isLoadingLogout } = useLogout();
 
   const handleClick = useCallback(
     (type: PROFILE_ITEM_TYPES, value: ProfileEditableValue, currency?: CURRENCIES_TYPE) => {
@@ -61,6 +64,8 @@ const Settings: React.FC = () => {
     },
     [updateUser, refetchUser, updateBalance, refetchBalance, editableBalanceCurrency]
   );
+
+  const handleLogout = useCallback(() => logout(), [logout]);
 
   if (!user || !balance) {
     return null;
@@ -141,6 +146,10 @@ const Settings: React.FC = () => {
             />
           </div>
         </div>
+
+        <Button className="profile__logout" icon={<LogoutOutlined />} onClick={handleLogout} loading={isLoadingLogout}>
+          Выйти
+        </Button>
       </Section>
 
       <ProfileModal
