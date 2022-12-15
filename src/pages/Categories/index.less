@@ -1,9 +1,28 @@
+@import '@/styles';
+
 .categories {
   &__tables {
     display: grid;
-    grid-column-gap: 24px;
+    grid-column-gap: 12px;
     grid-template-columns: 1fr 1fr;
     align-items: flex-start;
+    overflow-x: auto;
+    width: calc(100% + 24px);
+    margin-left: -12px;
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-bottom: 12px;
+
+    .xl({
+      grid-column-gap: 24px;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+    });
+
+    .section {
+      min-width: 320px;
+    }
 
     .ant-table-row {
       cursor: pointer;
@@ -19,6 +38,10 @@
   }
 
   &__create-button {
-    margin-bottom: 34px;
+    margin-bottom: 16px;
+
+    .xl({
+      margin-bottom: 34px;
+    })
   }
 }

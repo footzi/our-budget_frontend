@@ -5,9 +5,13 @@
   padding: 16px;
   border: 1px solid @white;
   border-radius: @border-radius-main;
-  margin-top: auto;
+  margin-top: 24px;
   display: flex;
   align-items: center;
+
+  .sm({
+    margin-top: auto;
+  });
 
   &__values {
     margin-left: auto;
@@ -22,6 +26,7 @@
 
   span.ant-typography {
     color: @white;
+    font-size: 16px;
   }
 
   h4.ant-typography {
