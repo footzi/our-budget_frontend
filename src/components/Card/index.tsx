@@ -206,14 +206,17 @@ const DefaultCard: React.FC<CardProps> = ({
           )}
 
           <div className="card__form-price-container">
-            <Form.Item className="card__form-price" dependencies={[CARD_FORM_FIELDS.GOAL_ID]} noStyle>
+            <Form.Item dependencies={[CARD_FORM_FIELDS.GOAL_ID]} noStyle>
               {({ getFieldsValue }) => {
                 const values = getFieldsValue();
                 const currency = getCurrencyByGoalId(values?.goalId, savingGoals);
                 const symbol = currency ? getCurrencyInfo(currency).symbol : null;
 
                 return (
-                  <Form.Item name={CARD_FORM_FIELDS.VALUE} rules={[{ required: true, message: 'Введите сумму' }]}>
+                  <Form.Item
+                    className="card__form-price"
+                    name={CARD_FORM_FIELDS.VALUE}
+                    rules={[{ required: true, message: 'Введите сумму' }]}>
                     <InputNumber addonAfter={symbol} placeholder="Сумма" />
                   </Form.Item>
                 );
