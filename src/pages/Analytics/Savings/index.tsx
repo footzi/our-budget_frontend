@@ -27,54 +27,52 @@ export const SavingsAnalytics: React.FC = () => {
 
   return (
     <Section title="Аналитика копилок" className="analytics-savings">
-      {/* // @todo Сделать перенос diff */}
-      <div className="analytics-savings__content">
-        <Table
-          locale={{ emptyText: <Empty description="Нет данных для отображения" /> }}
-          dataSource={savings}
-          pagination={false}>
-          <Table.Column title="Копилка" dataIndex="name" key="name" className="analytics-savings__name" />
-          <Table.Column
-            title="Положили"
-            dataIndex="income"
-            key="income"
-            className="analytics-savings__cell"
-            sorter={sorterIncome}
-            render={(values: CurrenciesValues) => <CurrenciesList values={values} />}
-          />
-          <Table.Column
-            title="Вынули"
-            dataIndex="expense"
-            key="expense"
-            className="analytics-savings__cell"
-            sorter={sorterExpense}
-            render={(values: CurrenciesValues) => <CurrenciesList values={values} />}
-          />
-          <Table.Column
-            title="Итого"
-            dataIndex="diff"
-            key="diff"
-            className="analytics-savings__cell"
-            sorter={sorterDiff}
-            render={(values: CurrenciesValues) => <CurrenciesList values={values} isDiff />}
-          />
-        </Table>
-
-        {isShowDiff && (
-          <div className="analytics-savings__total">
-            <span className="analytics-savings__total-name">Итого:</span>
-            <span className="analytics-savings__total-value">
-              <CurrenciesList values={total.income} />
-            </span>
-            <span className="analytics-savings__total-value">
-              <CurrenciesList values={total.expense} />
-            </span>
-            <span className="analytics-savings__total-value">
-              <CurrenciesList values={total.diff} isDiff />
-            </span>
-          </div>
-        )}
-      </div>
+      <Table
+        locale={{ emptyText: <Empty description="Нет данных для отображения" /> }}
+        dataSource={savings}
+        pagination={false}
+        summary={() =>
+          isShowDiff && (
+            <tr className="analytics-savings__total">
+              <td className="analytics-savings__total-name">Итого:</td>
+              <td>
+                <CurrenciesList values={total.income} />
+              </td>
+              <td className="analytics-savings__total-value">
+                <CurrenciesList values={total.expense} />
+              </td>
+              <td className="analytics-savings__total-value">
+                <CurrenciesList values={total.diff} isDiff />
+              </td>
+            </tr>
+          )
+        }>
+        <Table.Column title="Копилка" dataIndex="name" key="name" className="analytics-savings__name" />
+        <Table.Column
+          title="Положили"
+          dataIndex="income"
+          key="income"
+          className="analytics-savings__cell"
+          sorter={sorterIncome}
+          render={(values: CurrenciesValues) => <CurrenciesList values={values} />}
+        />
+        <Table.Column
+          title="Вынули"
+          dataIndex="expense"
+          key="expense"
+          className="analytics-savings__cell"
+          sorter={sorterExpense}
+          render={(values: CurrenciesValues) => <CurrenciesList values={values} />}
+        />
+        <Table.Column
+          title="Итого"
+          dataIndex="diff"
+          key="diff"
+          className="analytics-savings__cell"
+          sorter={sorterDiff}
+          render={(values: CurrenciesValues) => <CurrenciesList values={values} isDiff />}
+        />
+      </Table>
     </Section>
   );
 };

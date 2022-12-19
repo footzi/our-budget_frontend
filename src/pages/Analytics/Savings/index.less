@@ -8,13 +8,16 @@
     })
   }
 
-  .ant-table-cell {
-    white-space: nowrap;
+  .ant-table {
+    &.ant-table-ping-right .ant-table-container::after,
+    &.ant-table-ping-left .ant-table-container::before {
+      box-shadow: none;
+    }
   }
 
-  // @todo перенести в сколл с суммой
-  &__content {
+  .ant-table-content {
     padding-left: 12px;
+    padding-right: 12px;
     margin-left: -16px;
     width: calc(100% + 32px);
     max-width: inherit;
@@ -24,7 +27,11 @@
       padding: 0;
       margin: 0;
       width: auto;
-    })
+    });
+
+    td {
+      white-space: nowrap;
+    }
   }
 
   &__name {
@@ -44,20 +51,17 @@
   }
 
   &__total {
-    display: grid;
-    grid-template-columns: 50% 16.6% 16.6% 16.6%;
-    border-top: 1px solid @background;
-    padding: 16px 0;
-    white-space: nowrap;
+    td {
+      border-top: 1px solid @background;
+      border-bottom: 0 !important;
+    }
 
     &-name {
       font-weight: 500;
       font-size: 16px;
-      padding: 0 16px;
     }
 
     &-value {
-      padding: 0 16px;
       font-weight: 500;
       font-size: 16px;
     }

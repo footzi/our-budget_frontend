@@ -91,7 +91,7 @@ module.exports = (env) => {
       ],
     },
     resolve: {
-      extensions: ['.tsx', '.ts', '.js'],
+      extensions: ['.tsx', '.ts', '.js', '.less'],
       alias: {
         '@': path.resolve(__dirname, 'src'),
       },
