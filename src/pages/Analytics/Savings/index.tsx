@@ -35,7 +35,7 @@ export const SavingsAnalytics: React.FC = () => {
           isShowDiff && (
             <tr className="analytics-savings__total">
               <td className="analytics-savings__total-name">Итого:</td>
-              <td>
+              <td className="analytics-savings__total-value">
                 <CurrenciesList values={total.income} />
               </td>
               <td className="analytics-savings__total-value">
