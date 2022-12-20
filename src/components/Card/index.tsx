@@ -210,24 +210,36 @@ const DefaultCard: React.FC<CardProps> = ({
               {({ getFieldsValue }) => {
                 const values = getFieldsValue();
                 const currency = getCurrencyByGoalId(values?.goalId, savingGoals);
+                // только для копилок
                 const symbol = currency ? getCurrencyInfo(currency).symbol : null;
 
                 return (
                   <Form.Item
                     className="card__form-price"
                     name={CARD_FORM_FIELDS.VALUE}
-                    rules={[{ required: true, message: 'Введите сумму' }]}>
-                    <InputNumber addonAfter={symbol} placeholder="Сумма" />
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Введите сумму',
+                      },
+                    ]}>
+                    <InputNumber
+                      decimalSeparator={','}
+                      placeholder="Сумма"
+                      addonAfter={
+                        symbol ? (
+                          symbol
+                        ) : (
+                          <Form.Item name={CARD_FORM_FIELDS.CURRENCY} noStyle>
+                            <Select options={currenciesOptions} />
+                          </Form.Item>
+                        )
+                      }
+                    />
                   </Form.Item>
                 );
               }}
             </Form.Item>
-
-            {currenciesOptions.length > 0 && (
-              <Form.Item name={CARD_FORM_FIELDS.CURRENCY} className="card__form-currency">
-                <Select options={currenciesOptions} />
-              </Form.Item>
-            )}
           </div>
 
           <Form.Item name={CARD_FORM_FIELDS.COMMENT} className="card__form-comment">
