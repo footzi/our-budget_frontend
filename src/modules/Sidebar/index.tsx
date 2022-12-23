@@ -14,6 +14,9 @@ export const Sidebar: React.FC<SidebarProps> = ({ onClickMenu }) => {
 
   return (
     <aside className="sidebar">
+      <a href="/" aria-label="Главная страница" className="sidebar__logo">
+        <img src="./images/logo-2.svg" alt="" />
+      </a>
       <nav className="sidebar__nav">
         <ul className="sidebar__menu">
           {MENU.map((item) => (
