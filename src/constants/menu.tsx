@@ -1,42 +1,42 @@
-import { Coins } from '@/components/Icons/Coins';
+import { Graph } from '@/components/Icons/Graph';
+import { List } from '@/components/Icons/List';
 import { ListCoins } from '@/components/Icons/ListCoins';
+import { Pencil } from '@/components/Icons/Pencil';
+import { Savings } from '@/components/Icons/Savings';
+import { Settings } from '@/components/Icons/Settings';
+import { Target } from '@/components/Icons/Target';
 import { ON_BOARDING_STEPS } from '@/constants/index';
 import { ROUTES } from '@/constants/routes';
-import AimOutlined from '@ant-design/icons/AimOutlined';
-import EditOutlined from '@ant-design/icons/EditOutlined';
-import LineChartOutlined from '@ant-design/icons/LineChartOutlined';
-import SettingOutlined from '@ant-design/icons/SettingOutlined';
-import UnorderedListOutlined from '@ant-design/icons/UnorderedListOutlined';
 import React from 'react';
 
 export const MENU = [
   {
     to: ROUTES.MAIN,
     name: 'Аналитика',
-    icon: <LineChartOutlined />,
+    icon: <Graph />,
   },
   {
     to: ROUTES.PLANS,
     name: 'План',
-    icon: <AimOutlined />,
+    icon: <Target />,
     onBoardingsStep: ON_BOARDING_STEPS.PLANS,
   },
   {
     to: ROUTES.FACTS,
     name: 'Факт',
-    icon: <EditOutlined />,
+    icon: <Pencil />,
     onBoardingsStep: ON_BOARDING_STEPS.FACTS,
   },
   {
     to: ROUTES.SAVINGS,
     name: 'Копилки',
-    icon: <Coins />,
+    icon: <Savings />,
     isBorder: true,
   },
   {
     to: ROUTES.CATEGORIES,
     name: 'Список категорий',
-    icon: <UnorderedListOutlined />,
+    icon: <List />,
     onBoardingsStep: ON_BOARDING_STEPS.CATEGORIES,
   },
   {
@@ -48,7 +48,7 @@ export const MENU = [
   {
     to: ROUTES.SETTINGS,
     name: 'Настройки',
-    icon: <SettingOutlined />,
+    icon: <Settings />,
     onBoardingsStep: ON_BOARDING_STEPS.BALANCE,
   },
 ];
