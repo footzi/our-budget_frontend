@@ -1,3 +1,4 @@
+import { MobileLogo } from '@/components/MobileLogo';
 import { ROUTES } from '@/constants/routes';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -14,7 +15,7 @@ export const MobileHeader = () => {
   return (
     <header className="mobile-header">
       <Link to={ROUTES.MAIN} className="mobile-header__logo">
-        <img src="./images/logo.svg" alt="" />
+        <MobileLogo />
       </Link>
 
       <CSSTransition in={isMenuOpen} timeout={0}>

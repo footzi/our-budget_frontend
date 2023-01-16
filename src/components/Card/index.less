@@ -7,11 +7,15 @@
     margin-bottom: 12px !important;
     display: flex;
     flex-wrap: wrap;
-    column-gap: 18px;
+    column-gap: 14px;
+
+    .ant-form-item {
+      margin-bottom: 12px;
+    }
   }
 
   &__form-date-picker {
-    width: 100px;
+    width: 80px;
   }
 
   &__form-price-container {
@@ -19,13 +23,58 @@
   }
 
   &__form-select {
-    width: 150px !important;
+    width: calc(100% - 94px) !important; // Ширина даты
+    min-width: 110px;
     margin-right: auto;
+
+    .md({
+      width: 150px !important;
+    });
+
+    &_long {
+      width: 100% !important;
+
+      .md({
+        width: 150px !important;
+      })
+    }
+
+    &_mini {
+
+      .md({
+        max-width: 150px;
+        width: 9vw !important;
+      })
+    }
+  }
+
+  &__form-price-container {
+    width: 100%;
+
+    .md({
+      width: auto;
+    })
   }
 
   &__form-price {
+    width: 100%;
+
+    .md({
+      width: auto;
+    });
+
+    .ant-input-number-group-wrapper {
+      width: 100%;
+
+      .md({
+        width: auto;
+      })
+    }
+
     .ant-input-number {
-      width: 130px;
+      .md({
+        width: 90px;
+      })
     }
 
     .ant-select-selector {
@@ -42,8 +91,17 @@
     }
   }
 
-  &__form-radio {
+  &__form-action-types {
     margin-right: auto;
+    width: 100% !important;
+
+    .md({
+      width: 110px !important;
+    });
+
+    .xl({
+      width: 120px !important;
+    });
   }
 
   &__form-comment {

@@ -12,6 +12,7 @@
     padding-left: 12px;
     padding-right: 12px;
     padding-bottom: 12px;
+    min-height: 300px;
 
     &:first-child {
       .section:first-child {
@@ -24,10 +25,10 @@
 
     &:nth-child(2) {
       .section:first-child {
-        animation: slide-in 0.3s ease-in-out 0.4s both;
+        animation: slide-in 0.4s ease-in-out 0.2s both;
       }
       .section:last-child {
-        animation: slide-in 0.3s ease-in-out 0.5s both;
+        animation: slide-in 0.5s ease-in-out 0.3s both;
       }
     }
 
@@ -37,6 +38,8 @@
       margin-left: 0;
       margin-bottom: 24px;
       padding: 0;
+      overflow: hidden;
+      min-height: 300px;
     });
 
     .section {
@@ -53,6 +56,13 @@
     width: calc(100% + 24px);
     margin-left: -12px;
     padding-left: 12px;
+
+    .section:first-child {
+      animation: slide-in 0.3s ease-in-out 0.2s both;
+    }
+    .section:last-child {
+      animation: slide-in 0.3s ease-in-out 0.3s both;
+    }
 
     .sm({
       width: 100%;

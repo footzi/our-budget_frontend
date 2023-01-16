@@ -13,7 +13,7 @@ import { getCurrencyInfo } from '@/utils/getCurrencyInfo';
 import { getOptionsCurrencies } from '@/utils/getOptionsCurrencies';
 import CaretDownOutlined from '@ant-design/icons/CaretDownOutlined';
 import CaretUpOutlined from '@ant-design/icons/CaretUpOutlined';
-import { Button, DatePicker, Empty, Form, Input, InputNumber, List, Radio, Select, Typography } from 'antd';
+import { Button, DatePicker, Empty, Form, Input, InputNumber, List, Select, Typography } from 'antd';
 import { useForm } from 'antd/es/form/Form';
 import cx from 'classnames';
 import { Dayjs } from 'dayjs';
@@ -137,6 +137,12 @@ const DefaultCard: React.FC<CardProps> = ({
     ['card_savings-layout']: type === CARD_TYPES.SAVINGS_PLAN || type === CARD_TYPES.SAVINGS_FACT,
   });
 
+  const cxSelect = cx('card__form-select', {
+    ['card__form-select_mini']: type === CARD_TYPES.SAVINGS_FACT,
+    ['card__form-select_long']:
+      type === CARD_TYPES.INCOME_PLAN || type === CARD_TYPES.EXPENSE_PLAN || type === CARD_TYPES.SAVINGS_PLAN,
+  });
+
   if (isShowNotContent) {
     return (
       <Section title={title}>
@@ -167,7 +173,7 @@ const DefaultCard: React.FC<CardProps> = ({
             <Form.Item
               name={CARD_FORM_FIELDS.CATEGORY_ID}
               rules={[{ required: true, message: 'Выберите категорию' }]}
-              className="card__form-select">
+              className={cxSelect}>
               <Select>
                 {categories.map((category) => (
                   <Select.Option value={category.id} key={category.id}>
@@ -182,7 +188,7 @@ const DefaultCard: React.FC<CardProps> = ({
             <Form.Item
               name={CARD_FORM_FIELDS.GOAL_ID}
               rules={[{ required: true, message: 'Выберите копилку' }]}
-              className="card__form-select">
+              className={cxSelect}>
               <Select>
                 {savingGoals.map((goal) => (
                   <Select.Option value={goal.id} key={goal.id}>
@@ -197,11 +203,14 @@ const DefaultCard: React.FC<CardProps> = ({
             <Form.Item
               name={CARD_FORM_FIELDS.ACTION_TYPE}
               rules={[{ required: true, message: 'Выберите действие' }]}
-              className="card__form-radio">
-              <Radio.Group>
-                <Radio value={SAVING_ACTION_TYPES_LIST[0].type}>{SAVING_ACTION_TYPES_LIST[0].text}</Radio>
-                <Radio value={SAVING_ACTION_TYPES_LIST[1].type}>{SAVING_ACTION_TYPES_LIST[1].text}</Radio>
-              </Radio.Group>
+              className="card__form-action-types">
+              <Select>
+                {SAVING_ACTION_TYPES_LIST.map(({ type, text }) => (
+                  <Select.Option value={type} key={type}>
+                    {text}
+                  </Select.Option>
+                ))}
+              </Select>
             </Form.Item>
           )}
 

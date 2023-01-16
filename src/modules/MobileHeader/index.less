@@ -9,11 +9,10 @@
   background-color: @white;
   box-shadow: @box-shadow-main;
   border-radius: 0 0 8px 8px;
-  display: flex;
   justify-content: space-between;
 
   &__logo {
-    img {
+    svg {
       width: 130px;
       display: block;
     }
@@ -56,13 +55,13 @@
     }
 
     span:nth-child(1) {
-      top: 0px;
+      top: 0;
     }
-    
+
     span:nth-child(2), span:nth-child(3) {
       top: 7px;
     }
-    
+
     span:nth-child(4) {
       top: 14px;
     }
@@ -74,21 +73,21 @@
 
       span:nth-child(1) {
         top: 14px;
-        width: 0%;
+        width: 0;
         left: 50%;
       }
-      
+
       span:nth-child(2) {
         transform: rotate(45deg);
       }
-      
+
      span:nth-child(3) {
         transform: rotate(-45deg);
       }
-      
+
       span:nth-child(4) {
         top: 14px;
-        width: 0%;
+        width: 0;
         left: 50%;
       }
     }
