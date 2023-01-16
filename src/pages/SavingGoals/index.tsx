@@ -1,11 +1,11 @@
 import { useRefetchSavingGoals } from '@/api';
+import { AddButton } from '@/components/AddButton';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { Section } from '@/components/Section';
 import { Maybe } from '@/interfaces';
 import { useAppSelector } from '@/store';
 import { getCurrencyInfo } from '@/utils/getCurrencyInfo';
-import PlusOutlined from '@ant-design/icons/PlusOutlined';
-import { Button, Empty, Table } from 'antd';
+import { Empty, Table } from 'antd';
 import React, { useState } from 'react';
 
 import { SavingGoalModal } from './Modal';
@@ -60,9 +60,9 @@ const SavingGoals = () => {
     <div className="saving-goal">
       <ErrorBoundary>
         <Section className="saving-goal__table" title="Копилки">
-          <Button onClick={handleOpenModal} className="saving-goal__create-button" icon={<PlusOutlined />}>
-            Создать копилку
-          </Button>
+          <div className="saving-goal__create-button">
+            <AddButton onClick={handleOpenModal}>Создать копилку</AddButton>
+          </div>
 
           <Table
             locale={{ emptyText: <Empty description="Копилки отсутствуют" /> }}

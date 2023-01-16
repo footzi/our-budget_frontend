@@ -1,10 +1,10 @@
 import { useRefetchCategories } from '@/api';
+import { AddButton } from '@/components/AddButton';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { Section } from '@/components/Section';
 import { CATEGORIES_TYPES } from '@/constants';
 import { Maybe } from '@/interfaces';
-import PlusOutlined from '@ant-design/icons/PlusOutlined';
-import { Button, Empty, Table } from 'antd';
+import { Empty, Table } from 'antd';
 import React, { useState } from 'react';
 
 import { CategoryModal } from './Modal';
@@ -66,12 +66,9 @@ const Categories = () => {
       <div className="categories__tables">
         <ErrorBoundary>
           <Section title="Категории расходов">
-            <Button
-              onClick={() => handleOpenModal(CATEGORIES_TYPES.EXPENSE)}
-              icon={<PlusOutlined />}
-              className="categories__create-button">
-              Создать категорию РАСХОДЫ
-            </Button>
+            <div className="categories__create-button">
+              <AddButton onClick={() => handleOpenModal(CATEGORIES_TYPES.EXPENSE)}>Создать новую категорию</AddButton>
+            </div>
 
             <Table
               locale={{ emptyText: <Empty description="Категории отсутствуют" /> }}
@@ -90,12 +87,9 @@ const Categories = () => {
 
         <ErrorBoundary>
           <Section title="Категории доходов">
-            <Button
-              onClick={() => handleOpenModal(CATEGORIES_TYPES.INCOME)}
-              icon={<PlusOutlined />}
-              className="categories__create-button">
-              Создать категорию ДОХОДЫ
-            </Button>
+            <div className="categories__create-button">
+              <AddButton onClick={() => handleOpenModal(CATEGORIES_TYPES.INCOME)}>Создать новую категорию</AddButton>
+            </div>
 
             <Table
               locale={{ emptyText: <Empty description="Категории отсутствуют" /> }}

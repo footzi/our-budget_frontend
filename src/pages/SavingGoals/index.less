@@ -21,14 +21,14 @@
         border-bottom-right-radius: 0;
       })
     }
-   
+
     .ant-table {
       &.ant-table-ping-right .ant-table-container::after,
       &.ant-table-ping-left .ant-table-container::before {
         box-shadow: none;
       }
     }
-  
+
     .ant-table-content {
       padding-left: 12px;
       padding-right: 12px;
@@ -43,13 +43,15 @@
         width: auto;
       })
     }
-  
+
     .ant-table-thead {
       white-space: nowrap;
     }
   }
 
   &__create-button {
+    display: flex;
+    justify-content: center;
     margin-bottom: 16px;
 
     .xl({
