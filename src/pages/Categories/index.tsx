@@ -80,7 +80,6 @@ const Categories = () => {
                 };
               }}>
               <Table.Column title="Название" dataIndex="name" key="name" />
-              <Table.Column title="Период" dataIndex="period" key="period" />
             </Table>
           </Section>
         </ErrorBoundary>
@@ -101,7 +100,6 @@ const Categories = () => {
                 };
               }}>
               <Table.Column title="Название" dataIndex="name" key="name" />
-              <Table.Column title="Период" dataIndex="period" key="period" />
             </Table>
           </Section>
         </ErrorBoundary>
