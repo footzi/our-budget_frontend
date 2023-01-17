@@ -6,6 +6,7 @@ import { Button, Form, Input, InputNumber, Modal, Popconfirm, Select } from 'ant
 import { useForm } from 'antd/es/form/Form';
 import React, { useCallback, useEffect, useState } from 'react';
 
+import './index.less';
 import { SavingGoalModalProps } from './interfaces';
 
 export const SavingGoalModal: React.FC<SavingGoalModalProps> = ({
@@ -68,7 +69,6 @@ export const SavingGoalModal: React.FC<SavingGoalModalProps> = ({
   }, [editedGoal, form, formValidator]);
 
   const title = editedGoal ? `Редактирование копилки "${editedGoal.name}"` : 'Новая копилка';
-  const valueLabel = editedGoal ? 'Текущее значение' : 'Начальное значение';
   const { symbol } = getCurrencyInfo(editedGoal?.currency);
 
   const currenciesOptions = getOptionsCurrencies(currencies);
@@ -77,35 +77,61 @@ export const SavingGoalModal: React.FC<SavingGoalModalProps> = ({
     <Modal
       open={isShow}
       onOk={handleOk}
-      okButtonProps={{ loading: isLoading, disabled: !isValidForm }}
+      footer={
+        <>
+          {editedGoal && (
+            <Popconfirm
+              okText="Да"
+              cancelText="Отмена"
+              title="Вы уверены, что хотите удалить эту копилку?"
+              icon={null}
+              onConfirm={handleClickDelete}>
+              <Button danger loading={isLoadingDelete}>
+                Удалить
+              </Button>
+            </Popconfirm>
+          )}
+
+          <Button type="primary" loading={isLoading} disabled={!isValidForm} onClick={handleOk}>
+            Сохранить
+          </Button>
+        </>
+      }
       onCancel={onCancel}
       title={title}
-      okText="Сохранить"
-      cancelText="Закрыть"
       destroyOnClose
       className="saving-goal-modal">
       <Form
-        layout="vertical"
         form={form}
         onFinish={handleSubmit}
         preserve={false}
-        initialValues={{ currency: DEFAULT_CURRENCY }}>
-        <Form.Item label="Название" name="name" rules={[{ required: true, message: 'Введите название' }]}>
-          <Input />
+        initialValues={{ currency: DEFAULT_CURRENCY }}
+        className="saving-goal-modal__form">
+        <Form.Item
+          name="name"
+          rules={[{ required: true, message: 'Введите название' }]}
+          className="saving-goal-modal__form-name">
+          <Input placeholder="Название" />
         </Form.Item>
 
-        <Form.Item label="Описание" name="description">
-          <Input.TextArea />
+        <Form.Item className="saving-goal-modal__form-price" name="value">
+          <InputNumber
+            decimalSeparator={','}
+            placeholder="Сумма"
+            addonAfter={
+              editedGoal ? (
+                symbol
+              ) : (
+                <Form.Item name="currency" noStyle>
+                  <Select options={currenciesOptions} />
+                </Form.Item>
+              )
+            }
+          />
         </Form.Item>
 
-        {!editedGoal && (
-          <Form.Item name="currency" label="Валюта">
-            <Select placeholder="Выберите валюту" options={currenciesOptions} />
-          </Form.Item>
-        )}
-
-        <Form.Item label={valueLabel} name="value">
-          <InputNumber addonAfter={editedGoal && <span>{symbol}</span>} />
+        <Form.Item label="" name="description" className="saving-goal-modal__form-description">
+          <Input.TextArea placeholder="Описание" />
         </Form.Item>
 
         <Form.Item hidden dependencies={['name']}>
@@ -116,22 +142,6 @@ export const SavingGoalModal: React.FC<SavingGoalModalProps> = ({
             return <SubmitHiddenButton onValid={setIsValidForm} validator={() => formValidator(name)} />;
           }}
         </Form.Item>
-
-        {editedGoal && (
-          <>
-            <Form.Item>
-              <Popconfirm
-                okText="Да"
-                cancelText="Отмена"
-                title="Вы уверены, что хотите удалить копилку?"
-                onConfirm={handleClickDelete}>
-                <Button danger loading={isLoadingDelete}>
-                  Удалить
-                </Button>
-              </Popconfirm>
-            </Form.Item>
-          </>
-        )}
       </Form>
     </Modal>
   );

@@ -1,0 +1,38 @@
+@import '@/styles';
+
+.saving-goal-modal {
+  &__form {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 14px;
+  }
+
+  &__form-name {
+    width: 100%;
+
+    .md({
+      width: calc(100% - 154px);
+    });
+  }
+
+  &__form-price {
+    width: 100%;
+
+    .md({
+      width: 140px;
+    });
+
+    .ant-input-number-group-wrapper {
+      width: 100%;
+    }
+
+    .ant-select-selector {
+      padding: 0 6px !important;
+      width: 46px !important;
+    }
+  }
+
+  &__form-description {
+    width: 100%;
+  }
+}

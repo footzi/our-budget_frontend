@@ -4,7 +4,6 @@ import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { Section } from '@/components/Section';
 import { Maybe } from '@/interfaces';
 import { useAppSelector } from '@/store';
-import { getCurrencyInfo } from '@/utils/getCurrencyInfo';
 import { Empty, Table } from 'antd';
 import React, { useState } from 'react';
 
@@ -76,12 +75,6 @@ const SavingGoals = () => {
             <Table.Column title="Название" dataIndex="name" key="name" />
             <Table.Column title="Описание" dataIndex="description" key="description" />
             <Table.Column title="Текущее значение" dataIndex="valueText" key="valueText" />
-            <Table.Column
-              title="Валюта"
-              dataIndex="currency"
-              key="currency"
-              render={(currency) => getCurrencyInfo(currency).symbol}
-            />
           </Table>
         </Section>
 
