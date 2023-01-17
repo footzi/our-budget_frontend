@@ -51,7 +51,7 @@ export interface SavingGoal {
 export interface Saving {
   id?: number;
   goal: SavingGoal;
-  actionType?: SAVING_ACTION_TYPE;
+  actionType: SAVING_ACTION_TYPE;
   value: number;
   comment: string;
   date: string;

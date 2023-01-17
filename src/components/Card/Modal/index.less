@@ -1,0 +1,77 @@
+@import '@/styles';
+
+.card-modal {
+  &__form {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 14px;
+  }
+
+  &__date {
+    width: 115px;
+
+    &_long {
+      width: 100%;
+
+      .ant-picker {
+        width: 100%;
+      }
+
+      .sm({
+        width: calc(100% - 134px);
+      })
+    }
+  }
+
+  &__categories {
+    width: calc(100% - 129px);
+    min-width: 120px;
+
+    .sm({
+      min-width: 150px;
+      width: calc(100% - 267px);
+    });
+
+    &_long {
+      width: 100%;
+
+      .sm({
+        width: calc(100% - 134px);
+      })
+    }
+  }
+
+  &__saving-goals {
+    width: 100%;
+
+    .sm({
+      width: calc(100% - 280px);
+    })
+  }
+
+  &__saving-actions {
+    width: 100%;
+
+    .sm({
+      width: 130px;
+    })
+  }
+
+  &__price {
+    width: 100%;
+    margin-left: auto;
+
+    .sm({
+      width: 120px;
+    });
+
+    .ant-input-number-group-wrapper {
+      width: 100%;
+    }
+  }
+
+  &__comment {
+    width: 100%;
+    margin-bottom: 0;
+  }
+}

@@ -1,13 +1,16 @@
 import { CARD_FORM_FIELDS, CARD_TYPES, CardUpdateBalancesBody, CardUpdateSavingBody } from '@/components/Card';
 import { SubmitHiddenButton } from '@/components/SubmitHiddenButton';
 import { CURRENCIES_TYPE, FORMAT_UI_DATE, SAVING_ACTION_TYPE, SAVING_ACTION_TYPES_LIST } from '@/constants';
+import { Saving } from '@/interfaces';
 import { getCurrencyInfo } from '@/utils/getCurrencyInfo';
 import { Button, DatePicker, Form, Input, InputNumber, Modal, Popconfirm, Select } from 'antd';
 import { useForm } from 'antd/es/form/Form';
+import classNames from 'classnames';
 import dayjs, { Dayjs } from 'dayjs';
 import React, { useCallback, useEffect, useState } from 'react';
 
 import { getCurrencyByGoalId } from '../utils/getCurrencyByGoalId';
+import './index.less';
 import { CardModalProps } from './interfaces';
 
 /**
@@ -58,14 +61,16 @@ export const CardModal: React.FC<CardModalProps> = ({
       }
 
       // Копилки
-      // Для факта actionType === undefined, поэтому устанавливаем дефолтный
-      if (goalId) {
+      // Для факта берем goalId и actionType из редактируемого айтема
+      if (type === CARD_TYPES.SAVINGS_PLAN || type === CARD_TYPES.SAVINGS_FACT) {
+        const savingItem = item as Saving;
+
         const body: CardUpdateSavingBody = {
           id: item.id,
           currency: item.currency,
           date,
-          goalId,
-          actionType: actionType || SAVING_ACTION_TYPE.INCOME,
+          goalId: goalId || savingItem.goal.id,
+          actionType: actionType || savingItem.actionType,
           value,
           comment,
         };
@@ -91,6 +96,14 @@ export const CardModal: React.FC<CardModalProps> = ({
     [isShowDate]
   );
 
+  const cxDate = classNames('card-modal__date', {
+    ['card-modal__date_long']: type === CARD_TYPES.SAVINGS_FACT,
+  });
+
+  const cxCategories = classNames('card-modal__categories', {
+    ['card-modal__categories_long']: type === CARD_TYPES.EXPENSE_PLAN || type === CARD_TYPES.INCOME_PLAN,
+  });
+
   useEffect(() => {
     if (item) {
       form.setFieldsValue({
@@ -112,17 +125,34 @@ export const CardModal: React.FC<CardModalProps> = ({
     <Modal
       title="Редактирование"
       open={Boolean(item)}
-      onOk={handleOk}
       onCancel={onCancel}
       className="card-modal"
-      okButtonProps={{ loading: isLoadingUpdate, disabled: !isValidForm }}
-      okText="Сохранить"
-      cancelText="Закрыть"
+      footer={
+        <>
+          <Popconfirm
+            okText="Да"
+            cancelText="Отмена"
+            title="Вы уверены, что хотите удалить это значение?"
+            icon={null}
+            onConfirm={handleClickDelete}>
+            <Button danger loading={isLoadingDelete}>
+              Удалить
+            </Button>
+          </Popconfirm>
+
+          <Button type="primary" loading={isLoadingUpdate} disabled={!isValidForm} onClick={handleOk}>
+            Сохранить
+          </Button>
+        </>
+      }
       destroyOnClose>
       {item && (
-        <Form layout="vertical" onFinish={handleSubmit} form={form} preserve={false}>
+        <Form onFinish={handleSubmit} form={form} preserve={false} className="card-modal__form">
           {isShowDate && (
-            <Form.Item name={CARD_FORM_FIELDS.DATE} label="Дата" rules={[{ required: true, message: 'Выберите дату' }]}>
+            <Form.Item
+              name={CARD_FORM_FIELDS.DATE}
+              rules={[{ required: true, message: 'Выберите дату' }]}
+              className={cxDate}>
               <DatePicker picker="date" format={FORMAT_UI_DATE} allowClear={false} />
             </Form.Item>
           )}
@@ -130,8 +160,8 @@ export const CardModal: React.FC<CardModalProps> = ({
           {categories && (
             <Form.Item
               name={CARD_FORM_FIELDS.CATEGORY_ID}
-              label="Категория"
-              rules={[{ required: true, message: 'Выберите категорию' }]}>
+              rules={[{ required: true, message: 'Выберите категорию' }]}
+              className={cxCategories}>
               <Select>
                 {categories.map((category) => (
                   <Select.Option value={category.id} key={category.id}>
@@ -145,7 +175,7 @@ export const CardModal: React.FC<CardModalProps> = ({
           {savingGoals && type === CARD_TYPES.SAVINGS_PLAN && (
             <Form.Item
               name={CARD_FORM_FIELDS.GOAL_ID}
-              label="Копилка"
+              className="card-modal__saving-goals"
               rules={[{ required: true, message: 'Выберите копилку' }]}>
               <Select>
                 {savingGoals.map((goal) => (
@@ -159,9 +189,9 @@ export const CardModal: React.FC<CardModalProps> = ({
 
           {type === CARD_TYPES.SAVINGS_PLAN && (
             <Form.Item
+              className="card-modal__saving-actions"
               name={CARD_FORM_FIELDS.ACTION_TYPE}
-              rules={[{ required: true, message: 'Выберите действие' }]}
-              label="Что сделать?">
+              rules={[{ required: true, message: 'Выберите действие' }]}>
               <Select>
                 {SAVING_ACTION_TYPES_LIST.map((type) => (
                   <Select.Option value={type.type} key={type.type}>
@@ -183,27 +213,15 @@ export const CardModal: React.FC<CardModalProps> = ({
                 <Form.Item
                   name={CARD_FORM_FIELDS.VALUE}
                   rules={[{ required: true, message: 'Введите сумму' }]}
-                  label="Сумма">
-                  <InputNumber addonAfter={symbol} className="card-modal__price" />
+                  className="card-modal__price">
+                  <InputNumber addonAfter={symbol} placeholder="Сумма" />
                 </Form.Item>
               );
             }}
           </Form.Item>
 
-          <Form.Item name={CARD_FORM_FIELDS.COMMENT} label="Комментарий">
-            <Input.TextArea />
-          </Form.Item>
-
-          <Form.Item>
-            <Popconfirm
-              okText="Да"
-              cancelText="Отмена"
-              title="Вы уверены, что хотите удалить?"
-              onConfirm={handleClickDelete}>
-              <Button danger loading={isLoadingDelete}>
-                Удалить
-              </Button>
-            </Popconfirm>
+          <Form.Item name={CARD_FORM_FIELDS.COMMENT} className="card-modal__comment">
+            <Input.TextArea placeholder="Комментарий" />
           </Form.Item>
 
           <Form.Item hidden dependencies={[CARD_FORM_FIELDS.VALUE, CARD_FORM_FIELDS.DATE]}>
