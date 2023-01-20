@@ -1,11 +1,8 @@
 import { CURRENCIES_TYPE } from '@/constants';
 
-import { PROFILE_ITEM_TYPES } from '../../constants';
-import { ProfileEditableValue } from '../../interfaces';
-
 export interface UseUpdateUserResult {
   isLoading: boolean;
-  update: (value: ProfileEditableValue, type: PROFILE_ITEM_TYPES) => void;
+  update: (body: UseUpdateUserBody) => void;
 }
 
 export interface UseUpdateUserBody {

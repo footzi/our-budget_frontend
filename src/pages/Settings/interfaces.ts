@@ -1,10 +1,8 @@
 import { CURRENCIES_TYPE } from '@/constants';
+import { CurrenciesValues } from '@/interfaces';
 
-import { PROFILE_ITEM_TYPES } from './constants';
-
-export interface ProfileEditableItem {
-  type: PROFILE_ITEM_TYPES;
-  value: ProfileEditableValue;
+export interface SettingsFormBody {
+  firstName: string;
+  balances: CurrenciesValues;
+  currencies: CURRENCIES_TYPE[];
 }
-
-export type ProfileEditableValue = string | CURRENCIES_TYPE[];

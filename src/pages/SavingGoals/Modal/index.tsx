@@ -130,7 +130,7 @@ export const SavingGoalModal: React.FC<SavingGoalModalProps> = ({
           />
         </Form.Item>
 
-        <Form.Item label="" name="description" className="saving-goal-modal__form-description">
+        <Form.Item name="description" className="saving-goal-modal__form-description">
           <Input.TextArea placeholder="Описание" />
         </Form.Item>
 
