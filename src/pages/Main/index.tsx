@@ -8,9 +8,9 @@ import { Route, Routes } from 'react-router-dom';
 import './index.less';
 import { MainProps } from './interfaces';
 
-const Facts = React.lazy(() => import(/* webpackPrefetch: true */ '../Facts'));
-const Plans = React.lazy(() => import(/* webpackPrefetch: true */ '../Plans'));
-const Savings = React.lazy(() => import(/* webpackPrefetch: true */ '../Savings'));
+const Facts = React.lazy(() => import(/* webpackPreload: true */ '../Facts'));
+const Plans = React.lazy(() => import(/* webpackPreload: true */ '../Plans'));
+const Savings = React.lazy(() => import(/* webpackPreload: true */ '../Savings'));
 
 export const Main: React.FC<MainProps> = ({ selectedDate, isLoading, onChangeDate }) => {
   return (

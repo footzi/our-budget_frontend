@@ -22,13 +22,13 @@ import { Route, Routes } from 'react-router-dom';
 
 import './index.less';
 
-const Categories = React.lazy(() => import(/* webpackPrefetch: true */ '../Categories'));
-const SavingGoals = React.lazy(() => import(/* webpackPrefetch: true */ '../SavingGoals'));
-const Settings = React.lazy(() => import(/* webpackPrefetch: true */ '../Settings'));
+const Categories = React.lazy(() => import(/* webpackPreload: true */ '../Categories'));
+const SavingGoals = React.lazy(() => import(/* webpackPreload: true */ '../SavingGoals'));
+const Settings = React.lazy(() => import(/* webpackPreload: true */ '../Settings'));
 
 const currentDay = dayjs();
 
-export const Layout = () => {
+const Layout = () => {
   const [selectedDate, setSelectedDate] = useState<Dayjs>(currentDay);
 
   const { onBoardingStep } = useAppSelector();
@@ -115,3 +115,5 @@ export const Layout = () => {
     </div>
   );
 };
+
+export default Layout;

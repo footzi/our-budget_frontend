@@ -18,7 +18,6 @@ module.exports = (env) => {
     output: {
       path: path.resolve(__dirname, './dist'),
       filename: '[name].[contenthash].js',
-      chunkFilename: '[name].[contenthash].js',
       publicPath,
     },
     module: {
@@ -121,10 +120,5 @@ module.exports = (env) => {
       }),
     ],
     devtool: 'source-map',
-    optimization: {
-      splitChunks: {
-        chunks: 'all',
-      },
-    },
   };
 };

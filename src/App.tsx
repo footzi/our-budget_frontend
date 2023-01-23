@@ -3,15 +3,15 @@ import { LOCAL_STORAGE_ITEMS } from '@/constants';
 import { ROUTES } from '@/constants/routes';
 import { useGetFirstLoading } from '@/hooks/useGetFirstLoading';
 import { useGetUser } from '@/hooks/useGetUser';
-import { Layout } from '@/pages/Layout';
 import { LocalStorage } from '@/utils/localStorage';
 import React, { Suspense, useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import { RequireAuth } from './components/RequireAuth';
 
-const LoginForm = React.lazy(() => import(/* webpackPrefetch: true */ './modules/LoginForm'));
-const SignUpForm = React.lazy(() => import(/* webpackPrefetch: true */ './modules/SignUpForm'));
+const LoginForm = React.lazy(() => import(/*  webpackPreload: true */ './modules/LoginForm'));
+const SignUpForm = React.lazy(() => import(/* webpackPreload: true */ './modules/SignUpForm'));
+const Layout = React.lazy(() => import(/* webpackPreload: true */ './pages/Layout'));
 
 export const App = () => {
   const { isLoading } = useGetUser();
