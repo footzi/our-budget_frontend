@@ -1,6 +1,8 @@
 import React from 'react';
 
-export const SuperHamster: React.FC = () => (
+import { ImageProps } from '../interfaces';
+
+export const SuperHamster: React.FC<ImageProps> = () => (
   <svg width="248" height="136" viewBox="0 0 248 136" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path
       d="M121.994 46.59C124.528 53.1269 120.947 64.0525 112 64.9739C121.474 64.9739 132.526 65.7637 137.658 58.6555C145.994 47.108 203.31 57.6469 230.943 52.5137C249.167 49.1281 253.902 27.6287 234.494 14.2084C207.653 -4.35232 174.099 -0.00826836 150.81 7.09994C127.52 14.2082 114.494 27.2399 121.994 46.59Z"

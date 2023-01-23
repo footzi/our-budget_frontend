@@ -1,3 +1,4 @@
+import { WelcomeHamster } from '@/components/Images/WelcomeHamster';
 import { Section } from '@/components/Section';
 import { ROUTES } from '@/constants/routes';
 import LockOutlined from '@ant-design/icons/LockOutlined';
@@ -26,28 +27,32 @@ const LoginForm: React.FC = () => {
 
   return (
     <div className="login-form">
-      <Section className="login-form__content">
-        <div className="login-form__title">
-          <Typography.Title level={3}>Авторизация</Typography.Title>
-          <Button type="link" onClick={handleSignUp}>
+      <div className="login-form__content">
+        <WelcomeHamster className="login-form__image" />
+        <Section className="login-form__section">
+          <Typography.Title level={4} className="login-form__title">
+            Авторизация
+          </Typography.Title>
+
+          <Form name="loginForm" layout="vertical" autoComplete="off" onFinish={onFinish}>
+            <Form.Item label="E-mail" name="login" rules={[{ required: true, message: 'Введите логин' }]}>
+              <Input prefix={<UserOutlined />} />
+            </Form.Item>
+            <Form.Item label="Пароль" name="password" rules={[{ required: true, message: 'Введите пароль' }]}>
+              <Input.Password prefix={<LockOutlined />} />
+            </Form.Item>
+            <Form.Item noStyle>
+              <Button type="primary" htmlType="submit" loading={isLoading} className="login-form__submit">
+                Войти
+              </Button>
+            </Form.Item>
+          </Form>
+
+          <Button type="link" onClick={handleSignUp} className="login-form__signup">
             Регистрация
           </Button>
-        </div>
-
-        <Form name="loginForm" layout="vertical" autoComplete="off" onFinish={onFinish}>
-          <Form.Item label="Логин" name="login" rules={[{ required: true, message: 'Введите логин' }]}>
-            <Input prefix={<UserOutlined />} />
-          </Form.Item>
-          <Form.Item label="Пароль" name="password" rules={[{ required: true, message: 'Введите пароль' }]}>
-            <Input.Password prefix={<LockOutlined />} />
-          </Form.Item>
-          <Form.Item>
-            <Button type="primary" htmlType="submit" loading={isLoading}>
-              Войти
-            </Button>
-          </Form.Item>
-        </Form>
-      </Section>
+        </Section>
+      </div>
     </div>
   );
 };

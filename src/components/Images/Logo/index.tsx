@@ -1,6 +1,8 @@
 import React from 'react';
 
-export const Logo = () => {
+import { ImageProps } from '../interfaces';
+
+export const Logo: React.FC<ImageProps> = () => {
   return (
     <svg width="203" height="50" viewBox="0 0 203 50" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path

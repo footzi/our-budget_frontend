@@ -10,4 +10,5 @@ export interface SignUpBody {
   password: string;
   password2: string;
   firstName: string;
+  agreements: boolean;
 }

@@ -1,6 +1,8 @@
 import React from 'react';
 
-export const MobileLogo = () => {
+import { ImageProps } from '../interfaces';
+
+export const MobileLogo: React.FC<ImageProps> = () => {
   return (
     <svg width="464" height="114" viewBox="0 0 464 114" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path

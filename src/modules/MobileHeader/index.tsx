@@ -1,4 +1,4 @@
-import { MobileLogo } from '@/components/MobileLogo';
+import { MobileLogo } from '@/components/Images/MobileLogo';
 import { ROUTES } from '@/constants/routes';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';

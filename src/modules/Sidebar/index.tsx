@@ -1,4 +1,4 @@
-import { Logo } from '@/components/Logo';
+import { Logo } from '@/components/Images/Logo';
 import { MENU } from '@/constants/menu';
 import { Balance } from '@/modules/Balance';
 import { SidebarProps } from '@/modules/Sidebar/interfaces';
