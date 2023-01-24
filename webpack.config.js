@@ -105,6 +105,11 @@ module.exports = (env) => {
       port: 3000,
       historyApiFallback: true,
     },
+    optimization: {
+      splitChunks: {
+        chunks: 'all',
+      },
+    },
     plugins: [
       new Dotenv(),
       new CleanWebpackPlugin(),

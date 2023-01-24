@@ -13,7 +13,10 @@ import { useGetSavings } from '@/hooks/useGetSavings';
 import { MobileHeader } from '@/modules/MobileHeader';
 import { Sidebar } from '@/modules/Sidebar';
 import { UserWidget } from '@/modules/UserWidget';
+import Categories from '@/pages/Categories';
 import { Main } from '@/pages/Main';
+import SavingGoals from '@/pages/SavingGoals';
+import Settings from '@/pages/Settings';
 import { useAppSelector } from '@/store';
 import cx from 'classnames';
 import dayjs, { Dayjs } from 'dayjs';
@@ -21,10 +24,6 @@ import React, { Suspense, useCallback, useRef, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import './index.less';
-
-const Categories = React.lazy(() => import(/* webpackPreload: true */ '../Categories'));
-const SavingGoals = React.lazy(() => import(/* webpackPreload: true */ '../SavingGoals'));
-const Settings = React.lazy(() => import(/* webpackPreload: true */ '../Settings'));
 
 const currentDay = dayjs();
 
