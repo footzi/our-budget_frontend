@@ -4,6 +4,7 @@ import { ROUTES } from '@/constants/routes';
 import { useGetFirstLoading } from '@/hooks/useGetFirstLoading';
 import { useGetUser } from '@/hooks/useGetUser';
 import LoginForm from '@/modules/LoginForm';
+import ResetPasswordForm from '@/modules/ResetPasswordForm';
 import SignUpForm from '@/modules/SignUpForm';
 import Layout from '@/pages/Layout';
 import { LocalStorage } from '@/utils/localStorage';
@@ -38,6 +39,7 @@ export const App = () => {
           />
           <Route path={ROUTES.LOGIN} element={<LoginForm />} />
           <Route path={ROUTES.SIGNUP} element={<SignUpForm />} />
+          <Route path={ROUTES.RESET_PASSWORD} element={<ResetPasswordForm />} />
         </Route>
       </Routes>
     </Suspense>

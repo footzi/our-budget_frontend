@@ -92,3 +92,6 @@ export const OPTIONS_CURRENCIES: CurrencyOption[] = [
 ];
 
 export const DEFAULT_CURRENCY = CURRENCIES_TYPE.RUB;
+
+export * from './link';
+export * from './routes';

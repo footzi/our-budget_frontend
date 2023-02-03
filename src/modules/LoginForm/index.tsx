@@ -5,6 +5,7 @@ import LockOutlined from '@ant-design/icons/LockOutlined';
 import UserOutlined from '@ant-design/icons/UserOutlined';
 import { Button, Form, Input, Typography } from 'antd';
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 import { useLogin } from './hooks/useLogin';
@@ -42,14 +43,19 @@ const LoginForm: React.FC = () => {
               <Input.Password prefix={<LockOutlined />} />
             </Form.Item>
             <Form.Item noStyle>
+              <Link to={ROUTES.RESET_PASSWORD} className="login-form__reset-link">
+                <Typography.Text type="secondary">Забыли пароль?</Typography.Text>
+              </Link>
+            </Form.Item>
+            <Form.Item noStyle>
               <Button type="primary" htmlType="submit" loading={isLoading} className="login-form__submit">
                 Войти
               </Button>
             </Form.Item>
           </Form>
 
-          <Button type="link" onClick={handleSignUp} className="login-form__signup">
-            Регистрация
+          <Button onClick={handleSignUp} className="login-form__signup">
+            Зарегистрироваться
           </Button>
         </Section>
       </div>

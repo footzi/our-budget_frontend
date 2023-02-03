@@ -1,10 +1,10 @@
 import { WelcomeHamster } from '@/components/Images/WelcomeHamster';
 import { Section } from '@/components/Section';
+import { AGREEMENTS, PRIVACY_POLICY } from '@/constants';
 import { ROUTES } from '@/constants/routes';
 import LockOutlined from '@ant-design/icons/LockOutlined';
 import UserOutlined from '@ant-design/icons/UserOutlined';
 import { Button, Checkbox, Form, Input, Typography } from 'antd';
-import Link from 'antd/es/typography/Link';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -96,9 +96,13 @@ const SignUpForm: React.FC = () => {
               rules={[{ required: true, message: 'Необходимо принять условия' }]}>
               <Checkbox>
                 Я соглашаюсь с{' '}
-                <Link href="/agreements" target="_blank">
-                  политикой обработки персональных данных
-                </Link>
+                <Typography.Link href={PRIVACY_POLICY} target="_blank">
+                  политикой конфиденциальности
+                </Typography.Link>{' '}
+                и{' '}
+                <Typography.Link href={AGREEMENTS} target="_blank">
+                  обработкой персональных данных
+                </Typography.Link>
               </Checkbox>
             </Form.Item>
 
@@ -109,8 +113,8 @@ const SignUpForm: React.FC = () => {
             </Form.Item>
           </Form>
 
-          <Button type="link" onClick={handleLogin} className="sign-up-form__login">
-            Авторизация
+          <Button onClick={handleLogin} className="sign-up-form__login">
+            Войти
           </Button>
         </Section>
       </div>
