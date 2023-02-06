@@ -1,6 +1,6 @@
 import { WelcomeHamster } from '@/components/Images/WelcomeHamster';
 import { Section } from '@/components/Section';
-import { AGREEMENTS, PRIVACY_POLICY } from '@/constants';
+import { AGREEMENTS, EMAIL_REGEXP, PASSWORD_MIN_LENGTH, PRIVACY_POLICY } from '@/constants';
 import { ROUTES } from '@/constants/routes';
 import LockOutlined from '@ant-design/icons/LockOutlined';
 import UserOutlined from '@ant-design/icons/UserOutlined';
@@ -16,6 +16,14 @@ const passwordValidator = (value1: string, value2: string) => {
     return Promise.resolve();
   } else {
     return Promise.reject(new Error('Пароли должны совпадать'));
+  }
+};
+
+const minSizePasswordValidator = (value: string) => {
+  if (value.length >= PASSWORD_MIN_LENGTH) {
+    return Promise.resolve();
+  } else {
+    return Promise.reject(new Error(`Пароль должен содержать минимум ${PASSWORD_MIN_LENGTH} символов`));
   }
 };
 
@@ -59,8 +67,17 @@ const SignUpForm: React.FC = () => {
           </Typography.Title>
 
           <Form name="loginForm" layout="vertical" autoComplete="off" onFinish={onFinish}>
-            <Form.Item label="E-mail" name="login" rules={[{ required: true, message: 'Введите логин' }]}>
-              <Input prefix={<UserOutlined />} />
+            <Form.Item
+              label="E-mail"
+              name="login"
+              rules={[
+                { required: true, message: 'Введите логин' },
+                {
+                  pattern: new RegExp(EMAIL_REGEXP),
+                  message: 'Введите корректный e-mail',
+                },
+              ]}>
+              <Input type="email" prefix={<UserOutlined />} />
             </Form.Item>
 
             <Form.Item
@@ -75,9 +92,8 @@ const SignUpForm: React.FC = () => {
               name="password"
               dependencies={['password2']}
               rules={[
-                { required: true, message: 'Введите пароль' },
-                ({ getFieldValue }) => ({
-                  validator: (_, value: string) => passwordValidator(getFieldValue('password2'), value),
+                () => ({
+                  validator: (_, value: string) => minSizePasswordValidator(value),
                 }),
               ]}>
               <Input.Password prefix={<LockOutlined />} />
@@ -86,7 +102,12 @@ const SignUpForm: React.FC = () => {
             <Form.Item
               label="Повторите пароль"
               name="password2"
-              rules={[{ required: true, message: 'Повторите ввод пароля' }]}>
+              rules={[
+                { required: true, message: 'Повторите ввод пароля' },
+                ({ getFieldValue }) => ({
+                  validator: (_, value: string) => passwordValidator(getFieldValue('password'), value),
+                }),
+              ]}>
               <Input.Password prefix={<LockOutlined />} />
             </Form.Item>
 
