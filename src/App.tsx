@@ -3,6 +3,7 @@ import { LOCAL_STORAGE_ITEMS } from '@/constants';
 import { ROUTES } from '@/constants/routes';
 import { useGetFirstLoading } from '@/hooks/useGetFirstLoading';
 import { useGetUser } from '@/hooks/useGetUser';
+import { useScrollToTop } from '@/hooks/useScrollToTop';
 import LoginForm from '@/modules/LoginForm';
 import ResetPasswordForm from '@/modules/ResetPasswordForm';
 import SignUpForm from '@/modules/SignUpForm';
@@ -20,6 +21,8 @@ export const App = () => {
   useEffect(() => {
     LocalStorage.remove(LOCAL_STORAGE_ITEMS.CARD_VALUES);
   }, []);
+
+  useScrollToTop();
 
   if (isFirstLoading) {
     return <MainLoader />;

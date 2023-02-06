@@ -52,8 +52,8 @@ const SignUpForm: React.FC = () => {
   return (
     <div className="sign-up-form">
       <div className="sign-up-form__content">
-        <WelcomeHamster className="sign-up-form__image" />
         <Section className="sign-up-form__section">
+          <WelcomeHamster className="sign-up-form__image" />
           <Typography.Title level={4} className="sign-up-form__title">
             Регистрация
           </Typography.Title>

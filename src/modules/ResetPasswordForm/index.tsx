@@ -18,8 +18,8 @@ const ResetPasswordForm: React.FC = () => {
   return (
     <div className="reset-password-form">
       <div className="reset-password-form__content">
-        <WelcomeHamster className="reset-password-form__image" />
         <Section className="reset-password-form__section">
+          <WelcomeHamster className="reset-password-form__image" />
           <Typography.Title level={4} className="reset-password-form__title">
             Сброс пароля
           </Typography.Title>

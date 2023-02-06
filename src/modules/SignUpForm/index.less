@@ -4,16 +4,23 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100vw;
+  width: 100%;
   min-height: 100vh;
   padding: 16px;
 
   &__content {
     width: 100%;
     margin: auto;
+    padding-top: 96px;
+    padding-bottom: 96px;
 
     .sm({
       width: 354px;
+    });
+
+    .xl({
+      padding-top: 128px;
+      padding-bottom: 128px;
     });
 
     .ant-form-item {
@@ -23,17 +30,19 @@
 
   &__image {
     display: block;
+    position: absolute;
+    top: -112px;
     width: 230px;
-    margin-bottom: -22px;
 
     .xl({
       width: 300px;
-      margin-bottom: -6px;
+      top: -128px;
     })
   }
 
   &__section {
     padding: 22px;
+    position: relative;
 
     .md({
       padding: 36px;

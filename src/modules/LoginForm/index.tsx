@@ -29,8 +29,8 @@ const LoginForm: React.FC = () => {
   return (
     <div className="login-form">
       <div className="login-form__content">
-        <WelcomeHamster className="login-form__image" />
         <Section className="login-form__section">
+          <WelcomeHamster className="login-form__image" />
           <Typography.Title level={4} className="login-form__title">
             Авторизация
           </Typography.Title>
