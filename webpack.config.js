@@ -6,6 +6,7 @@ const Dotenv = require('dotenv-webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const antModifyVars = require('./src/styles/ant-modify-vars');
 
 module.exports = (env) => {
@@ -109,6 +110,8 @@ module.exports = (env) => {
       splitChunks: {
         chunks: 'all',
       },
+      minimize: true,
+      minimizer: ['...', new CssMinimizerPlugin()],
     },
     plugins: [
       new Dotenv(),
@@ -117,8 +120,8 @@ module.exports = (env) => {
       new HtmlWebpackPlugin({ template: './src/index.html' }),
       new AntdDayjsWebpackPlugin(),
       new MiniCssExtractPlugin({
-        filename: '[id].[name].css',
-        chunkFilename: '[id].css',
+        filename: '[fullhash].[name].css',
+        chunkFilename: '[fullhash].css',
       }),
       new CopyPlugin({
         patterns: [{ from: './public', to: './' }],
