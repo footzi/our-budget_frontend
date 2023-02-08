@@ -126,6 +126,9 @@ module.exports = (env) => {
       new CopyPlugin({
         patterns: [{ from: './public', to: './' }],
       }),
+      new webpack.DefinePlugin({
+        IS_PRODUCTION: JSON.stringify(isProduction),
+      }),
     ],
     devtool: 'source-map',
   };

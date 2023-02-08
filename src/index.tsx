@@ -12,6 +12,7 @@ import { App } from './App';
 import './dayjs-config';
 import { store } from './store';
 import './styles/default.less';
+import { initCounter } from './ya-counter';
 
 const container = document.getElementById('root');
 
@@ -29,4 +30,6 @@ if (container) {
       </Provider>
     </ErrorBoundary>
   );
+
+  initCounter();
 }
