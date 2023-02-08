@@ -2,7 +2,7 @@ import { useRefetchBalance, useRefetchUser } from '@/api';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { SuperHamster } from '@/components/Images/SuperHamster';
 import { Section } from '@/components/Section';
-import { CURRENCIES_TYPE, OPTIONS_CURRENCIES } from '@/constants';
+import { CURRENCIES_TYPE, EMAIL, OPTIONS_CURRENCIES } from '@/constants';
 import { useLogout } from '@/hooks/useLogout';
 import { formValidator } from '@/pages/Settings/utils/formValidator';
 import { getIsChangedBalance } from '@/pages/Settings/utils/getIsChangedBalance';
@@ -75,7 +75,20 @@ const Settings: React.FC = () => {
 
   return (
     <ErrorBoundary>
-      <Section className="profile" title="Данные профиля">
+      <Section
+        className="profile"
+        title="Данные профиля"
+        footer={
+          <div className="profile__footer">
+            <div className="profile__footer-text">
+              <Typography.Text>По всем вопросам и предложениям:</Typography.Text>
+              <Typography.Link href={`mailto:${EMAIL}`}>{EMAIL}</Typography.Link>
+            </div>
+            <Button icon={<LogoutOutlined />} onClick={handleLogout} loading={isLoadingLogout}>
+              Выйти
+            </Button>
+          </div>
+        }>
         <div className="profile__content">
           <Form form={form} onFinish={handleSubmit}>
             <div className="profile__row">
@@ -142,7 +155,6 @@ const Settings: React.FC = () => {
                         loading={isLoadingUpdateUser || isLoadingUpdateBalance}
                         type="primary"
                         htmlType="submit">
-                        {/*Сохранить изменения*/}
                         Сохранить
                       </Button>
                     );
@@ -154,12 +166,6 @@ const Settings: React.FC = () => {
 
           <div className="profile__image">
             <SuperHamster />
-          </div>
-
-          <div className="profile__logout">
-            <Button icon={<LogoutOutlined />} onClick={handleLogout} loading={isLoadingLogout}>
-              Выйти
-            </Button>
           </div>
         </div>
       </Section>
