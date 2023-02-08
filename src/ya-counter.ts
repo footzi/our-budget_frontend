@@ -1,8 +1,6 @@
 /* eslint-disable */
 // @ts-nocheck
 export const initCounter = () => {
-  console.log(IS_PRODUCTION);
-
   if (IS_PRODUCTION) {
     (function (m, e, t, r, i, k, a) {
       m[i] =
