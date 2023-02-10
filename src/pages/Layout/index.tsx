@@ -99,7 +99,7 @@ const Layout = () => {
           <Suspense>
             <Routes>
               <Route
-                path="/*"
+                path="*"
                 element={
                   <Main selectedDate={selectedDate} onChangeDate={handleChangeMonth} isLoading={isLoadingMain} />
                 }

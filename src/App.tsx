@@ -33,7 +33,7 @@ export const App = () => {
       <Routes>
         <Route>
           <Route
-            path="/*"
+            path="*"
             element={
               <RequireAuth>
                 <Layout />
