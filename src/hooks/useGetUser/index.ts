@@ -5,7 +5,7 @@ import { Maybe, User, UserLocalStorage } from '@/interfaces';
 import { removeUser, setUser, useAppDispatch } from '@/store';
 import { LocalStorage } from '@/utils/localStorage';
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { UseGetUserResult } from './interfaces';
 
@@ -17,6 +17,7 @@ export const useGetUser = (): UseGetUserResult => {
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   const { isLoading, data } = useQuery<{ user: Maybe<User> }>({
     config: ApiConfig.user,
@@ -26,7 +27,10 @@ export const useGetUser = (): UseGetUserResult => {
   useEffect(() => {
     if (!savedUser) {
       dispatch(removeUser());
-      navigate(ROUTES.LOGIN);
+
+      if (pathname !== ROUTES.SIGNUP) {
+        navigate(ROUTES.LOGIN);
+      }
     }
     // navigate вызывает useEffect
     // eslint-disable-next-line
