@@ -11,7 +11,7 @@ const antModifyVars = require('./src/styles/ant-modify-vars');
 
 module.exports = (env) => {
   const isProduction = env.production;
-  const publicPath = isProduction ? '/' : '/';
+  const publicPath = isProduction ? './' : '/';
 
   return {
     entry: './src/index.tsx',
