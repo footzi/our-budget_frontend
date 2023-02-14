@@ -25,6 +25,11 @@ export const ApiConfig: { [key: string]: ApiConfigItem } = {
     url: '/api/users',
     method: 'PUT',
   },
+  changePassword: {
+    url: '/api/users/change-password',
+    method: 'PUT',
+    successMessage: 'Пароль успешно изменен. Повторите вход в систему',
+  },
   categories: {
     url: '/api/categories/getAll',
     refetch: REFETCHES_LIST.CATEGORIES,

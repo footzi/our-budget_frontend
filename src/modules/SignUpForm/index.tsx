@@ -1,7 +1,9 @@
 import { WelcomeHamster } from '@/components/Images/WelcomeHamster';
 import { Section } from '@/components/Section';
-import { AGREEMENTS, EMAIL_REGEXP, PASSWORD_MIN_LENGTH, PRIVACY_POLICY } from '@/constants';
+import { AGREEMENTS, EMAIL_REGEXP, PRIVACY_POLICY } from '@/constants';
 import { ROUTES } from '@/constants/routes';
+import { minSizePasswordValidator } from '@/utils/minSizePasswordValidator';
+import { passwordValidator } from '@/utils/passwordValidator';
 import LockOutlined from '@ant-design/icons/LockOutlined';
 import UserOutlined from '@ant-design/icons/UserOutlined';
 import { Button, Checkbox, Form, Input, Typography } from 'antd';
@@ -10,22 +12,6 @@ import { useNavigate } from 'react-router-dom';
 
 import { useSignUp } from './hooks/useSignUp';
 import './index.less';
-
-const passwordValidator = (value1: string, value2: string) => {
-  if (!value1 || !value2 || value1 === value2) {
-    return Promise.resolve();
-  } else {
-    return Promise.reject(new Error('Пароли должны совпадать'));
-  }
-};
-
-const minSizePasswordValidator = (value: string) => {
-  if (value.length >= PASSWORD_MIN_LENGTH) {
-    return Promise.resolve();
-  } else {
-    return Promise.reject(new Error(`Пароль должен содержать минимум ${PASSWORD_MIN_LENGTH} символов`));
-  }
-};
 
 /**
  * Форма регистрации

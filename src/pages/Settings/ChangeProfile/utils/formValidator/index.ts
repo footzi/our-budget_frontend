@@ -1,4 +1,4 @@
-import { SettingsFormBody } from '@/pages/Settings/interfaces';
+import { SettingsFormBody } from '../../interfaces';
 
 export const formValidator = (body: SettingsFormBody) => {
   if (Object.keys(body).length === 0) {
