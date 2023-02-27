@@ -67,6 +67,7 @@ export interface Tokens {
 
 export interface UserLocalStorage {
   id: number;
+  login: string;
   tokens: Tokens;
 }
 
