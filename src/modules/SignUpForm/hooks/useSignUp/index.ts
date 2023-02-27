@@ -29,7 +29,7 @@ export const useSignUp = () => {
         LocalStorage.set<UserLocalStorage>(LOCAL_STORAGE_ITEMS.USER, {
           tokens: { accessToken, refreshToken },
           id: response.data.user.id,
-          login: response.data.user.login,
+          firstName: response.data.user.firstName,
         });
         dispatch(setUser(response.data.user));
         navigate(ROUTES.CATEGORIES);
