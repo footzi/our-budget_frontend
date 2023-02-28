@@ -110,7 +110,7 @@ const Plans: React.FC<PlansProps> = ({ selectedDate }) => {
           onAdd={handleAdd}
           onUpdate={handleUpdate}
           onDelete={handleDelete}
-          isLoadingSave={isLoadingAddIncome}
+          isLoadingSave={isLoadingAddExpense}
           isLoadingUpdate={isLoadingUpdateExpense}
           isLoadingDelete={isLoadingDeleteExpense}
           type={CARD_TYPES.EXPENSE_PLAN}
@@ -127,7 +127,7 @@ const Plans: React.FC<PlansProps> = ({ selectedDate }) => {
           onAdd={handleAdd}
           onUpdate={handleUpdate}
           onDelete={handleDelete}
-          isLoadingSave={isLoadingAddExpense}
+          isLoadingSave={isLoadingAddIncome}
           isLoadingUpdate={isLoadingUpdateIncome}
           isLoadingDelete={isLoadingDeleteIncome}
           type={CARD_TYPES.INCOME_PLAN}
