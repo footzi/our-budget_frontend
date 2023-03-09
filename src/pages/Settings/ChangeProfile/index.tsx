@@ -2,7 +2,7 @@ import { useRefetchBalance, useRefetchUser } from '@/api';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { SuperHamster } from '@/components/Images/SuperHamster';
 import { Section } from '@/components/Section';
-import { CURRENCIES_TYPE, EMAIL, OPTIONS_CURRENCIES } from '@/constants';
+import { CURRENCIES_TYPE, OPTIONS_CURRENCIES } from '@/constants';
 import { useLogout } from '@/hooks/useLogout';
 import { useAppSelector } from '@/store';
 import { getCurrencyInfo } from '@/utils/getCurrencyInfo';
@@ -79,10 +79,6 @@ export const ChangeProfile: React.FC = () => {
         title="Данные профиля"
         footer={
           <div className="profile__footer">
-            <div className="profile__footer-text">
-              <Typography.Text>По всем вопросам и предложениям:</Typography.Text>
-              <Typography.Link href={`mailto:${EMAIL}`}>{EMAIL}</Typography.Link>
-            </div>
             <Button icon={<LogoutOutlined />} onClick={handleLogout} loading={isLoadingLogout}>
               Выйти
             </Button>

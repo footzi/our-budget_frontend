@@ -5,6 +5,6 @@ ssh -p $DEPLOY_PORT $DEPLOY_URL "
   cd $DEPLOY_FOLDER &&
   git reset --hard origin/master &&
   git pull &&
-  yarn &&
-  yarn build
+  sudo -S yarn &&
+  sudo -S yarn build
 "

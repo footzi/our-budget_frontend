@@ -25,6 +25,7 @@ import { Route, Routes } from 'react-router-dom';
 
 import './index.less';
 
+const InstructionModal = React.lazy(() => import('@/modules/InstructionModal'));
 const currentDay = dayjs();
 
 const Layout = () => {
@@ -111,6 +112,8 @@ const Layout = () => {
           </Suspense>
         </main>
       </div>
+
+      <InstructionModal />
     </div>
   );
 };
