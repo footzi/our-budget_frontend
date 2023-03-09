@@ -10,6 +10,7 @@ import { useGetFirstLoading } from '@/hooks/useGetFirstLoading';
 import { useGetIncomes } from '@/hooks/useGetIncomes';
 import { useGetSavingGoals } from '@/hooks/useGetSavingGoals';
 import { useGetSavings } from '@/hooks/useGetSavings';
+import InstructionModal from '@/modules/InstructionModal';
 import { MobileHeader } from '@/modules/MobileHeader';
 import { Sidebar } from '@/modules/Sidebar';
 import { UserWidget } from '@/modules/UserWidget';
@@ -25,7 +26,6 @@ import { Route, Routes } from 'react-router-dom';
 
 import './index.less';
 
-const InstructionModal = React.lazy(() => import('@/modules/InstructionModal'));
 const currentDay = dayjs();
 
 const Layout = () => {
