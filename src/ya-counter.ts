@@ -25,6 +25,7 @@ export const initCounter = () => {
       clickmap: true,
       trackLinks: true,
       accurateTrackBounce: true,
+      webvisor: true,
     });
   }
 };
