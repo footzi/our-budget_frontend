@@ -1,8 +1,10 @@
 import { useRefetchBalance, useRefetchUser } from '@/api';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
+import { BalanceHelpContent } from '@/components/HelpContents/BalanceHelpContent';
+import { HelpHint } from '@/components/HelpHint';
 import { SuperHamster } from '@/components/Images/SuperHamster';
 import { Section } from '@/components/Section';
-import { CURRENCIES_TYPE, OPTIONS_CURRENCIES } from '@/constants';
+import { CURRENCIES_TYPE, LOCAL_STORAGE_ITEMS, OPTIONS_CURRENCIES } from '@/constants';
 import { useLogout } from '@/hooks/useLogout';
 import { useAppSelector } from '@/store';
 import { getCurrencyInfo } from '@/utils/getCurrencyInfo';
@@ -87,13 +89,6 @@ export const ChangeProfile: React.FC = () => {
         <div className="profile__content">
           <Form form={form} onFinish={handleSubmit}>
             <div className="profile__row">
-              <Typography.Text strong>ID</Typography.Text>
-              <div className="profile__row-value">
-                <Typography.Text>{user.id}</Typography.Text>
-              </div>
-            </div>
-
-            <div className="profile__row">
               <Typography.Text strong>E-mail</Typography.Text>
               <div className="profile__row-value">
                 <Typography.Text>{user.login}</Typography.Text>
@@ -120,7 +115,14 @@ export const ChangeProfile: React.FC = () => {
             </div>
 
             <div className="profile__row">
-              <Typography.Text strong>Текущий баланс</Typography.Text>
+              <div className="profile__row-label">
+                <Typography.Text strong>Текущий баланс</Typography.Text>
+                <HelpHint
+                  className="profile__row-hint"
+                  content={<BalanceHelpContent />}
+                  localStorageKey={LOCAL_STORAGE_ITEMS.SHOW_BALANCE_HELP_HINT}
+                />
+              </div>
 
               <div className="profile__row-value">
                 {Object.keys(balances).map((item) => {

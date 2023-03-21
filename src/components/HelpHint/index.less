@@ -1,0 +1,70 @@
+@import '@/styles';
+
+.help-hint {
+  display: inline-flex;
+
+  &_is-open {
+    .help-hint__icon {
+      path:first-child {
+        fill: @primary-color;
+        stroke: @primary-color;
+      }
+
+      path:last-child {
+        fill: @white;
+      }
+    }
+  }
+
+  &__icon {
+    cursor: pointer;
+
+    path {
+      transition: 0.3s fill, 0.3s stroke;
+    }
+
+    path:first-child {
+      fill: @white;
+      stroke: @primary-color;
+    }
+
+    path:last-child {
+      fill: @primary-color;
+    }
+  }
+
+  &__popover {
+    width: 90%;
+    max-width: 420px;
+
+    .ant-popover-inner-content {
+      padding: 12px 16px;
+
+      .sm({
+        padding: 16px 20px;
+      })
+    }
+  }
+
+  &__content {
+    display: flex;
+    align-items: flex-start;
+  }
+
+  &__close-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border: 0;
+    padding: 0;
+    margin-right: -8px;
+    cursor: pointer;
+
+    &:hover {
+      .help-hint__close-icon svg {
+        fill: @primary-color;
+      }
+    }
+  }
+}
