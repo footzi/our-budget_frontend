@@ -8,4 +8,5 @@ export interface SectionProps extends PropsWithChildren {
   paddingSize?: PADDING_SIZE;
   hideBorder?: boolean;
   footer?: React.ReactElement;
+  hint?: React.ReactElement;
 }

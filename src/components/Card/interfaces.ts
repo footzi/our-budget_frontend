@@ -1,11 +1,13 @@
 import { CURRENCIES_TYPE, SAVING_ACTION_TYPE } from '@/constants';
 import { Category, CurrenciesValues, Expense, Income, Maybe, Saving, SavingGoal } from '@/interfaces';
 import { Dayjs } from 'dayjs';
+import React from 'react';
 
 import { CARD_FORM_FIELDS, CARD_TYPES } from './constants';
 
 export interface CardProps {
   title: string;
+  hint?: React.ReactElement;
   list: CardItem[];
   currencies?: CURRENCIES_TYPE[];
   categories?: Category[];

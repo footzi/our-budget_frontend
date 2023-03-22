@@ -43,6 +43,7 @@ const DefaultCard: React.FC<CardProps> = ({
   isLoadingDelete,
   list,
   title,
+  hint,
   total,
   isLoadingUpdate,
 }) => {
@@ -153,7 +154,7 @@ const DefaultCard: React.FC<CardProps> = ({
 
   return (
     <>
-      <Section title={title} className={cxCard}>
+      <Section title={title} hint={hint} className={cxCard}>
         <Form
           className="card__form"
           onFinish={handleFinish}

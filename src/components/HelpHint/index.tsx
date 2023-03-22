@@ -10,11 +10,12 @@ import { OPEN_DELAY } from './constants';
 import './index.less';
 import { HelpHintProps } from './interfaces';
 
-export const HelpHint: React.FC<HelpHintProps> = ({ content, title, className, localStorageKey }) => {
+export const HelpHint: React.FC<HelpHintProps> = ({ content, className, localStorageKey }) => {
   const [isOpen, setIsOpen] = useState(false);
   const isMobile = useIsMobile();
 
   const isNeedOpen = !isMobile && localStorageKey && !LocalStorage.get(localStorageKey);
+  const placement = isMobile ? 'bottom' : 'right';
 
   const handleCloseClick = () => {
     setIsOpen(false);
@@ -52,9 +53,8 @@ export const HelpHint: React.FC<HelpHintProps> = ({ content, title, className, l
         </div>
       }
       onOpenChange={handleOpenChange}
-      title={title}
       overlayClassName="help-hint__popover"
-      placement="right"
+      placement={placement}
       open={isOpen}>
       <span className={cn}>
         <HelpIcon className="help-hint__icon" />

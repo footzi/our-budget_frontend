@@ -8,6 +8,9 @@ import {
   UpdateSaveBody,
 } from '@/components/Card';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
+import { SavingFactHelpContent } from '@/components/HelpContents/SavingFactHelpContent';
+import { HelpHint } from '@/components/HelpHint';
+import { LOCAL_STORAGE_ITEMS } from '@/constants';
 import { useAppSelector } from '@/store';
 import { formatToBackendDate } from '@/utils/formatToBackendDate';
 import React, { useCallback, useMemo } from 'react';
@@ -124,6 +127,12 @@ const Savings: React.FC<SavingsProps> = ({ selectedDate }) => {
         <ErrorBoundary>
           <Card
             title="Факт"
+            hint={
+              <HelpHint
+                localStorageKey={LOCAL_STORAGE_ITEMS.SHOW_SAVING_FACT_HELP_HINT}
+                content={<SavingFactHelpContent />}
+              />
+            }
             savingGoals={goals}
             list={fact}
             total={factTotal}

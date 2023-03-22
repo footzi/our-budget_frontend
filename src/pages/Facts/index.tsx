@@ -8,7 +8,10 @@ import {
   CardUpdateSaveBody,
 } from '@/components/Card';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
-import { CATEGORIES_TYPES } from '@/constants';
+import { ExpenseFactHelpContent } from '@/components/HelpContents/ExpenseFactHelpContent';
+import { IncomeFactHelpContent } from '@/components/HelpContents/IncomeFactHelpContent';
+import { HelpHint } from '@/components/HelpHint';
+import { CATEGORIES_TYPES, LOCAL_STORAGE_ITEMS } from '@/constants';
 import { useAppSelector } from '@/store';
 import { formatToBackendDate } from '@/utils/formatToBackendDate';
 import React, { useCallback, useMemo } from 'react';
@@ -108,6 +111,12 @@ const Facts: React.FC<FactsProps> = ({ selectedDate }) => {
       <ErrorBoundary>
         <Card
           title="Фактические расходы"
+          hint={
+            <HelpHint
+              localStorageKey={LOCAL_STORAGE_ITEMS.SHOW_EXPENSE_FACT_HELP_HINT}
+              content={<ExpenseFactHelpContent />}
+            />
+          }
           categories={categoriesExpenses}
           currencies={currencies}
           list={expensesList}
@@ -126,6 +135,12 @@ const Facts: React.FC<FactsProps> = ({ selectedDate }) => {
       <ErrorBoundary>
         <Card
           title="Фактические доходы"
+          hint={
+            <HelpHint
+              localStorageKey={LOCAL_STORAGE_ITEMS.SHOW_INCOME_FACT_HELP_HINT}
+              content={<IncomeFactHelpContent />}
+            />
+          }
           currencies={currencies}
           categories={categoriesIncomes}
           list={incomesList}
