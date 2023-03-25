@@ -2,40 +2,42 @@
 
 .help-hint {
   display: inline-flex;
+  width: 18px;
+  height: 18px;
+
+  .sm({
+    width: 22px;
+    height: 22px;
+  });
 
   &_is-open {
     .help-hint__icon {
-      path:first-child {
+      circle {
         fill: @primary-color;
         stroke: @primary-color;
       }
 
-      path:last-child {
+      path {
         fill: @white;
       }
     }
   }
 
   &__icon {
+    width: 100%;
+    height: 100%;
     cursor: pointer;
-    width: 18px;
-    height: 18px;
 
-    .sm({
-      width: 22px;
-      height: 22px;
-    });
-
-    path {
+    circle, path {
       transition: 0.3s fill, 0.3s stroke;
     }
 
-    path:first-child {
+    circle {
       fill: @white;
       stroke: @primary-color;
     }
 
-    path:last-child {
+    path {
       fill: @primary-color;
     }
   }
