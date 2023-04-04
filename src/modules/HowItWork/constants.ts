@@ -1,0 +1,1 @@
+export const SHOW_HOW_IT_WORK_MODAL_DELAY = 700;

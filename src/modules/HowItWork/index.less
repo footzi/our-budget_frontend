@@ -1,0 +1,76 @@
+@import "@/styles";
+
+.how-to-work {
+  position: relative;
+  animation-name: how-it-work-slide-down;
+  animation-delay: 0.5s;
+  animation-duration: 0.5s;
+  animation-fill-mode: both;
+
+  .xl({
+    animation-delay: 1s;
+  });
+
+  &__image {
+    width: 65px;
+    height: 72px;
+    transform: rotate(-146deg);
+    position: absolute;
+    top: -36px;
+    left: -56px;
+    z-index: 1;
+
+    .xl({
+      width: 102px;
+      height: 113px;
+      top: -65px;
+      left: -91px;
+    })
+  }
+
+  &__hand {
+    position: absolute;
+    top: -7px;
+    left: 8px;
+    width: 13px;
+    height: 12px;
+    z-index: 3;
+
+    .xl({
+      top: -10px;
+      width: 18px;
+      height: 18px;
+      left: 11px;
+    })
+  }
+
+  &__link {
+    padding: 6px 8px;
+    background-color: @white;
+    box-shadow: 0 4px 4px rgba(@black, 0.25);
+    border-radius: 4px;
+    margin-top: 12px;
+    position: relative;
+    z-index: 2;
+    display: block;
+
+    .xl({
+      padding: 12px 16px;
+      margin-top: 22px;
+    });
+
+    &.ant-typography {
+      text-decoration: underline;
+      font-style: italic;
+    }
+  }
+}
+
+@keyframes how-it-work-slide-down {
+  from {
+    transform: translateY(-200%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
