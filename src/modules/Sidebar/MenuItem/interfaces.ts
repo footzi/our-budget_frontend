@@ -7,5 +7,4 @@ export interface MenuItemProps {
   onClick?: () => void;
   isActive: boolean;
   isBorder?: boolean;
-  isOnBoardingsStep: boolean;
 }

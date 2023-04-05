@@ -1,6 +1,7 @@
 @import '@/styles';
 
 .balance {
+  transition: opacity 0.3s;
   text-align: center;
   padding: 16px;
   border: 1px solid @white;
@@ -8,6 +9,16 @@
   margin-top: 24px;
   display: flex;
   align-items: center;
+  cursor: pointer;
+  background: transparent;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  &:focus-visible {
+    outline: 1px solid @white;
+  }
 
   .sm({
     margin-top: auto;

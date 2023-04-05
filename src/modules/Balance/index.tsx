@@ -1,19 +1,28 @@
-import { CURRENCIES_TYPE } from '@/constants';
+import { CURRENCIES_TYPE, ROUTES } from '@/constants';
 import { useAppSelector } from '@/store';
 import { formatPrice } from '@/utils/formatPrice';
 import WalletOutlined from '@ant-design/icons/WalletOutlined';
 import { Typography } from 'antd';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import './index.less';
+import { BalanceProps } from './interfaces';
 
-export const Balance: React.FC = () => {
+export const Balance: React.FC<BalanceProps> = ({ onClick }) => {
   const { balance } = useAppSelector();
+
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(ROUTES.SETTINGS);
+    onClick && onClick();
+  };
 
   const values = balance?.value ?? {};
 
   return (
-    <div className="balance">
+    <button className="balance" onClick={handleClick}>
       <WalletOutlined />
       <Typography.Text>Баланс</Typography.Text>
       <div className="balance__values">
@@ -28,6 +37,6 @@ export const Balance: React.FC = () => {
           );
         })}
       </div>
-    </div>
+    </button>
   );
 };
