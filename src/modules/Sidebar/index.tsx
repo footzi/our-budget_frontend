@@ -2,7 +2,6 @@ import { Logo } from '@/components/Images/Logo';
 import { MENU } from '@/constants/menu';
 import { Balance } from '@/modules/Balance';
 import { SidebarProps } from '@/modules/Sidebar/interfaces';
-import { useAppSelector } from '@/store';
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 
