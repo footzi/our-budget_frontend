@@ -11,7 +11,7 @@ import { getCurrencyInfo } from '@/utils/getCurrencyInfo';
 import LogoutOutlined from '@ant-design/icons/LogoutOutlined';
 import { Button, Form, Input, InputNumber, Select, Typography } from 'antd';
 import { useForm } from 'antd/es/form/Form';
-import React, { useCallback, useEffect, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { useUpdateBalance } from './hooks/useUpdateBalance';
 import { useUpdateUser } from './hooks/useUpdateUser';
@@ -20,6 +20,7 @@ import { formValidator } from './utils/formValidator';
 import { getIsChangedBalance } from './utils/getIsChangedBalance';
 
 export const ChangeProfile: React.FC = () => {
+  const [hasChanges, setIsHasChanges] = useState(false);
   const { user, balance } = useAppSelector();
 
   const refetchUser = useRefetchUser();
@@ -50,6 +51,7 @@ export const ChangeProfile: React.FC = () => {
       const body = { firstName: form.firstName, currencies: form.currencies };
 
       await updateUser(body);
+      setIsHasChanges(false);
       refetchUser();
       refetchBalance();
     },
@@ -57,6 +59,10 @@ export const ChangeProfile: React.FC = () => {
   );
 
   const handleLogout = useCallback(() => logout(), [logout]);
+
+  const handleFieldsChange = () => {
+    setIsHasChanges(true);
+  };
 
   useEffect(() => {
     if (user && balances) {
@@ -87,7 +93,7 @@ export const ChangeProfile: React.FC = () => {
           </div>
         }>
         <div className="profile__content">
-          <Form form={form} onFinish={handleSubmit}>
+          <Form form={form} onFinish={handleSubmit} onFieldsChange={handleFieldsChange}>
             <div className="profile__row">
               <Typography.Text strong>E-mail</Typography.Text>
               <div className="profile__row-value">
@@ -147,7 +153,7 @@ export const ChangeProfile: React.FC = () => {
 
                     return (
                       <Button
-                        disabled={!isValid}
+                        disabled={!isValid || !hasChanges}
                         className="profile__submit"
                         loading={isLoadingUpdateUser || isLoadingUpdateBalance}
                         type="primary"
