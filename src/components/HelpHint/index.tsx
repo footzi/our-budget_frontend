@@ -4,9 +4,9 @@ import { LocalStorage } from '@/utils/localStorage';
 import CloseOutlined from '@ant-design/icons/CloseOutlined';
 import { Popover } from 'antd';
 import cx from 'classnames';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
-import { OPEN_DELAY } from './constants';
+import { CLOSE_DELAY, OPEN_DELAY } from './constants';
 import './index.less';
 import { HelpHintProps } from './interfaces';
 
@@ -17,13 +17,15 @@ export const HelpHint: React.FC<HelpHintProps> = ({ content, className, localSto
   const isNeedOpen = !isMobile && localStorageKey && !LocalStorage.get(localStorageKey);
   const placement = isMobile ? 'bottom' : 'right';
 
-  const handleCloseClick = () => {
+  const close = useCallback(() => {
     setIsOpen(false);
 
     if (localStorageKey) {
       LocalStorage.set(localStorageKey, true);
     }
-  };
+  }, [localStorageKey]);
+
+  const handleCloseClick = () => close();
 
   const handleOpenChange = () => {
     setIsOpen((isOpen) => !isOpen);
@@ -34,8 +36,12 @@ export const HelpHint: React.FC<HelpHintProps> = ({ content, className, localSto
       setTimeout(() => {
         setIsOpen(true);
       }, OPEN_DELAY);
+
+      setTimeout(() => {
+        close();
+      }, CLOSE_DELAY);
     }
-  }, [isNeedOpen, setIsOpen]);
+  }, [close, isNeedOpen, setIsOpen]);
 
   const cn = cx('help-hint', {
     [className ? className : '']: !!className,
