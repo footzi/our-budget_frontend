@@ -2,7 +2,7 @@ import { SubmitHiddenButton } from '@/components/SubmitHiddenButton';
 import { CURRENCIES_TYPE, DEFAULT_CURRENCY } from '@/constants';
 import { getCurrencyInfo } from '@/utils/getCurrencyInfo';
 import { getOptionsCurrencies } from '@/utils/getOptionsCurrencies';
-import { Button, Form, Input, InputNumber, Modal, Popconfirm, Select } from 'antd';
+import { Button, Form, Input, InputNumber, Modal, Popconfirm, Select, Typography } from 'antd';
 import { useForm } from 'antd/es/form/Form';
 import React, { useCallback, useEffect, useState } from 'react';
 
@@ -28,17 +28,23 @@ export const SavingGoalModal: React.FC<SavingGoalModalProps> = ({
     form.submit();
   };
 
-  const handleSubmit = (form: { name: string; description: string; value: number; currency: CURRENCIES_TYPE }) => {
-    const { name, description, value, currency } = form;
+  const handleSubmit = (form: {
+    name: string;
+    description: string;
+    value: number;
+    currency: CURRENCIES_TYPE;
+    finishValue?: number;
+  }) => {
+    const { name, description, value, currency, finishValue } = form;
 
     if (isLoading) {
       return;
     }
 
     if (editedGoal?.id) {
-      onUpdate({ name, description, value, id: editedGoal.id, currency: editedGoal.currency });
+      onUpdate({ name, description, value, id: editedGoal.id, currency: editedGoal.currency, finishValue });
     } else {
-      onAdd({ name, description, value, currency });
+      onAdd({ name, description, value, currency, finishValue });
     }
   };
 
@@ -55,12 +61,13 @@ export const SavingGoalModal: React.FC<SavingGoalModalProps> = ({
 
   useEffect(() => {
     if (editedGoal) {
-      const { name, description, value } = editedGoal;
+      const { name, description, value, finishValue } = editedGoal;
 
       form.setFieldsValue({
         name,
         description,
         value,
+        finishValue,
       });
 
       const isValidForm = formValidator(name);
@@ -114,7 +121,39 @@ export const SavingGoalModal: React.FC<SavingGoalModalProps> = ({
           <Input placeholder="Название" />
         </Form.Item>
 
-        <Form.Item className="saving-goal-modal__form-price" name="value">
+        <Form.Item
+          name="finishValue"
+          colon={false}
+          label={
+            <Typography.Text>
+              Сколько <Typography.Text strong>хочу накопить?</Typography.Text>
+            </Typography.Text>
+          }
+          className="saving-goal-modal__form-price">
+          <InputNumber
+            decimalSeparator={','}
+            placeholder="Сумма"
+            addonAfter={
+              editedGoal ? (
+                symbol
+              ) : (
+                <Form.Item name="currency" noStyle>
+                  <Select options={currenciesOptions} />
+                </Form.Item>
+              )
+            }
+          />
+        </Form.Item>
+
+        <Form.Item
+          name="value"
+          colon={false}
+          label={
+            <Typography.Text>
+              Сколько <Typography.Text strong>уже накоплено?</Typography.Text>
+            </Typography.Text>
+          }
+          className="saving-goal-modal__form-price">
           <InputNumber
             decimalSeparator={','}
             placeholder="Сумма"

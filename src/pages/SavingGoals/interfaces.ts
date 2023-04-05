@@ -5,6 +5,7 @@ export interface SavingGoalAddBody {
   description?: string;
   value?: number;
   currency: CURRENCIES_TYPE;
+  finishValue?: number;
 }
 
 export interface SavingGoalUpdateBody {
@@ -13,6 +14,7 @@ export interface SavingGoalUpdateBody {
   description?: string;
   value?: number;
   currency: CURRENCIES_TYPE;
+  finishValue?: number;
 }
 
 export interface SavingGoalRender {
@@ -20,7 +22,9 @@ export interface SavingGoalRender {
   name: string;
   description?: string;
   value: number;
+  finishValue: number;
   currency: CURRENCIES_TYPE;
   key: number;
   valueText: string;
+  finishText: string;
 }

@@ -11,8 +11,10 @@ export const formatSavingToTable = (goals: SavingGoal[]): SavingGoalRender[] => 
       description: goal.description ?? goal.description,
       value: goal.value ?? 0,
       valueText: formatPrice(goal.value, goal.currency),
+      finishText: goal.finishValue ? formatPrice(goal.finishValue, goal.currency) : '-',
       key: goal.id,
       currency: goal.currency,
+      finishValue: goal.finishValue ?? 0,
     };
   });
 };

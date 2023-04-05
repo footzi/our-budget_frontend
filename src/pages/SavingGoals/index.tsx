@@ -74,7 +74,8 @@ const SavingGoals = () => {
             }}>
             <Table.Column title="Название" dataIndex="name" key="name" />
             <Table.Column title="Описание" dataIndex="description" key="description" />
-            <Table.Column title="Текущее значение" dataIndex="valueText" key="valueText" />
+            <Table.Column title="Текущий баланс" dataIndex="valueText" key="valueText" />
+            <Table.Column title="Цель" dataIndex="finishText" key="finishText" />
           </Table>
         </Section>
 

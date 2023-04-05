@@ -44,6 +44,7 @@ export interface SavingGoal {
   name: string;
   description?: string;
   value?: Maybe<number>;
+  finishValue?: Maybe<number>;
   currency: CURRENCIES_TYPE;
   order: number;
 }
