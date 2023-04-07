@@ -6,3 +6,4 @@ declare module '*.png';
 declare module '*.gif';
 
 declare const IS_PRODUCTION: boolean;
+declare const PUBLIC_PATH: string;

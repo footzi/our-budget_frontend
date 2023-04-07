@@ -14,6 +14,12 @@ import { store } from './store';
 import './styles/default.less';
 import { initCounter } from './ya-counter';
 
+window.addEventListener('load', () => {
+  if (navigator.serviceWorker) {
+    navigator.serviceWorker.register('./service-worker.js');
+  }
+});
+
 const container = document.getElementById('root');
 
 if (container) {

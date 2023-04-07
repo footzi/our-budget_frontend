@@ -6,15 +6,14 @@ const createManifest = (publicPath) => {
     scope: '/',
     name: 'Money Hamster',
     display: 'standalone',
-    start_url: '/',
+    start_url: '/app',
     short_name: 'Money Hamster',
-    theme_color: '#821EA5',
+    theme_color: '#FFFFFF',
     description: 'Money Hamster | Учет финансов | Ведение семейного бюджета | Домашняя бухгалтерия',
     orientation: 'any',
     background_color: '#FFFFFF',
     related_applications: [],
     prefer_related_applications: false,
-    display_override: ['window-controls-overlay'],
     icons: [
       {
         src: path.resolve('public/favicons/pwa-icon.png'),

@@ -131,6 +131,7 @@ module.exports = (env) => {
       }),
       new webpack.DefinePlugin({
         IS_PRODUCTION: JSON.stringify(isProduction),
+        PUBLIC_PATH: JSON.stringify(publicPath),
       }),
       new WebpackPwaManifest(pwaManifest),
     ],
