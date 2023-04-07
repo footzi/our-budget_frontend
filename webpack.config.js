@@ -7,11 +7,14 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const WebpackPwaManifest = require('webpack-pwa-manifest');
 const antModifyVars = require('./src/styles/ant-modify-vars');
+const createManifest = require('./manifest');
 
 module.exports = (env) => {
   const isProduction = env.production;
-  const publicPath = isProduction ? '/app' : '/';
+  const publicPath = isProduction ? '/app/' : '/';
+  const pwaManifest = createManifest(publicPath);
 
   return {
     entry: './src/index.tsx',
@@ -129,6 +132,7 @@ module.exports = (env) => {
       new webpack.DefinePlugin({
         IS_PRODUCTION: JSON.stringify(isProduction),
       }),
+      new WebpackPwaManifest(pwaManifest),
     ],
     devtool: 'source-map',
   };

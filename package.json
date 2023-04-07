@@ -79,6 +79,7 @@
     "ts-loader": "9.4.2",
     "typescript": "5.0.3",
     "typescript-plugin-css-modules": "5.0.0",
-    "webpack-bundle-analyzer": "4.8.0"
+    "webpack-bundle-analyzer": "4.8.0",
+    "webpack-pwa-manifest": "4.3.0"
   }
 }
