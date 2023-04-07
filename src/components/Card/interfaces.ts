@@ -58,7 +58,7 @@ export interface CardUpdateSavingBody extends CardAddSavingBody {
 export type CardItem = Expense | Income | Saving;
 
 export type CardFormFieldType = keyof typeof CARD_FORM_FIELDS;
-export type CardFormFieldValue = typeof CARD_FORM_FIELDS[CardFormFieldType];
+export type CardFormFieldValue = (typeof CARD_FORM_FIELDS)[CardFormFieldType];
 export type CardFormField = Record<CardFormFieldValue, unknown>;
 
 export type CardFormSavedValues = Maybe<Record<CARD_TYPES, CardFormField>>;

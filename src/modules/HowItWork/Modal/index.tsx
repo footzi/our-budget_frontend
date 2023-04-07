@@ -1,11 +1,24 @@
 import { ROUTES } from '@/constants';
 import { Modal as AntModal, Button, Typography } from 'antd';
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import './index.less';
 import { ModalProps } from './interfaces';
 
 export const Modal: React.FC<ModalProps> = ({ isOpen, onCancel }) => {
+  const navigate = useNavigate();
+
+  const handleLinkClick = () => {
+    onCancel();
+  };
+
+  const handleButtonClick = (path: ROUTES) => {
+    onCancel();
+    navigate(path);
+  };
+
   return (
     <AntModal className="how-to-work-modal" open={isOpen} footer={null} onCancel={onCancel}>
       <Typography.Title className="how-to-work-modal__title" level={5}>
@@ -22,13 +35,13 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onCancel }) => {
             </div>
             <Typography.Paragraph className="how-to-work-modal__text">
               Перейдите в раздел{' '}
-              <a target="_blank" rel="noreferrer" href={ROUTES.SETTINGS}>
+              <Link to={ROUTES.SETTINGS} onClick={handleLinkClick}>
                 {'Настройки'}
-              </a>{' '}
+              </Link>{' '}
               и укажите ваш текущий баланс.
             </Typography.Paragraph>
           </div>
-          <Button className="how-to-work-modal__button" href={ROUTES.SETTINGS} target="_blank">
+          <Button className="how-to-work-modal__button" onClick={() => handleButtonClick(ROUTES.SETTINGS)}>
             Перейти -{'>'}
           </Button>
         </li>
@@ -42,13 +55,13 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onCancel }) => {
             </div>
             <Typography.Paragraph className="how-to-work-modal__text">
               Теперь создайте ваши категории расходов и доходов, это можно сделать в разделе{' '}
-              <a target="_blank" rel="noreferrer" href={ROUTES.CATEGORIES}>
+              <Link to={ROUTES.CATEGORIES} onClick={handleLinkClick}>
                 {'Список категорий'}
-              </a>
+              </Link>
               .
             </Typography.Paragraph>
           </div>
-          <Button className="how-to-work-modal__button" href={ROUTES.CATEGORIES} target="_blank">
+          <Button className="how-to-work-modal__button" onClick={() => handleButtonClick(ROUTES.CATEGORIES)}>
             Перейти -{'>'}
           </Button>
         </li>
@@ -65,13 +78,13 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onCancel }) => {
             </div>
             <Typography.Paragraph className="how-to-work-modal__text">
               Спланируйте свои траты на ближайший месяц, для этого перейдите в раздел{' '}
-              <a target="_blank" rel="noreferrer" href={ROUTES.PLANS}>
+              <Link to={ROUTES.PLANS} onClick={handleLinkClick}>
                 {'План'}
-              </a>
+              </Link>
               .
             </Typography.Paragraph>
           </div>
-          <Button className="how-to-work-modal__button" href={ROUTES.PLANS} target="_blank">
+          <Button className="how-to-work-modal__button" onClick={() => handleButtonClick(ROUTES.PLANS)}>
             Перейти -{'>'}
           </Button>
         </li>
@@ -85,13 +98,13 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onCancel }) => {
             </div>
             <Typography.Paragraph className="how-to-work-modal__text">
               Начните регулярно вносить в программу все свои расходы и доходы. Это можно сделать в разделе{' '}
-              <a target="_blank" rel="noreferrer" href={ROUTES.FACTS}>
+              <Link to={ROUTES.FACTS} onClick={handleLinkClick}>
                 {'Факт'}
-              </a>
+              </Link>
               .
             </Typography.Paragraph>
           </div>
-          <Button className="how-to-work-modal__button" href={ROUTES.FACTS} target="_blank">
+          <Button className="how-to-work-modal__button" onClick={() => handleButtonClick(ROUTES.FACTS)}>
             Перейти -{'>'}
           </Button>
         </li>
@@ -105,13 +118,13 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onCancel }) => {
             </div>
             <Typography.Paragraph className="how-to-work-modal__text">
               Сравнивайте и анализируйте свои доходы и расходы в разделе{' '}
-              <a target="_blank" rel="noreferrer" href={ROUTES.HOME}>
+              <Link to={ROUTES.MAIN} onClick={handleLinkClick}>
                 {'Аналитика'}
-              </a>
+              </Link>
               .
             </Typography.Paragraph>
           </div>
-          <Button className="how-to-work-modal__button" href={ROUTES.HOME} target="_blank">
+          <Button className="how-to-work-modal__button" onClick={() => handleButtonClick(ROUTES.MAIN)}>
             Перейти -{'>'}
           </Button>
         </li>
@@ -131,13 +144,13 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onCancel }) => {
             </div>
             <Typography.Paragraph className="how-to-work-modal__text">
               Создайте свою копилку. Это можно сделать в разделе{' '}
-              <a target="_blank" rel="noreferrer" href={ROUTES.SAVING_GOALS}>
+              <Link to={ROUTES.SAVING_GOALS} onClick={handleLinkClick}>
                 {'Список копилок'}
-              </a>
+              </Link>
               .
             </Typography.Paragraph>
           </div>
-          <Button className="how-to-work-modal__button" href={ROUTES.SAVING_GOALS} target="_blank">
+          <Button className="how-to-work-modal__button" onClick={() => handleButtonClick(ROUTES.SAVING_GOALS)}>
             Перейти -{'>'}
           </Button>
         </li>
@@ -152,13 +165,13 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onCancel }) => {
             <Typography.Paragraph className="how-to-work-modal__text">
               Регулярно вносите в программу данные, сколько и в какую копилку вы откладываете, для этого перейдите в
               раздел{' '}
-              <a target="_blank" rel="noreferrer" href={ROUTES.SAVINGS}>
+              <Link to={ROUTES.SAVINGS} onClick={handleLinkClick}>
                 {'Копилки'}
-              </a>
+              </Link>
               .
             </Typography.Paragraph>
           </div>
-          <Button className="how-to-work-modal__button" href={ROUTES.SAVINGS} target="_blank">
+          <Button className="how-to-work-modal__button" onClick={() => handleButtonClick(ROUTES.SAVINGS)}>
             Перейти -{'>'}
           </Button>
         </li>
