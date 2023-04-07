@@ -12,13 +12,8 @@ import { App } from './App';
 import './dayjs-config';
 import { store } from './store';
 import './styles/default.less';
+import { initServiceWorker } from './sw';
 import { initCounter } from './ya-counter';
-
-window.addEventListener('load', () => {
-  if (navigator.serviceWorker) {
-    navigator.serviceWorker.register('./service-worker.js');
-  }
-});
 
 const container = document.getElementById('root');
 
@@ -38,4 +33,5 @@ if (container) {
   );
 
   initCounter();
+  initServiceWorker();
 }
