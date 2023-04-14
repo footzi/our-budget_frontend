@@ -14,22 +14,18 @@
 
     .section {
       min-width: 300px;
+
+      &:first-child {
+        animation: slide-in 0.3s ease-in-out 0.3s both;
+      }
+
+      &:last-child {
+        animation: slide-in 0.3s ease-in-out 0.4s both;
+      }
     }
 
     .xl({
       grid-column-gap: 24px;
-      width: 100%;
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
     })
-  }
-
-  .card:first-child {
-    animation: slide-in 0.3s ease-in-out 0.3s both;
-  }
-
-  .card:last-child {
-    animation: slide-in 0.3s ease-in-out 0.4s both;
   }
 }

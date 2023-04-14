@@ -166,7 +166,7 @@ const DefaultCard: React.FC<CardProps> = ({
               name={CARD_FORM_FIELDS.DATE}
               rules={[{ required: true, message: 'Выберите дату' }]}
               className="card__form-date-picker">
-              <DatePicker picker="date" format={FORMAT_UI_SHORT_DATE} allowClear={false} />
+              <DatePicker picker="date" format={FORMAT_UI_SHORT_DATE} allowClear={false} inputReadOnly />
             </Form.Item>
           )}
 

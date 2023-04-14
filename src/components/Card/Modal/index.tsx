@@ -153,7 +153,7 @@ export const CardModal: React.FC<CardModalProps> = ({
               name={CARD_FORM_FIELDS.DATE}
               rules={[{ required: true, message: 'Выберите дату' }]}
               className={cxDate}>
-              <DatePicker picker="date" format={FORMAT_UI_DATE} allowClear={false} />
+              <DatePicker picker="date" format={FORMAT_UI_DATE} allowClear={false} inputReadOnly />
             </Form.Item>
           )}
 

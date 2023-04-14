@@ -13,21 +13,17 @@
 
   .section {
     min-width: 300px;
-  }
 
-  .card:first-child {
-    animation: slide-in 0.3s ease-in-out 0.2s both;
-  }
+    &:first-child {
+      animation: slide-in 0.3s ease-in-out 0.2s both;
+    }
 
-  .card:last-child {
-    animation: slide-in 0.3s ease-in-out 0.3s both;
+    &:last-child {
+      animation: slide-in 0.3s ease-in-out 0.3s both;
+    }
   }
 
   .xl({
     grid-column-gap: 24px;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
   })
 }
