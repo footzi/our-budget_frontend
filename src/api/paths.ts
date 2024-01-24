@@ -170,4 +170,8 @@ export const ApiConfig: { [key: string]: ApiConfigItem } = {
     method: 'DELETE',
     successMessage: 'Фактический доход в копилке удален',
   },
+  balanceHistory: {
+    url: '/api/balance/history',
+    method: 'GET',
+  },
 };

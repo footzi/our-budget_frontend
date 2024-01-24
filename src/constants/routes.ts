@@ -10,4 +10,5 @@ export enum ROUTES {
   SAVINGS = '/app/savings',
   SAVING_GOALS = '/app/savingGoals',
   SETTINGS = '/app/settings',
+  BALANCE_HISTORY = '/app/balance-history',
 }

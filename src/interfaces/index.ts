@@ -1,4 +1,10 @@
-import { CATEGORIES_TYPES, CURRENCIES_TYPE, ON_BOARDING_STATUSES, SAVING_ACTION_TYPE } from '@/constants';
+import {
+  BALANCE_HISTORY_ACTION,
+  CATEGORIES_TYPES,
+  CURRENCIES_TYPE,
+  ON_BOARDING_STATUSES,
+  SAVING_ACTION_TYPE,
+} from '@/constants';
 
 export interface User {
   id: number;
@@ -96,3 +102,12 @@ export interface CurrencyOption {
 export type CurrenciesValues = {
   [key in CURRENCIES_TYPE]?: number;
 };
+
+export interface BalanceHistory {
+  id: number;
+  createdAt: string;
+  currency: CURRENCIES_TYPE;
+  oldValue: number;
+  newValue: number;
+  action: BALANCE_HISTORY_ACTION;
+}

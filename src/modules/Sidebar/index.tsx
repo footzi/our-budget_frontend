@@ -19,7 +19,9 @@ export const Sidebar: React.FC<SidebarProps> = ({ onClickMenu }) => {
       <nav className="sidebar__nav">
         <ul className="sidebar__menu">
           {MENU.map((item) => (
-            <MenuItem key={item.to} {...item} isActive={item.to === location.pathname} onClick={onClickMenu} />
+            <React.Fragment key={item.to}>
+              {!item.isSkip && <MenuItem {...item} isActive={item.to === location.pathname} onClick={onClickMenu} />}
+            </React.Fragment>
           ))}
         </ul>
       </nav>

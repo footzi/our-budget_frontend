@@ -20,7 +20,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({ icon, to, name, onClick, isA
           pathname: to,
         }}
         className={cxLink}>
-        {icon}
+        {icon && icon}
         <span>{name}</span>
       </Link>
       {isBorder && <div className="menu-item__border" />}

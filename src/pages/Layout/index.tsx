@@ -1,5 +1,5 @@
 import { ErrorBoundary } from '@/components/ErrorBoundary';
-import { MainLoader } from '@/components/MainLoader';
+import { Loader } from '@/components/Loader';
 import { PageTitle } from '@/components/PageTitle';
 import { SkipLink } from '@/components/SkipLink';
 import { ROUTES } from '@/constants/routes';
@@ -18,6 +18,7 @@ import Categories from '@/pages/Categories';
 import { Main } from '@/pages/Main';
 import SavingGoals from '@/pages/SavingGoals';
 import Settings from '@/pages/Settings';
+import BalanceHistory from '@/pages/BalanceHistory';
 import { useAppSelector } from '@/store';
 import cx from 'classnames';
 import dayjs, { Dayjs } from 'dayjs';
@@ -62,7 +63,7 @@ const Layout = () => {
   ]);
 
   if (isFirstLoading) {
-    return <MainLoader />;
+    return <Loader />;
   }
 
   const cxSidebar = cx('layout__sidebar', {
@@ -100,7 +101,7 @@ const Layout = () => {
       <div className="layout__content" id="content" tabIndex={-1} ref={contentRef}>
         <PageTitle />
 
-        <main>
+        <main className="layout__main">
           <Suspense>
             <Routes>
               <Route
@@ -112,6 +113,7 @@ const Layout = () => {
               <Route path={ROUTES.CATEGORIES} element={<Categories />} />
               <Route path={ROUTES.SAVING_GOALS} element={<SavingGoals />} />
               <Route path={ROUTES.SETTINGS} element={<Settings />} />
+              <Route path={ROUTES.BALANCE_HISTORY} element={<BalanceHistory />} />
             </Routes>
           </Suspense>
         </main>

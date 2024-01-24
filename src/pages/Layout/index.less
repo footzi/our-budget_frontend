@@ -36,6 +36,8 @@
         margin-top: 56px;
         padding: 12px;
         min-height: 100vh;
+        display: flex;
+        flex-direction: column;
 
         .xl({
             margin-top: 0;
@@ -64,5 +66,9 @@
         .xl({
             display: block;
         })
+    }
+
+    &__main {
+        flex: 1;
     }
 }

@@ -1,4 +1,4 @@
-import { MainLoader } from '@/components/MainLoader';
+import { Loader } from '@/components/Loader';
 import { LOCAL_STORAGE_ITEMS } from '@/constants';
 import { ROUTES } from '@/constants/routes';
 import { useGetFirstLoading } from '@/hooks/useGetFirstLoading';
@@ -25,7 +25,7 @@ export const App = () => {
   useScrollToTop();
 
   if (isFirstLoading) {
-    return <MainLoader />;
+    return <Loader />;
   }
 
   return (

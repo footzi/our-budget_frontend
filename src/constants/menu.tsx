@@ -51,4 +51,9 @@ export const MENU = [
     icon: <Settings />,
     onBoardingsStep: ON_BOARDING_STEPS.BALANCE,
   },
+  {
+    to: ROUTES.BALANCE_HISTORY,
+    name: 'История изменения баланса',
+    isSkip: true,
+  },
 ];

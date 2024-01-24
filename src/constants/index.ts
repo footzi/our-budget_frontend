@@ -43,6 +43,18 @@ export const SAVING_ACTION_TYPES_LIST = [
   },
 ];
 
+export enum BALANCE_HISTORY_ACTION {
+  INCREMENT = 'INCREMENT',
+  DECREMENT = 'DECREMENT',
+  MANUAL = 'MANUAL',
+}
+
+export const BALANCE_HISTORY_ACTION_TEXT = {
+  [BALANCE_HISTORY_ACTION.INCREMENT]: '⬆️ Увеличение',
+  [BALANCE_HISTORY_ACTION.DECREMENT]: '⬇️ Уменьшение',
+  [BALANCE_HISTORY_ACTION.MANUAL]: '🔄 Ручное изменение',
+};
+
 export const FORMAT_UI_DATE = 'DD.MM.YYYY';
 export const FORMAT_UI_SHORT_DATE = 'DD.MM';
 export const FORMAT_BACKEND_DATE = 'YYYY-MM-DDTHH:mm:ss';
