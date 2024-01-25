@@ -20,7 +20,7 @@ const BalanceHistory = () => {
         <Table.Column title="Действие" dataIndex="action" key="action" />
         <Table.Column title="Старое значение" dataIndex="oldValue" key="oldValue" />
         <Table.Column title="Новое значение" dataIndex="newValue" key="newValue" />
-        <Table.Column title="Разница" dataIndex="newValue" key="diff" />
+        <Table.Column title="Разница" dataIndex="diff" key="diff" />
       </Table>
     </Section>
   );

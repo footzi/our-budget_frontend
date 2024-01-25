@@ -1,17 +1,18 @@
+import { Link } from 'react-router-dom';
+import LogoutOutlined from '@ant-design/icons/LogoutOutlined';
+import { Button, Form, Input, InputNumber, Select, Typography } from 'antd';
+import { useForm } from 'antd/es/form/Form';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useRefetchBalance, useRefetchUser } from '@/api';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { BalanceHelpContent } from '@/components/HelpContents/BalanceHelpContent';
 import { HelpHint } from '@/components/HelpHint';
 import { SuperHamster } from '@/components/Images/SuperHamster';
 import { Section } from '@/components/Section';
-import { CURRENCIES_TYPE, LOCAL_STORAGE_ITEMS, OPTIONS_CURRENCIES } from '@/constants';
+import { CURRENCIES_TYPE, LOCAL_STORAGE_ITEMS, OPTIONS_CURRENCIES, ROUTES } from '@/constants';
 import { useLogout } from '@/hooks/useLogout';
 import { useAppSelector } from '@/store';
 import { getCurrencyInfo } from '@/utils/getCurrencyInfo';
-import LogoutOutlined from '@ant-design/icons/LogoutOutlined';
-import { Button, Form, Input, InputNumber, Select, Typography } from 'antd';
-import { useForm } from 'antd/es/form/Form';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { useUpdateBalance } from './hooks/useUpdateBalance';
 import { useUpdateUser } from './hooks/useUpdateUser';
@@ -122,12 +123,15 @@ export const ChangeProfile: React.FC = () => {
 
             <div className="profile__row">
               <div className="profile__row-label">
-                <Typography.Text strong>Текущий баланс</Typography.Text>
-                <HelpHint
-                  className="profile__row-hint"
-                  content={<BalanceHelpContent />}
-                  localStorageKey={LOCAL_STORAGE_ITEMS.SHOW_BALANCE_HELP_HINT}
-                />
+                <div className="profile__row-balance">
+                  <Typography.Text strong>Текущий баланс</Typography.Text>
+                  <HelpHint
+                    className="profile__row-hint"
+                    content={<BalanceHelpContent />}
+                    localStorageKey={LOCAL_STORAGE_ITEMS.SHOW_BALANCE_HELP_HINT}
+                  />
+                </div>
+                <Link to={ROUTES.BALANCE_HISTORY}>История</Link>
               </div>
 
               <div className="profile__row-value">
